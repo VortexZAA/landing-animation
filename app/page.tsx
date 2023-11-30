@@ -183,7 +183,7 @@ const Home = () => {
                   scrub: 0,
 
                   start: "52%",
-                  end: "57%",
+                  end: "55%",
                 },
               }
             );

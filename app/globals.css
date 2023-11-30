@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+    *::-webkit-scrollbar-track {
+        @apply sm:bg-[#ecf1f6];
+    }
+
+    *::-webkit-scrollbar {
+        @apply sm:w-[7px] sm:bg-gray-100;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        @apply sm:rounded-full sm:bg-green-800;
+        border-radius: 0.25rem !important;
+        -webkit-border-radius: 0.25rem !important;
+        -moz-border-radius: 0.25rem !important;
+        -ms-border-radius: 0.25rem !important;
+        -o-border-radius: 0.25rem !important;
+    }
+
+    *::-webkit-scrollbar {
+        @apply sm:h-[8px];
+    }
+
+    *::-webkit-scrollbar-corner {
+        @apply sm:bg-gray-100;
+    }
+    html {
+        @apply scroll-smooth;
+    }
+    body {
+        @apply bg-green-800;
+    
+    }
+  }
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@font-face {
+  font-family: 'spring';
+  src: url('/fonts/spring.otf');
+}
+
+@font-face {
+  font-family: 'satoshi';
+  src: url('/fonts/satoshi.ttf');
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.font-spring {
+  font-family: 'spring';
+}
+
+.font-satoshi {
+  font-family: 'satoshi';
+}
+
+body {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
+}
+
+
+.horizontal-dashed-line {
+  background-image: linear-gradient(to right, #00312E 33%, rgba(255, 255, 255, 0) 0%);
+  background-position: bottom;
+  background-size: 24px 1px;
+  background-repeat: repeat-x;
+}
+
+.vertical-dashed-line {
+  background-image: linear-gradient(#00312E 33%, rgba(255, 255, 255, 0) 0%);
+  background-position: right;
+  background-size: 1px 24px;
+  background-repeat: repeat-y;
+}

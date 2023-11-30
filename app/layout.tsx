@@ -7,13 +7,13 @@ const nunito = Nunito_Sans({ variable: '--font-nunito', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Fawn Protocol',
-  description: 'Solar-Powered Bitcoin Mining Solutions',
+  description: 'Fawn Protocol',
   viewport: {
     width: 'device-width',
     initialScale: 1,
-    viewportFit: 'cover'
-  }
-}
+    viewportFit: 'cover',
+  },
+};
 
 export default function RootLayout({
   children,

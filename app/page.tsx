@@ -202,7 +202,7 @@ const Home = () => {
             scrub: 0,
 
             start: "60%",
-            end: "70%",
+            end: "65%",
           },
           onComplete: () => {
             const anim8 = gsap.fromTo(
@@ -215,8 +215,8 @@ const Home = () => {
                 scrollTrigger: {
                   scrub: 0,
 
-                  start: "70%",
-                  end: "75%",
+                  start: "65%",
+                  end: "70%",
                 },
               }
             );
@@ -225,7 +225,7 @@ const Home = () => {
         }
       );
 
-      animationsRef.current.push(anim1, anim2, anim3, anim4);
+      animationsRef.current.push(anim1, anim2, anim3, anim4, anim7);
 
       render();
     },

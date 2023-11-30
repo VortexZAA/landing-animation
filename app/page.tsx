@@ -262,9 +262,9 @@ const Home = () => {
         <section className='relative mb-0 w-full'>
           <canvas className='w-full h-screen object-fill object-[calc(47%)]' ref={observeElement}></canvas>
           <span className='drop-shadow-2xl zero-emission sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-marcellus'>Innovation Through Equality</span>
-          <span className='drop-shadow-2xl zero-waste sm:text-5xl text-2xl font-bold fixed top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-marcellus'>Opportunity for Everyone</span>
-          <span className='drop-shadow-2xl pure-bitcoin sm:text-5xl text-2xl font-bold fixed top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 shrink-0 w-full text-center text-white font-marcellus'>Fairness in Every Step</span>
-          <span className='drop-shadow-2xl pure-grow sm:text-5xl text-2xl font-bold fixed top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 shrink-0 w-full text-center text-white font-marcellus'>Grow Collectively</span>
+          <span className='drop-shadow-2xl zero-waste sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-marcellus'>Opportunity for Everyone</span>
+          <span className='drop-shadow-2xl pure-bitcoin sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 shrink-0 w-full text-center text-white font-marcellus'>Fairness in Every Step</span>
+          <span className='drop-shadow-2xl pure-grow sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 shrink-0 w-full text-center text-white font-marcellus'>Grow Collectively</span>
           <div className='absolute bottom-0 left-0 w-screen h-screen'>
             <div className='relative w-full h-full'>
               <div className='end-logo absolute bottom-36 left-1/2 -translate-x-1/2 flex flex-col items-center gap-12'>

@@ -24,7 +24,7 @@ import SecondPipesMobile from "./_components/SecondPipesMobile";
 import Spline from "@splinetool/react-spline";
 import SwipeUpTutorial from "./_components/SwipeUpTutorial"; */
 import Lottie from "lottie-react";
-import loadingAnim from "@/assets/loading.json";
+import loadingAnim from "@/assets/tree1.json";
 import Header from "@/components/Header/Header";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -86,7 +86,7 @@ const Home = () => {
         scrollTrigger: {
           scrub: 0.5,
           pin: "canvas",
-          end: "320%",
+          end: "380%",
         },
         onUpdate: render,
       });
@@ -260,17 +260,17 @@ const Home = () => {
       <Header />
       <div className='w-screen max-w-[100vw] flex flex-col'>
         <section className='relative mb-0 w-full'>
-          <canvas className='w-full h-screen object-fill object-[calc(47%)]' ref={observeElement}></canvas>
-          <span className='drop-shadow-2xl zero-emission sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-marcellus'>Innovation Through Equality</span>
-          <span className='drop-shadow-2xl zero-waste sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-marcellus'>Opportunity for Everyone</span>
+          <canvas className='w-full h-screen object-cover md:object-fill object-[calc(47%)]' ref={observeElement}></canvas>
+          <span className='drop-shadow-2xl zero-emission sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white shrink-0 text-center w-full font-marcellus'>Innovation Through Equality</span>
+          <span className='drop-shadow-2xl zero-waste sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white shrink-0 text-center w-full font-marcellus'>Opportunity for Everyone</span>
           <span className='drop-shadow-2xl pure-bitcoin sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 shrink-0 w-full text-center text-white font-marcellus'>Fairness in Every Step</span>
           <span className='drop-shadow-2xl pure-grow sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 shrink-0 w-full text-center text-white font-marcellus'>Grow Collectively</span>
           <div className='absolute bottom-0 left-0 w-screen h-screen'>
             <div className='relative w-full h-full'>
-              <div className='end-logo absolute bottom-36 left-1/2 -translate-x-1/2 flex flex-col items-center gap-12'>
+              <div className='end-logo absolute bottom-2/3 left-1/2 w-full -translate-x-1/2 flex flex-col items-center gap-12'>
                 {/* <Logo className="sm:w-auto w-[250px] drop-shadow-2xl" /> */}
                 <Link href='#' target='_blank'>
-                  <span className='w-fit h-fit border-0 border-white rounded-full text-white  px-8 py-3 font-bold transition-all duration-300 font-marcellus text-6xl'>FAWN PROTOCOL</span>
+                  <span className=' shrink-0 h-fit border-0 border-white rounded-full text-white  px-8 py-3 font-bold transition-all duration-300 font-marcellus text-3xl md:text-6xl w-full'>FAWN PROTOCOL</span>
                 </Link>
               </div>
             </div>

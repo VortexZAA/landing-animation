@@ -6,7 +6,7 @@ const marcellus = Marcellus({ weight: '400', variable: '--font-marcellus', subse
 const nunito = Nunito_Sans({ variable: '--font-nunito', subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Sittaris',
+  title: 'Fawn Protocol',
   description: 'Solar-Powered Bitcoin Mining Solutions',
   viewport: {
     width: 'device-width',

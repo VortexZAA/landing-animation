@@ -303,7 +303,7 @@ export default function Personel() {
         </form>
         <div className={` col-span-2 xl:col-span-3 p-3 md:p-4 2xl:p-6 justify-start items-center bg-cardBg border-cardBorder border-[3px] rounded-md shadow-md w-full flex flex-col gap-3 relative`}>
           <Image src={'/assets/cards/3.png'} width={500} height={500} quality={100} className=' absolute h-fit w-1/2 -top-[15%] mx-auto z-20' alt='' />
-          {islisting && <div className='absolute left-0 top-0 rounded-sm w-full h-full bg-white/10 backdrop-blur-sm cursor-not-allowed z-20 flex  ' />}
+          {islisting && <div className='absolute left-0 top-0 rounded-sm w-full h-full bg-white/10 backdrop-blur-sm cursor-not-allowed z-20 flex ' />}
           <h2 className='mb-3 w-full'>Experience</h2>
           <div className='flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between w-full'>
             <div className='flex flex-col gap-2'>

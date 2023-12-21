@@ -339,7 +339,7 @@ export default function SideBar() {
     },
     {
       id: 3,
-      name: "NFT Badge ",
+      name: "Buy Badge ",
       path: "/nft-buy",
       icon: (
         <svg
@@ -366,6 +366,13 @@ export default function SideBar() {
       status: isEmty,
     },
     {
+      id: 8,
+      name: "Launchpad  ",
+      path: "#",
+      icon: <></>,
+      status: true,
+    },
+    {
       id: 4,
       name: "NFT Marketplace",
       path: "/nft-marketplace",
@@ -389,36 +396,29 @@ export default function SideBar() {
       id: 5,
       name: "FAQ",
       path: "#",
-      icon: (
-       <></>
-      ),
+      icon: <></>,
       status: true,
     },
     {
       id: 6,
       name: "Airdrop",
       path: "#",
-      icon: (
-       <></>
-      ),
+      icon: <></>,
       status: true,
     },
     {
       id: 7,
       name: "Bridge ",
       path: "#",
-      icon: (
-       <></>
-      ),
+      icon: <></>,
       status: true,
     },
-    
   ];
 
   return (
     <>
       <nav className=" flex flex-col backdrop-blur-sm bg-white/10 w-fit xl:w-64 shrink-0 border-solid h-screen top-0  justify-between items-center text-white px-3 md:px-4 pb-6 md:pb-10 pt-3 md:pt-6 gap-6 transition-  text-sm fixed z-50">
-        <Link href={'/dashboard'} className="w-full -ml-6"> 
+        <Link href={"/dashboard"} className="w-full -ml-6">
           <Image
             src={"/logo.png"}
             width={500}

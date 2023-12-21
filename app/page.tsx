@@ -10,22 +10,8 @@ import React, {
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Link from "next/link";
-/* import { Logo } from "@/components/Icons/Icons";
-import Text from "@/components/Text/Text";
-import SectionTitle from "@/components/SectionTitle/SectionTitle";
-import TeamCard from "@/components/TeamCard/TeamCard";
-import ContactForm from "./_components/ContactForm";
-import Header from "@/components/Header/Header";
-import Link from "next/link";
-import FirstPipes from "./_components/FirstPipes";
-import SecondPipes from "./_components/SecondPipes";
-import FirstPipesMobile from "./_components/FirstPipesMobile";
-import SecondPipesMobile from "./_components/SecondPipesMobile";
-import Spline from "@splinetool/react-spline";
-import SwipeUpTutorial from "./_components/SwipeUpTutorial"; */
 import Lottie from "lottie-react";
 import loadingAnim from "@/assets/tree1.json";
-import Header from "@/components/Header/Header";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -256,8 +242,7 @@ const Home = () => {
 
   return (
     <>
-      {/* <SwipeUpTutorial />*/}
-      <Header />
+      
       <div className='w-screen max-w-[100vw] flex flex-col'>
         <section className='relative mb-0 w-full'>
           <canvas className='w-full h-screen object-cover md:object-fill object-[calc(47%)]' ref={observeElement}></canvas>
@@ -268,9 +253,11 @@ const Home = () => {
           <div className='absolute bottom-0 left-0 w-screen h-screen'>
             <div className='relative w-full h-full'>
               <div className='end-logo absolute bottom-2/3 left-1/2 w-full -translate-x-1/2 flex flex-col items-center gap-12'>
-                {/* <Logo className="sm:w-auto w-[250px] drop-shadow-2xl" /> */}
                 <Link href='#' target='_blank'>
                   <span className=' shrink-0 h-fit border-0 border-white rounded-full text-white  px-8 py-3 font-bold transition-all duration-300 font-marcellus text-3xl md:text-6xl w-full'>FAWN PROTOCOL</span>
+                </Link>
+                <Link href={"/dashboard"} className="bg-white hover:text-white transition-colors hover:bg-black hover:border-white border-black border px-6 py-2 rounded-md">
+                  Launch App
                 </Link>
               </div>
             </div>

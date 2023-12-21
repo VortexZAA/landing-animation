@@ -1,90 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+/* @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'); */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer components {
-    *::-webkit-scrollbar-track {
-        @apply sm:bg-[#ecf1f6];
-    }
 
-    *::-webkit-scrollbar {
-        @apply sm:w-[7px] sm:bg-gray-100;
-    }
-
-    *::-webkit-scrollbar-thumb {
-        @apply sm:rounded-full sm:bg-green-800;
-        border-radius: 0.25rem !important;
-        -webkit-border-radius: 0.25rem !important;
-        -moz-border-radius: 0.25rem !important;
-        -ms-border-radius: 0.25rem !important;
-        -o-border-radius: 0.25rem !important;
-    }
-
-    *::-webkit-scrollbar {
-        @apply sm:h-[8px];
-    }
-
-    *::-webkit-scrollbar-corner {
-        @apply sm:bg-gray-100;
-    }
-    html {
-        @apply scroll-smooth;
-    }
-    body {
-        @apply bg-green-800;
-    
-    }
-  }
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  font-family: 'Montserrat', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
   }
 }
 
-@font-face {
-  font-family: 'spring';
-  src: url('/fonts/spring.otf');
-}
-
-@font-face {
-  font-family: 'satoshi';
-  src: url('/fonts/satoshi.ttf');
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-.font-spring {
-  font-family: 'spring';
-}
-
-.font-satoshi {
-  font-family: 'satoshi';
-}
-
 body {
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
+  font-family: 'Montserrat', sans-serif;
+  @apply bg-primary
+}
+@utilities {
+  h1 {
+    @apply font-semibold 2xl:font-bold text-base md:text-xl  2xl:text-2xl;
+  }
+  h2 {
+    @apply font-semibold  2xl:font-bold text-sm  2xl:text-2xl;
+  }
+  h3 {
+    @apply font-medium md:font-semibold text-xs md:text-sm  2xl:text-xl;
+  }
+  h4 {
+    @apply font-medium text-xs md:text-sm  2xl:text-lg;
+  }
+  h5 {
+    @apply font-medium text-xs xl:text-sm;
+    
+  }
+  
 }
 
+.react-flow__attribution {
+    display: none !important;
+  }
+  /* @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'); */
 
-.horizontal-dashed-line {
-  background-image: linear-gradient(to right, #00312E 33%, rgba(255, 255, 255, 0) 0%);
-  background-position: bottom;
-  background-size: 24px 1px;
-  background-repeat: repeat-x;
-}
+  .react-flow .react-flow__handle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #784be8;
+  }
 
-.vertical-dashed-line {
-  background-image: linear-gradient(#00312E 33%, rgba(255, 255, 255, 0) 0%);
-  background-position: right;
-  background-size: 1px 24px;
-  background-repeat: repeat-y;
-}
+  .react-flow .react-flow__handle-top {
+    top: -10px;
+  }
+  
+
+  .react-flow .react-flow__handle-bottom {
+    bottom: -10px;
+  }
+
+  .react-flow .react-flow__node {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .react-flow .react-flow__edge path,
+  .react-flow__connectionline path {
+    stroke-width: 2;
+  }
+
+  .wrapper {
+    flex-grow: 1;
+    height: 100%;
+  }
+  canvas {
+    width: 100%;
+    height: 100%;
+  }

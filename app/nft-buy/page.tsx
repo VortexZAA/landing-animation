@@ -137,8 +137,8 @@ export default function NftBuy() {
           <div className='items-center justify-center w-full grid md:grid-cols-2 lg:grid-cols-3 h-full lg:h-2/3 gap-3 md:gap-4 xl:gap-6'>
             <div className='backdrop-blur-sm bg-cardBg border-cardBorder border-[3px] rounded-xl shadow-md w-full gap-10 h-full p-6 flex flex-col justify-between'>
               
-              <Image src={'/assets/cards/1.png'} width={500} height={500}  className=' absolute h-fit w-full -top-8 -left-6'  alt='' />
-              <Image src={'/assets/cards/2.png'} width={500} height={500}  className=' absolute h-fit w-full -bottom-8 -right-6'  alt='' />
+              <Image src={'/assets/cards/1.png'} width={500} height={500} quality={100} className=' absolute h-fit w-full -top-8 -left-6'  alt='' />
+              <Image src={'/assets/cards/2.png'} width={500} height={500} quality={100} className=' absolute h-fit w-full -bottom-8 -right-6'  alt='' />
               <Vip text='VIP 1' />
               <div className='flex  justify-center items-center gap-3 border-2 p-6 border-vip1 rounded-md'>
                 <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>

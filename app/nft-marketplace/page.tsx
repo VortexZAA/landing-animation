@@ -17,6 +17,7 @@ import Layout from "@/app/layout/layout";
 import { selectData, setLoading } from "@/redux/auth/auth";
 import { ethers } from "ethers";
 import { use, useEffect, useState } from "react";
+import Image from "next/image";
 export default function NftBuy() {
   const reduxData = useAppSelector(selectData);
   const { nftId, loading } = reduxData;
@@ -53,7 +54,8 @@ export default function NftBuy() {
   }, []);
   return (
     <Layout title="NFT MarketPlace">
-      <div className="grid grid-cols-1 xl:grid-cols-2 items-center justify-center w-full px-0 md:px-3 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 items-center justify-center w-full px-0 md:px-3 gap-6 relative">
+            <Image src={'/assets/cards/circle.png'} width={500} height={500}  className=' absolute h-fit w-fit -top-20 -right-4 z-0'  alt='' />
         {listings.map((item ,index) => (
           <Card key={index} data={item} />
         ))}
@@ -127,7 +129,9 @@ function Card({ data }: { data: any }) {
 
   return (
     <>
-      <div className="bg-cardBg border-cardBorder border-[3px] text-white  cursor-pointer  rounded-lg shadow-2xl  p-3 md:p-4 xl:p-6">
+      <div className="bg-cardBg border-cardBorder border-[3px] text-white flex flex-col cursor-pointer  rounded-lg shadow-2xl  p-3 md:p-4 xl:p-6 relative z-20">
+        <Image src={'/assets/cards/1.png'} width={500} height={500}  className=' absolute h-fit w-fit -top-6 -left-4'  alt='' />
+        <Image src={'/assets/cards/2.png'} width={500} height={500}  className=' absolute h-fit w-fit -bottom-8 -right-4'  alt='' />
         <div className="flex gap-3 justify-between  w-full">
           <div className="flex gap-3 justify-start items-center w-full ">
             <svg

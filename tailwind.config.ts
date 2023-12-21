@@ -13,7 +13,7 @@ const config: Config = {
       'sonic-silver': '#757575',
       primary: '#1D2E0F',
       btnActive: '#5C6D2F',
-      cardbg: '#1C2B0E',
+      cardBg: '#1C2B0E',
       card: '#4B7526',
       cardBorder: '#121C09',
       purple: '#5C6D2F', //'#675AFF',

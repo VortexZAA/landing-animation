@@ -244,7 +244,7 @@ export default function Personel() {
               </div>
             </div>
             <div className='shrink-0 w-fit flex'>
-              <Vip text={vipLvl === 3 ? 'VIP 3' : vipLvl === 2 ? 'VIP 2' : 'VIP 1'} />
+              <Vip text={vipLvl === 3 ? 'Seed 3' : vipLvl === 2 ? 'Seed 2' : 'Seed 1'} />
             </div>
           </div>
           <div className='flex flex-col md:flex-row gap-3 xl:gap-6 justify-between w-full'>
@@ -266,7 +266,7 @@ export default function Personel() {
                 <h2>$ {withdrawableBalance}</h2>
               </div>
             </div>
-            <div className='h-full w-full md:w-fit flex justify-end shrink-0  items-end'>
+            <div className='h-full w-full md:w-fit flex justify-end shrink-0  items-end z-10'>
               {islisting ? (
                 <button className='bg-purple transition-all hover:bg-red-500 shrink-0 group rounded-lg  px-4  w-32 h-11 text-white' onClick={cancelListings}>
                   <span className='group-hover:hidden'>On Sale</span>
@@ -289,21 +289,21 @@ export default function Personel() {
           </div>
         </div>
         <form onSubmit={handleSubmit} className={` ${islisting && ''}  col-span-2 p-3 md:p-4 2xl:p-6 hidden  flex-col justify-center items-start gap-3 text-black bg-cardBg border-cardBorder border-[3px] rounded-md shadow-md relative`}>
-          {islisting && <div className='absolute left-0 top-0 rounded-xl w-full h-full backdrop-blur-sm  cursor-not-allowed z-10 flex  ' />}
+          {islisting && <div className='absolute left-0 top-0 rounded-xl w-full h-full backdrop-blur-sm  cursor-not-allowed z-20 flex  ' />}
           <span className='text-gray-400'>Amount to be withdrawn</span>
           <div className='flex items-center relative w-full font-medium '>
             <input type='number' onChange={withdrawNumber} min={0} className='border-gray-200 border-2 bg-transparent text-white text-xl w-full rounded-lg outline-none text-end py-3 px-3' />
             <span className='absolute left-6 text-white '>$</span>
           </div>
           <div className='flex justify-center w-full '>
-            <button type='submit' disabled={loading || islisting} className='bg-purple py-3 px-6 w-full md:w-2/3 text-white rounded-md disabled:cursor-not-allowed disabled:opacity-70 justify-center flex gap-3 items-center'>
+            <button type='submit' disabled={loading || islisting} className='bg-purple py-3 px-6 w-full md:w-2/3 text-white rounded-md disabled:cursor-not-allowed disabled:opacity-70 justify-center flex gap-3 items-center z-10'>
               Withdraw {loading && <Loading />}
             </button>
           </div>
         </form>
         <div className={` col-span-2 xl:col-span-3 p-3 md:p-4 2xl:p-6 justify-start items-center bg-cardBg border-cardBorder border-[3px] rounded-md shadow-md w-full flex flex-col gap-3 relative`}>
-          <Image src={'/assets/cards/3.png'} width={500} height={500} quality={100} className=' absolute h-fit w-1/2 -top-6 mx-auto z-20' alt='' />
-          {islisting && <div className='absolute left-0 top-0 rounded-sm w-full h-full bg-white/10 backdrop-blur-sm cursor-not-allowed z-10 flex  ' />}
+          <Image src={'/assets/cards/3.png'} width={500} height={500} quality={100} className=' absolute h-fit w-1/2 -top-[15%] mx-auto z-20' alt='' />
+          {islisting && <div className='absolute left-0 top-0 rounded-sm w-full h-full bg-white/10 backdrop-blur-sm cursor-not-allowed z-20 flex ' />}
           <h2 className='mb-3 w-full'>Experience</h2>
           <div className='flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between w-full'>
             <div className='flex flex-col gap-2'>
@@ -313,7 +313,7 @@ export default function Personel() {
             <div className='flex flex-col gap-2'>
               <h3 className='text-gray-400 flex gap-3'>
                 Maximum Withdraw Amount This Week{' '}
-                <button type='button' onMouseOver={() => {}} className='text-gray-300 hover:text-gray-700 transition-colors'>
+                <button type='button' onMouseOver={() => {}} className='text-gray-300 hover:text-gray-700 transition-colors z-10'>
                   <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                     <path
                       fillRule='evenodd'
@@ -353,7 +353,7 @@ export default function Personel() {
             {/* <div className="w-20 border-2 border-[#FFC01E] right-0 flex justify-center items-center -top-14 bg-[#FFC01E]/20 h-11 px-4 font-semibold text-[#FFC01E]  rounded-full">
               VIP 2
             </div> */}
-            <button onClick={() => setShow(true)} disabled={loading || islisting} className='border-2 border-purple disabled:bg-cardBg  disabled:text-black disabled:cursor-not-allowed hover:bg-purple w-full md:w-fit hover:text-white transition-colors rounded-md py-3 px-3 md:px-4 2xl:px-6 shrink-0'>
+            <button onClick={() => setShow(true)} disabled={loading || islisting} className='border-2 border-purple disabled:bg-cardBg  disabled:text-black disabled:cursor-not-allowed hover:bg-purple w-full md:w-fit hover:text-white transition-colors rounded-md py-3 px-3 md:px-4 2xl:px-6 shrink-0 z-10'>
               Upgrade your wallet
             </button>
             {/* <button className="border-2 border-purple hover:bg-purple hover:text-white transition-colors rounded-md py-3 px-6">
@@ -366,17 +366,17 @@ export default function Personel() {
           <Image src={'/assets/cards/2.png'} width={500} height={500} quality={100} className=' absolute h-fit w-fit -bottom-4 -right-4' alt='' />
           <h2 className='mb-3'>Referral Codes</h2>
           <span className='text-gray-400'>Left Referral Code</span>
-          <div className='flex-col md:flex-row flex justify-between items-center gap-3'>
+          <div className='flex-col md:flex-row flex justify-between items-center gap-3 z-10'>
             <div className='border-gray-200 w-full border-2 flex justify-between p-3 rounded-lg '>
               <span>{refCode.left && refCode.left.slice(0, 8) + '.....' + refCode.left.slice(refCode.left.length - 8, refCode.left.length)}</span>
               <CopyBtn text={refCode.left} />
             </div>
-            <button type='submit' disabled={loading} onClick={() => getReferralCodeLeft(address)} className='bg-purple py-3 px-6 w-full md:w-fit shrink-0 text-white rounded-md'>
+            <button type='submit' disabled={loading} onClick={() => getReferralCodeLeft(address)} className='bg-purple py-3 px-6 w-full md:w-fit shrink-0 text-white rounded-md z-10'>
               Generate
             </button>
           </div>
           <span className='text-gray-400'>Right Referral Code</span>
-          <div className='flex-col md:flex-row flex justify-between items-center gap-3'>
+          <div className='flex-col md:flex-row flex justify-between items-center gap-3 z-10'>
             <div className='border-gray-200 w-full border-2 flex justify-between p-3 rounded-lg '>
               <span>{refCode.right && refCode.right.slice(0, 8) + '.....' + refCode.right.slice(refCode.right.length - 8, refCode.right.length)}</span>
               <CopyBtn text={refCode.right} />
@@ -385,7 +385,7 @@ export default function Personel() {
               Generate
             </button>
           </div>
-          <div className='flex flex-col w-full items-center gap-3'>
+          <div className='flex flex-col w-full items-center gap-3 z-10'>
             {referralIncome > 0 && (
               <button type='submit' disabled={loading} onClick={() => ClaimReferralReward()} className='bg-purple py-3 px-6 w-2/3 text-white rounded-md'>
                 Claim Referral Reward

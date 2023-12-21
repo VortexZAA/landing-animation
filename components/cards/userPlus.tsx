@@ -101,17 +101,17 @@ function CardPlus({
 
         {data?.open && data?.children.length > 1 && (
           <>
-            <div className="border-[3px] absolute -bottom-14 w-[120px] text-center justify-center text-[10px] -left-10 flex items-center bg-[#D2F5DC] text-green-600 border-green-400 p-2 h-7 rounded-full shrink-0">
+            <div className="border-2 absolute -bottom-14 w-[120px] text-center justify-center text-[10px] -left-10 flex items-center bg-[#1F3B17] text-[#54B84F] border-[#54B84F] p-2 h-7 rounded-full shrink-0">
               Revenue: ${data?.leftChildRevenue || 0}
             </div>
-            <div className="border-[3px] absolute -bottom-14 w-[120px] text-center justify-center text-[10px] -right-10 flex items-center bg-[#D2F5DC] text-green-600 border-green-400 p-2 h-7 rounded-full shrink-0">
+            <div className="border-2 absolute -bottom-14 w-[120px] text-center justify-center text-[10px] -right-10 flex items-center bg-[#1F3B17] text-[#54B84F] border-[#54B84F] p-2 h-7 rounded-full shrink-0">
               Revenue: ${data?.rightChildRevenue || 0}
             </div>
           </>
         )}
         {data?.open && data?.children.length === 1 && (
           <>
-            <div className="border-[3px] absolute -bottom-14 w-[120px] text-center justify-center text-[10px] left-1/4 flex items-center bg-[#D2F5DC] text-green-600 border-green-400 p-2 h-7 rounded-full shrink-0">
+            <div className="border-2 absolute -bottom-14 w-[120px] text-center justify-center text-[10px] left-1/4 flex items-center bg-[#1F3B17] text-[#54B84F] border-[#54B84F] p-2 h-7 rounded-full shrink-0">
               Revenue: ${data?.leftChildRevenue || data?.rightChildRevenue || 0}
             </div>
           </>

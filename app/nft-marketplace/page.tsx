@@ -129,83 +129,57 @@ function Card({ data }: { data: any }) {
 
   return (
     <>
-      <div className="bg-cardBg border-cardBorder border-[3px] text-white flex flex-col cursor-pointer  rounded-lg shadow-2xl  p-3 md:p-4 xl:p-6 relative z-20">
-        <Image src={'/assets/cards/1.png'} width={500} height={500}  className=' absolute h-fit w-fit -top-6 -left-4'  alt='' />
-        <Image src={'/assets/cards/2.png'} width={500} height={500}  className=' absolute h-fit w-fit -bottom-8 -right-4'  alt='' />
-        <div className="flex gap-3 justify-between  w-full">
-          <div className="flex gap-3 justify-start items-center w-full ">
-            <svg
-              className="w-10 md:w-12 xl:w-16"
-              viewBox="0 0 72 72"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+      <div className='bg-cardBg border-cardBorder border-[3px] text-white flex flex-col cursor-pointer  rounded-lg shadow-2xl  p-3 md:p-4 xl:p-6 relative z-20'>
+        <Image src={'/assets/cards/1.png'} width={500} height={500} className=' absolute h-fit w-fit -top-6 -left-4' alt='' />
+        <Image src={'/assets/cards/2.png'} width={500} height={500} className=' absolute h-fit w-fit -bottom-8 -right-4' alt='' />
+        <div className='flex gap-3 justify-between  w-full'>
+          <div className='flex gap-3 justify-start items-center w-full z-10'>
+            <svg className='w-10 md:w-12 xl:w-16' viewBox='0 0 72 72' fill='none' xmlns='http://www.w3.org/2000/svg'>
+              <path fillRule='evenodd' clipRule='evenodd' d='M36.0005 17.9999C29.3731 17.9999 24.0005 23.3725 24.0005 29.9999C24.0005 36.6274 29.3731 41.9999 36.0005 41.9999C42.6279 41.9999 48.0005 36.6274 48.0005 29.9999C48.0005 23.3725 42.6279 17.9999 36.0005 17.9999Z' fill='currentColor' />
               <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M36.0005 17.9999C29.3731 17.9999 24.0005 23.3725 24.0005 29.9999C24.0005 36.6274 29.3731 41.9999 36.0005 41.9999C42.6279 41.9999 48.0005 36.6274 48.0005 29.9999C48.0005 23.3725 42.6279 17.9999 36.0005 17.9999Z"
-                fill="currentColor"
-              />
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M20.9993 5.99994C12.715 5.99994 5.99927 12.7157 5.99927 20.9999V50.9999C5.99927 59.2842 12.715 65.9999 20.9993 65.9999H50.9993C59.2835 65.9999 65.9993 59.2842 65.9993 50.9999V20.9999C65.9993 12.7157 59.2835 5.99994 50.9993 5.99994H20.9993ZM11.9993 20.9999C11.9993 16.0294 16.0287 11.9999 20.9993 11.9999H50.9993C55.9698 11.9999 59.9993 16.0294 59.9993 20.9999V50.9999C59.9993 53.6061 58.8915 55.9536 57.1212 57.5972C53.0649 50.0987 45.1301 44.9999 35.9986 44.9999C26.8674 44.9999 18.9329 50.0984 14.8765 57.5963C13.1067 55.9528 11.9993 53.6057 11.9993 50.9999V20.9999Z"
-                fill="currentColor"
+                fillRule='evenodd'
+                clipRule='evenodd'
+                d='M20.9993 5.99994C12.715 5.99994 5.99927 12.7157 5.99927 20.9999V50.9999C5.99927 59.2842 12.715 65.9999 20.9993 65.9999H50.9993C59.2835 65.9999 65.9993 59.2842 65.9993 50.9999V20.9999C65.9993 12.7157 59.2835 5.99994 50.9993 5.99994H20.9993ZM11.9993 20.9999C11.9993 16.0294 16.0287 11.9999 20.9993 11.9999H50.9993C55.9698 11.9999 59.9993 16.0294 59.9993 20.9999V50.9999C59.9993 53.6061 58.8915 55.9536 57.1212 57.5972C53.0649 50.0987 45.1301 44.9999 35.9986 44.9999C26.8674 44.9999 18.9329 50.0984 14.8765 57.5963C13.1067 55.9528 11.9993 53.6057 11.9993 50.9999V20.9999Z'
+                fill='currentColor'
               />
             </svg>
-            <div className="text-sm flex flex-col ">
-              <h4 className="mb-3">Wallet Name</h4>
-              <span className="text-gray-400 text-xs">Wallet Address</span>
-              <h4>
-                {data?.seller.slice(0, 6) + "..." + data?.seller.slice(-6, -1)}
-              </h4>
+            <div className='text-sm flex flex-col '>
+              <h4 className='mb-3'>Wallet Name</h4>
+              <span className='text-gray-400 text-xs'>Wallet Address</span>
+              <h4>{data?.seller.slice(0, 6) + '...' + data?.seller.slice(-6, -1)}</h4>
             </div>
           </div>
-          <div className="w-1/2 flex flex-col items-end justify-center gap-2">
-            <h4 className="text-gray-400">Total Income</h4>
+          <div className='w-1/2 flex flex-col items-end justify-center gap-2'>
+            <h4 className='text-gray-400'>Total Income</h4>
             <h3>$ {nftInfo?.claimedPotential || 0}</h3>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row gap-3 justify-between text-sm pt-3 items-end">
-          <div className="flex flex-col gap-1 md:gap-3 w-full justify-between">
-            <div className="flex gap-3 ">
-              <span className="text-gray-400">Downlines</span>
-              <button onClick={() => setShow(true)} className="text-blue-500">
+        <div className='flex flex-col md:flex-row gap-3 justify-between text-sm pt-3 items-end z-10'>
+          <div className='flex flex-col gap-1 md:gap-3 w-full justify-between'>
+            <div className='flex gap-3 '>
+              <span className='text-gray-400'>Downlines</span>
+              <button onClick={() => setShow(true)} className='text-blue-500'>
                 Show Downlines
               </button>
             </div>
             <h3>{nftInfo?.counter}</h3>
           </div>
-          <div className="flex gap-3 w-full justify-between">
-            <Vip
-              text={
-                nftInfo?.vipLvl === 3
-                  ? "VIP 3"
-                  : nftInfo?.vipLvl === 2
-                  ? "VIP 2"
-                  : "VIP 1"
-              }
-              key={data.tokenID}
-            />
+          <div className='flex gap-3 w-full justify-between'>
+            <Vip text={nftInfo?.vipLvl === 3 ? 'Seed 3' : nftInfo?.vipLvl === 2 ? 'Seed 2' : 'Seed 1'} key={data.tokenID} />
 
             <div>
-              <span className="text-gray-400">Price</span>
+              <span className='text-gray-400'>Price</span>
               <h3>$ {data?.price}</h3>
             </div>
-            <button
-              onClick={() => data && buyNFT(data?.tokenID, data?.price)}
-              className="bg-purple px-4 text-sm flex  h-10 xl:h-11 text-white rounded-lg justify-center items-center"
-            >
+            <button onClick={() => data && buyNFT(data?.tokenID, data?.price)} className='bg-purple px-4 text-sm flex  h-10 xl:h-11 text-white rounded-lg justify-center items-center z-10'>
               Buy
             </button>
           </div>
         </div>
       </div>
       {show && (
-        <Modal modal={show} setModal={setShow} title="Dowlines">
-          <div className="flex w-full  min-w-[90vw] md:min-w-[80vw] h-[80vh]">
-            {data && <FlowChartWithAutoLayout tokenId={data.tokenID} />}
-          </div>
+        <Modal modal={show} setModal={setShow} title='Dowlines'>
+          <div className='flex w-full  min-w-[90vw] md:min-w-[80vw] h-[80vh]'>{data && <FlowChartWithAutoLayout tokenId={data.tokenID} />}</div>
         </Modal>
       )}
     </>

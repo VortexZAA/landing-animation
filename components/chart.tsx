@@ -125,7 +125,7 @@ const FlowChartWithAutoLayout = ({
   useEffect(() => {
     forceAutoLayout();
 
-    console.log("nodes", nodes);
+    //console.log("nodes", nodes);
   }, [reactFlowInstance, nodes.length]);
   useEffect(() => {
     //@ts-ignore
@@ -141,7 +141,7 @@ const FlowChartWithAutoLayout = ({
       setLoading(true);
       if (tokenId) {
         let getNFTInfo = await callGetNFTInfo(tokenId as number);
-        console.log("getNFTInfo", getNFTInfo);
+        //console.log("getNFTInfo", getNFTInfo);
         let contractData = {
           vipLvl: parseIntHex(getNFTInfo[0]),
           id: parseIntHex(getNFTInfo[1]),
@@ -151,14 +151,14 @@ const FlowChartWithAutoLayout = ({
           leftChild: parseIntHex(getNFTInfo[4]),
           rightChild: parseIntHex(getNFTInfo[5]),
         };
-        console.log(contractData);
+        //console.log(contractData);
         let revenue = await callCalculateChildRevenue(tokenId as number);
-        console.log(revenue);
+        //console.log(revenue);
         let childData = {
           leftChildRevenue: ethers.utils.formatEther(revenue[0]),
           rightChildRevenue: ethers.utils.formatEther(revenue[1]),
         };
-        console.log(childData);
+        //console.log(childData);
         let datas = {
           id: contractData.id.toString(),
           name: "a",
@@ -225,7 +225,7 @@ const FlowChartWithAutoLayout = ({
 
   useEffect(() => {
     //forceLayout();
-    console.log("data", data);
+    //console.log("data", data);
     if (tokenId) {
       getfirsNftInfo();
     } else if (data) {
@@ -267,16 +267,16 @@ const FlowChartWithAutoLayout = ({
       const findChildren = nodes.filter(
         (item: any) => item?.data?.parent === data.id
       );
-      console.log("datass", data);
+      //console.log("datass", data);
 
       let newNodes: any = [...nodes];
       if (!findChildren.length) {
         const itemChildren = await Promise.all([
           ...data.data.children.map(async (item: any, i: number) => {
-            console.log("item", item);
+            //console.log("item", item);
             
             let getNFTInfo = await callGetNFTInfo(Number(item.id));
-            console.log("getNFTInfo", getNFTInfo);
+            //console.log("getNFTInfo", getNFTInfo);
             let contractData = {
               vipLvl: parseIntHex(getNFTInfo[0]),
               id: parseIntHex(getNFTInfo[1]),
@@ -286,14 +286,14 @@ const FlowChartWithAutoLayout = ({
               leftChild: parseIntHex(getNFTInfo[4]),
               rightChild: parseIntHex(getNFTInfo[5]),
             };
-            console.log(contractData);
+            //console.log(contractData);
             let revenue = await callCalculateChildRevenue(Number(item.id));
-            console.log(revenue);
+            //console.log(revenue);
             let childData = {
               leftChildRevenue: ethers.utils.formatEther(revenue[0]),
               rightChildRevenue: ethers.utils.formatEther(revenue[1]),
             };
-            console.log(childData);
+            //console.log(childData);
             let datas = {
               id: contractData.id.toString(),
               name: "a",
@@ -376,7 +376,7 @@ const FlowChartWithAutoLayout = ({
             item.data.open = true;
           }
         });
-        console.log("newNodes", newNodes);
+        //console.log("newNodes", newNodes);
         setNodes(newNodes);
         setLoading(false);
       } else {
@@ -406,7 +406,7 @@ const FlowChartWithAutoLayout = ({
       setLoading(false);
     }
   };
-  console.log("edges", edges);
+  //console.log("edges", edges);
   useEffect(() => {
     forceAutoLayout();
   }, [loading]);

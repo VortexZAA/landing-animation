@@ -103,14 +103,14 @@ export default function SideBar() {
   async function getID(address: string) {
     try {
       //let address = localStorage.getItem("address") || "";
-      console.log("address", address);
+      //console.log("address", address);
 
       let id = await callGetNFT(address);
-      console.log("id", id);
+      //console.log("id", id);
 
       //console.log("id", id);
       let emty = Number(id) === 0;
-      console.log("emty", emty);
+      //console.log("emty", emty);
 
       localStorage.setItem("isEmty", JSON.stringify({ isEmty: emty }));
       dispatch(setEmty(emty));
@@ -120,7 +120,7 @@ export default function SideBar() {
       } else if (pathname === "/nft-buy") {
         !emty && router.push("/dashboard");
       }
-      console.log("id", id, address);
+      //console.log("id", id, address);
 
       if (!emty) {
         //claimlimit-usedclaimlimit = withdrawable balance
@@ -129,7 +129,7 @@ export default function SideBar() {
         let getNFTInfo = await callGetNFTInfo(ID);
         console.log("ID", ID);
         dispatch(setnftId(ID));
-        console.log("getNFTInfo", getNFTInfo);
+        //console.log("getNFTInfo", getNFTInfo);
         localStorage.setItem(
           "vipLvl",
           JSON.stringify(parseIntHex(getNFTInfo[0]))
@@ -158,12 +158,12 @@ export default function SideBar() {
           Number(data.leftPotentielChild) < Number(data.rightPotentielChild)
             ? Number(data.leftPotentielChild)
             : Number(data.rightPotentielChild);
-        console.log(
+        /* console.log(
           "lowPotentiel",
           lowPotentiel,
           Number(data.rightPotentielChild),
           Number(data.leftPotentielChild)
-        );
+        ); */
         dispatch(setLowPotentiel(lowPotentiel));
 
         const calculateLevel = (lowPotentiel: number) => {
@@ -179,7 +179,7 @@ export default function SideBar() {
         dispatch(setDownlines(data.counter));
         dispatch(setLvl(lvl));
         dispatch(setReferralIncome(Number(data.referralIncome)));
-        console.log(data);
+        //console.log(data);
         let revenue = await callCalculateChildRevenue(ID);
         //console.log(revenue);
         let childData: any = {
@@ -241,7 +241,7 @@ export default function SideBar() {
           ],
         };
 
-        console.log(datas);
+        //console.log(datas);
         datas.children = datas.children.filter((item: any) => item.id !== 0);
         localStorage.setItem("nftInfo", JSON.stringify([datas]));
         dispatch(setNftInfo([datas]));

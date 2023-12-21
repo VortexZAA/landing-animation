@@ -69,7 +69,9 @@ export default function Vip({
             </clipPath>
           </defs>
         </svg>
-        {text}
+        {text==="Seed 1" && "Common"}
+        {text==="Seed 2" && "Epic"}
+        {text==="Seed 3" && "Legendary"}
       </div>
     </>
   );

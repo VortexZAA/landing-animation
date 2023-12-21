@@ -385,6 +385,34 @@ export default function SideBar() {
       ),
       status: false,
     },
+    {
+      id: 5,
+      name: "FAQ",
+      path: "#",
+      icon: (
+       <></>
+      ),
+      status: true,
+    },
+    {
+      id: 6,
+      name: "Airdrop",
+      path: "#",
+      icon: (
+       <></>
+      ),
+      status: true,
+    },
+    {
+      id: 7,
+      name: "Bridge ",
+      path: "#",
+      icon: (
+       <></>
+      ),
+      status: true,
+    },
+    
   ];
 
   return (

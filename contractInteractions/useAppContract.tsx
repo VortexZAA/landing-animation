@@ -14,13 +14,16 @@ const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 export const callRegister = async (
   refferal: number,
   vipTier: number,
-  minterAddres: string
+  minterAddres: string,
+  etherAmount: string
 ) => {
   try {
     const { contractWithSigner } = await callNFTContract();
+    const weiValue = ethers.utils.parseEther(etherAmount);
     let tx = await contractWithSigner.register(
       [refferal, vipTier],
-      minterAddres
+      minterAddres,
+      { value: weiValue }
     );
     let receipt = await tx.wait();
     const txHash = tx.hash;
@@ -178,10 +181,11 @@ export const claimReferralReward = async () => {
   }
 };
 // NFT VIP seviyesini arttırmak için kullanılan fonksiyon
-export const callUpgrade = async (tier: number) => {
+export const callUpgrade = async (tier: number, etherAmount: string) => {
   try {
     const { contractWithSigner } = await callNFTContract();
-    let tx = await contractWithSigner.upgradeTier(tier);
+    const weiValue = ethers.utils.parseEther(etherAmount);
+    let tx = await contractWithSigner.upgradeTier(tier,{ value: weiValue });
     let receipt = await tx.wait();
     let hash = tx.hash;
     return {

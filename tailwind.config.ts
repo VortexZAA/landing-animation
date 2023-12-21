@@ -15,8 +15,8 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        btnActive: '#abca7a',
-        purple: '#abca7a', //'#675AFF',
+        btnActive: '#5C6D2F',
+        purple: '#5C6D2F', //'#675AFF',
         vip1: '#1FCB4F',
         vip2: '#FFC01E',
         vip3: '#F46D22',

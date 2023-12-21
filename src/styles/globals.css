@@ -136,6 +136,15 @@ canvas {
 .letter-15 {
   transition-delay: 3.2s;
 }
+.letter-16 {
+  transition-delay: 3.4s;
+}
+.letter-17 {
+  transition-delay: 3.6s;
+}
+.letter-18 {
+  transition-delay: 3.8s;
+}
 .launch h1 {
   visibility: hidden;
   position: absolute;

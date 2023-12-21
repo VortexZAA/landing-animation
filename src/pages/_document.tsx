@@ -4,11 +4,11 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta name="description" content="FACI Protocol" />
+        <meta name="description" content="SoulBound Protocol" />
         <link rel="icon" href="/favicon.ico" />
-        <meta name="keywords" content="FACI Protocol" />
+        <meta name="keywords" content="SoulBound Protocol" />
       </Head>
-      <title>FACI Protocol</title>
+      <title>SoulBound Protocol</title>
       <body className="max-w-[100vw] overflow-x-hidden bg-black ">
         <Main />
         <NextScript />

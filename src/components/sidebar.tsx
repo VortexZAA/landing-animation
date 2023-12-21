@@ -311,7 +311,7 @@ export default function SideBar() {
     },
     {
       id: 2,
-      name: "Personal Information",
+      name: "My Account ",
       path: "/personal-information",
       icon: (
         <svg
@@ -335,11 +335,11 @@ export default function SideBar() {
           />
         </svg>
       ),
-      status: !isEmty,
+      status: true, // !isEmty,
     },
     {
       id: 3,
-      name: "NFT Buy",
+      name: "NFT Badge ",
       path: "/nft-buy",
       icon: (
         <svg
@@ -383,7 +383,7 @@ export default function SideBar() {
           />
         </svg>
       ),
-      status: true,
+      status: false,
     },
   ];
 

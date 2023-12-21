@@ -114,7 +114,7 @@ export default function Personel() {
       console.log(allowance);
 
       if (allowance) {
-        let res = await callUpgrade(upLvl);
+        let res = await callUpgrade(upLvl,);
         res &&
           ToastSuccess({
             tHashLink: res.hash,

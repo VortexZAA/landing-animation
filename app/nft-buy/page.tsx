@@ -137,9 +137,9 @@ export default function NftBuy() {
           <div className='items-center justify-center w-full grid md:grid-cols-2 lg:grid-cols-3 h-full lg:h-2/3 gap-3 md:gap-4 xl:gap-6'>
             <div className='backdrop-blur-sm bg-cardBg border-cardBorder border-[3px] rounded-xl shadow-md w-full gap-10 h-full p-6 flex flex-col justify-between'>
               
-              <Image src={'/assets/cards/1.png'} width={500} height={500} quality={100} className=' absolute h-fit w-full -top-8 -left-6'  alt='' />
-              <Image src={'/assets/cards/2.png'} width={500} height={500} quality={100} className=' absolute h-fit w-full -bottom-8 -right-6'  alt='' />
-              <Vip text='VIP 1' />
+              <Image src={'/assets/cards/1.png'} width={500} height={500} quality={100} className=' absolute h-1/2 w-fit -top-8 -left-6'  alt='' />
+              <Image src={'/assets/cards/2.png'} width={500} height={500} quality={100} className=' absolute h-1/2 w-fit -bottom-8 -right-6'  alt='' />
+              <Vip text='Seed 1' />
               <div className='flex  justify-center items-center gap-3 border-2 p-6 border-vip1 rounded-md'>
                 <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
                   <path
@@ -149,7 +149,7 @@ export default function NftBuy() {
                 </svg>
                 Wallet
               </div>
-              <div className='w-full  flex flex-col gap-3'>
+              <div className='w-full  flex flex-col gap-3 z-10'>
                 <input type='text' onChange={refVip1} placeholder='Referral Code' className='outline-none border-2 rounded-lg border-gray-200 p-3 text-black' />
                 <button type='submit' disabled={loading} onClick={buyVip1} className='bg-purple hover:opacity-95 text-white rounded-lg py-3 disabled:opacity-70 disabled:cursor-not-allowed gap-3 w-full flex justify-center items-center'>
                   Buy {loading && <Loading />}
@@ -158,8 +158,8 @@ export default function NftBuy() {
             </div>
             <div className='backdrop-blur-sm bg-cardBg border-cardBorder border-[3px] rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between'>
               <Image src={'/assets/cards/3.png'} width={500} height={500}  className=' absolute h-fit w-full -top-8 -left-0'  alt='' />
-              <Image src={'/assets/cards/3.1.png'} width={500} height={500}  className=' absolute h-fit w-full -bottom-11 -left-0'  alt='' />
-              <Vip text='VIP 2' />
+              <Image src={'/assets/cards/3.1.png'} width={500} height={500}  className=' absolute h-fit w-full -bottom-[15%] -left-0'  alt='' />
+              <Vip text='Seed 2' />
               <div className='flex  justify-center items-center gap-3 border-2 p-6 border-vip2 rounded-md'>
                 <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
                   <path
@@ -169,7 +169,7 @@ export default function NftBuy() {
                 </svg>
                 Wallet
               </div>
-              <div className='w-full  flex flex-col gap-3'>
+              <div className='w-full  flex flex-col gap-3 z-10'>
                 <input type='text' onChange={refVip2} placeholder='Referral Code' className='outline-none border-2 rounded-lg border-gray-200 p-3 text-black' />
                 <button type='submit' disabled={loading} onClick={buyVip2} className='bg-purple hover:opacity-95 text-white rounded-lg py-3 disabled:opacity-70 disabled:cursor-not-allowed w-full gap-3 flex justify-center items-center'>
                   Buy {loading && <Loading />}
@@ -178,7 +178,7 @@ export default function NftBuy() {
             </div>
             <div className='backdrop-blur-sm bg-cardBg border-cardBorder border-[3px] rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between'>
               <Image src={'/assets/cards/5.png'} width={500} height={500}  className=' absolute h-full w-fit -right-6 -top-6' alt='' />
-              <Vip text='VIP 3' />
+              <Vip text='Seed 3' />
               <div className='flex justify-center items-center  gap-3 border-2 p-6 border-vip3 rounded-md'>
                 <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
                   <path
@@ -188,7 +188,7 @@ export default function NftBuy() {
                 </svg>
                 Wallet
               </div>
-              <div className='w-full  flex flex-col gap-3'>
+              <div className='w-full  flex flex-col gap-3 z-10'>
                 <input type='text' onChange={refVip3} placeholder='Referral Code' className='outline-none border-2 rounded-lg border-gray-200 p-3 text-black' />
                 <button type='submit' disabled={loading} onClick={buyVip3} className='bg-purple hover:opacity-95 text-white rounded-lg py-3 disabled:opacity-70 disabled:cursor-not-allowed w-full gap-3 flex justify-center items-center'>
                   Buy {loading && <Loading />}

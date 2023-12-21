@@ -5,6 +5,7 @@ import {
   callMarketplaceContract,
 } from "./etherumContracts";
 import { ToastError } from "@/components/alert/SweatAlert";
+import Ethers from "@/lib/ethers";
 
 const marketContract = process.env.NEXT_PUBLIC_MARKETPLACE as string;
 const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
@@ -15,11 +16,13 @@ export const callRegister = async (
   refferal: number,
   vipTier: number,
   minterAddres: string,
-  etherAmount: string
+  etherAmount?: string
 ) => {
   try {
     const { contractWithSigner } = await callNFTContract();
-    const weiValue = ethers.utils.parseEther(etherAmount);
+    const weiValue = vipTier=== 1 ? process.env.NEXT_PUBLIC_TIER1 : vipTier=== 2 ? process.env.NEXT_PUBLIC_TIER2 : process.env.NEXT_PUBLIC_TIER3
+    console.log("weiValue", weiValue);
+    
     let tx = await contractWithSigner.register(
       [refferal, vipTier],
       minterAddres,
@@ -181,10 +184,12 @@ export const claimReferralReward = async () => {
   }
 };
 // NFT VIP seviyesini arttırmak için kullanılan fonksiyon
-export const callUpgrade = async (tier: number, etherAmount: string) => {
+export const callUpgrade = async (tier: number) => {
   try {
     const { contractWithSigner } = await callNFTContract();
-    const weiValue = ethers.utils.parseEther(etherAmount);
+    const weiValue =  tier === 1 ? process.env.NEXT_PUBLIC_TIER1 : tier === 2 ? process.env.NEXT_PUBLIC_TIER2 : process.env.NEXT_PUBLIC_TIER3
+    console.log("weiValue", weiValue);
+    
     let tx = await contractWithSigner.upgradeTier(tier,{ value: weiValue });
     let receipt = await tx.wait();
     let hash = tx.hash;

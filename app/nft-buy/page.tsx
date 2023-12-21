@@ -12,6 +12,7 @@ import Loading from '@/components/loading';
 import { useAppDispatch, useAppSelector } from '@/hook/redux/hooks';
 import { selectData, setLoading } from '@/redux/auth/auth';
 import { useRouter } from 'next/navigation'
+import Image from 'next/image';
 
 export default function NftBuy() {
   function parseTo18Decimals(number: number) {
@@ -135,6 +136,9 @@ export default function NftBuy() {
         <div className='flex w-full justify-center items-center xl:h-[85vh] text-white'>
           <div className='items-center justify-center w-full grid md:grid-cols-2 lg:grid-cols-3 h-full lg:h-2/3 gap-3 md:gap-4 xl:gap-6'>
             <div className='backdrop-blur-sm bg-cardBg border-cardBorder border-[3px] rounded-xl shadow-md w-full gap-10 h-full p-6 flex flex-col justify-between'>
+              
+              <Image src={'/assets/cards/1.png'} width={500} height={500}  className=' absolute h-fit w-full -top-8 -left-6'  alt='' />
+              <Image src={'/assets/cards/2.png'} width={500} height={500}  className=' absolute h-fit w-full -bottom-8 -right-6'  alt='' />
               <Vip text='VIP 1' />
               <div className='flex  justify-center items-center gap-3 border-2 p-6 border-vip1 rounded-md'>
                 <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -153,6 +157,8 @@ export default function NftBuy() {
               </div>
             </div>
             <div className='backdrop-blur-sm bg-cardBg border-cardBorder border-[3px] rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between'>
+              <Image src={'/assets/cards/3.png'} width={500} height={500}  className=' absolute h-fit w-full -top-8 -left-0'  alt='' />
+              <Image src={'/assets/cards/3.1.png'} width={500} height={500}  className=' absolute h-fit w-full -bottom-11 -left-0'  alt='' />
               <Vip text='VIP 2' />
               <div className='flex  justify-center items-center gap-3 border-2 p-6 border-vip2 rounded-md'>
                 <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -171,6 +177,7 @@ export default function NftBuy() {
               </div>
             </div>
             <div className='backdrop-blur-sm bg-cardBg border-cardBorder border-[3px] rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between'>
+              <Image src={'/assets/cards/5.png'} width={500} height={500}  className=' absolute h-full w-fit -right-6 -top-6' alt='' />
               <Vip text='VIP 3' />
               <div className='flex justify-center items-center  gap-3 border-2 p-6 border-vip3 rounded-md'>
                 <svg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'>

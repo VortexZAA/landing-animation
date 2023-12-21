@@ -25,7 +25,7 @@ function MatrixBackground({ timeout=100 }: { timeout?: number }) {
       context.fillStyle = "#0001";
       context.fillRect(0, 0, width, height);
 
-      context.fillStyle = "#abca7a"; // "#0f0"
+      context.fillStyle = "#29301d "; // "#0f0"
       context.font = "15pt monospace";
 
       yPositions.forEach((y:any, index) => {

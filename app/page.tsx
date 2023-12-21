@@ -242,8 +242,7 @@ const Home = () => {
 
   return (
     <>
-      
-      <div className='w-screen max-w-[100vw] flex flex-col'>
+      <div className='w-screen max-w-[100vw] flex flex-col '>
         <section className='relative mb-0 w-full'>
           <canvas className='w-full h-screen object-cover md:object-fill object-[calc(47%)]' ref={observeElement}></canvas>
           <span className='drop-shadow-2xl zero-emission sm:text-5xl text-2xl font-bold fixed top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white shrink-0 text-center w-full font-marcellus'>Innovation Through Equality</span>
@@ -256,7 +255,7 @@ const Home = () => {
                 <Link href='#' target='_blank'>
                   <span className=' shrink-0 h-fit border-0 border-white rounded-full text-white  px-8 py-3 font-bold transition-all duration-300 font-marcellus text-3xl md:text-6xl w-full'>FAWN PROTOCOL</span>
                 </Link>
-                <Link href={"/dashboard"} className="bg-white hover:text-white transition-colors hover:bg-black hover:border-white border-black border px-6 py-2 rounded-md">
+                <Link href={'/dashboard'} className='bg-white hover:text-white transition-colors hover:bg-black hover:border-white border-black border px-6 py-2 rounded-md'>
                   Launch App
                 </Link>
               </div>

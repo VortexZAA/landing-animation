@@ -27,8 +27,10 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        marcellus: ['var(--font-marcellus)'],
+        marcellus: ['Marcellus', 'sans-serif'],
         nunito: ['var(--font-nunito)'],
+        spring: ['spring', 'sans-serif'],
+        satoshi: ['satoshi', 'sans-serif'],
       },
       animation: {
         'spin-slow': 'spin 16s linear infinite',

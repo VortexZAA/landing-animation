@@ -206,19 +206,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "_paymentToken",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -644,11 +631,6 @@
 			},
 			{
 				"internalType": "address",
-				"name": "paymentToken",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
 				"name": "_manager",
 				"type": "address"
 			},
@@ -694,19 +676,6 @@
 				"internalType": "bool",
 				"name": "",
 				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "manager",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -784,7 +753,7 @@
 		],
 		"name": "register",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -849,6 +818,21 @@
 				"internalType": "address",
 				"name": "_admin2",
 				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_admin3",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_admin4",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_adminLimit",
+				"type": "uint256"
 			}
 		],
 		"name": "setAdmins",
@@ -1126,7 +1110,7 @@
 		],
 		"name": "upgradeTier",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	}
 ]

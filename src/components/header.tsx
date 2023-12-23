@@ -128,8 +128,8 @@ const menu = [
   {
     id: 1,
     title: "Community",
-    link: "#",
-    target: "_self",
+    link: "https://twitter.com/SoulBound_BTC",
+    target: "_blank",
   },
   {
     id: 2,

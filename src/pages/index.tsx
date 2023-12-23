@@ -1,24 +1,27 @@
-import FluidAnimation from "@/components/FluidAnimation";
 import Header from "@/components/header";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
+const FluidAnimation = dynamic(() => import("@/components/FluidAnimation"), {
+  ssr: false,
+});
 export default function Intro() {
-    const [show , setShow] = useState(false)
-    useEffect(() => {
-        setTimeout(() => {
-            setShow(true)
-        }, 3000);
-    }, [])
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(true);
+    }, 3000);
+    //reload
+  }, []);
   return (
-    <main
-      className={`flex min-h-screen h-screen w-screen max-w-[100vw] relative overflow-x-hidden gap-6  items-center justify-center animate-fadeIn text-white launch `} 
-    >
-      {show &&<Header />}
-      <h1  id="h1" className={`text-2xl hidden md:block md:text-5xl w-full text-center `} > SoulBound Protocol</h1>
-      {/* <h1 className={`text-2xl md:text-5xl w-full text-center !visible block md:hidden `} >SoulBound Protocol</h1> */}
-      {/* {show && <Link href="/nft-buy" className="absolute mt-32 border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-colors animate-fadeIn ">Launch App</Link>} */}
-      <FluidAnimation />
-    </main>
+    <>
+      {show && <Header />}
+      <div className="text-2xl hidden md:block md:text-5xl w-full  h-fit text-center z-20  fixed top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 text-white launch animate-fadeIn3">
+        <h1 id="h1" className={``}>
+          SoulBound Protocol
+        </h1>
+      </div>
+    </>
   );
 }

@@ -4,11 +4,9 @@ const nextConfig = {
   compiler: {
     removeConsole: env.NODE_ENV === "production" ? true : false,
   },
-  reactStrictMode: false,
-};
-module.exports = {
   images: {
     unoptimized: true,
   },
-  nextConfig,
+  reactStrictMode: false,
 };
+module.exports = nextConfig;

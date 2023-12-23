@@ -8,7 +8,7 @@ export default function Intro() {
     useEffect(() => {
         setTimeout(() => {
             setShow(true)
-        }, 4000);
+        }, 3000);
     }, [])
   return (
     <main

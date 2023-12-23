@@ -45,7 +45,7 @@ export default function Header() {
               alt=""
             />
           </Link>
-          <ul className="flex-col w-full   hidden lg:flex lg:relative pt-12 lg:pt-0 bottom-0 left-0 items-center justify-center h-full  lg:h-auto lg:flex-row lg:mt-0 text-sm xl:text-base font-normal  gap-6 2xl:gap-16 transition-all">
+          <ul className="flex-col w-full   hidden lg:flex lg:relative pt-12 lg:pt-0 bottom-0 left-0 items-center justify-center h-full  lg:h-auto lg:flex-row lg:mt-0 text-sm xl:text-sm font-normal  gap-6 2xl:gap-16 transition-all">
             {menu.map((item, index) => {
               return (
                 <li
@@ -139,19 +139,19 @@ const menu = [
   },
   {
     id: 3,
-    title: "BRC-20",
+    title: "Mint BRC-20",
     link: "#",
     target: "_self",
   },
   {
     id: 4,
-    title: "RGB-20",
+    title: "Mint RGB-20",
     link: "#",
     target: "_self",
   },
   {
     id: 5,
-    title: "Taproot Assets",
+    title: "Create Taproot Assets",
     link: "#",
     target: "_self",
   },

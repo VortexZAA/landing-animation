@@ -89,61 +89,61 @@ canvas {
   transition: opacity 3s ease;
 }
 .letter-0 {
-  transition-delay: 0.2s;
+  transition-delay: 0.15s;
 }
 .letter-1 {
-  transition-delay: 0.4s;
+  transition-delay: 0.3s;
 }
 .letter-2 {
-  transition-delay: 0.6s;
+  transition-delay: 0.45s;
 }
 .letter-3 {
-  transition-delay: 0.8s;
+  transition-delay: 0.6s;
 }
 .letter-4 {
-  transition-delay: 1.0s;
+  transition-delay: 0.75s;
 }
 .letter-5 {
-  transition-delay: 1.2s;
+  transition-delay: 0.9s;
 }
 .letter-6 {
-  transition-delay: 1.4s;
+  transition-delay: 1.05s;
 }
 .letter-7 {
-  transition-delay: 1.6s;
+  transition-delay: 1.2s;
 }
 .letter-8 {
-  transition-delay: 1.8s;
+  transition-delay: 1.35s;
 }
 .letter-9 {
-  transition-delay: 2.0s;
+  transition-delay: 1.50s;
 }
 .letter-10 {
-  transition-delay: 2.2s;
+  transition-delay: 1.65s;
 }
 .letter-11 {
-  transition-delay: 2.4s;
+  transition-delay: 1.8s;
 }
 .letter-12 {
-  transition-delay: 2.6s;
+  transition-delay: 1.95s;
 }
 .letter-13 {
-  transition-delay: 2.8s;
+  transition-delay: 2.1s;
 }
 .letter-14 {
-  transition-delay: 3.0s;
+  transition-delay: 2.25s;
 }
 .letter-15 {
-  transition-delay: 3.2s;
+  transition-delay: 2.40s;
 }
 .letter-16 {
-  transition-delay: 3.4s;
+  transition-delay: 2.55s;
 }
 .letter-17 {
-  transition-delay: 3.6s;
+  transition-delay: 2.70s;
 }
 .letter-18 {
-  transition-delay: 3.8s;
+  transition-delay: 2.85s;
 }
 .launch h1 {
   visibility: hidden;

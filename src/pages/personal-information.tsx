@@ -280,7 +280,10 @@ export default function Personel() {
               </div>
               <div>
                 <h4 className="text-gray-400">Total Revenue</h4>
-                <h1>$ {totalRevenue}</h1>
+                <div className="flex gap-2 items-center h-8">
+                  <BtcIcon />
+                  <h1>{totalRevenue}</h1>
+                </div>
               </div>
             </div>
             <div className="shrink-0 w-fit flex items-center gap-3">

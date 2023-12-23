@@ -132,7 +132,7 @@ export default function NftBuy() {
     <>
       {alert?.show && <Alert status={alert?.status} text={alert?.text} tHashLink={alert?.tHashLink} />}
 
-      <Layout title="Airdrop">
+      <Layout title="Launchpad">
         <div className="flex w-full justify-center items-center xl:h-[85vh] text-white">
           <div className="items-center justify-center w-full grid md:grid-cols-2 lg:grid-cols-3 h-full lg:h-2/3 gap-3 md:gap-4 xl:gap-6">
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-10 h-full p-6 flex flex-col justify-center relative">

@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta name="description" content="SoulBound Protocol" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
         <meta name="keywords" content="SoulBound Protocol" />
       </Head>
       <title>SoulBound Protocol</title>

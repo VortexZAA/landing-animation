@@ -28,10 +28,9 @@ import Loading from "@/components/loading";
 import Modal from "@/components/Modal";
 import LvlRatio from "@/hook/lvlratio";
 import { parseTo18Decimals } from "@/hook/parse18decimals";
+import BtcIcon from "@/components/icons/btc";
 
 export default function Personel() {
-
-
   const [withdrawNum, setwithdrawNum] = useState("");
 
   const [refCode, setrefCode] = useState({
@@ -204,7 +203,7 @@ export default function Personel() {
     }
   }
   const [islisting, setislisting] = useState(false);
-  
+
   async function checkListing() {
     try {
       if (nftId) {
@@ -285,7 +284,7 @@ export default function Personel() {
               </div>
             </div>
             <div className="shrink-0 w-fit flex items-center gap-3">
-            My SoulBound Badge = 
+              My SoulBound Badge =
               <Vip
                 text={
                   vipLvl === 3 ? "Seed 3" : vipLvl === 2 ? "Seed 2" : "Seed 1"
@@ -308,16 +307,28 @@ export default function Personel() {
               </div>
             </div>
             <div className="flex gap-3 md:gap-6 w-full">
-              <div>
-                <h4 className="text-gray-400">Branching  Reward</h4>
-                <h2>$ {referralIncome}</h2>
+              <div className="">
+                <h4 className="text-gray-400">Branching Reward</h4>
+                <div className="flex gap-2 items-center h-8">
+                  <BtcIcon />
+                  <h2>{referralIncome}</h2>
+                </div>
               </div>
-              <div>
-                <h4 className="text-gray-400">Harvesting  Reward</h4>
-                <h2>$ {withdrawableBalance}</h2>
+              <div className="">
+                <h4 className="text-gray-400">Harvesting Reward</h4>
+                <div className="flex gap-2 items-center h-8">
+                  <BtcIcon />
+                  <h2>{withdrawableBalance}</h2>
+                </div>
               </div>
             </div>
-            <div className="h-full w-full md:w-fit flex justify-end shrink-0  items-end">
+            <div className="h-full w-full md:w-fit flex justify-end gap-3 shrink-0  items-end">
+              <button
+                className="bg-purple rounded-lg  px-4 p w-fit h-11 text-white"
+                onClick={() => {}}
+              >
+                Claim Harvesting
+              </button>
               {islisting ? (
                 <button
                   className="bg-purple transition-all hover:bg-red-500 shrink-0 group rounded-lg  px-4  w-32 h-11 text-white"
@@ -329,16 +340,8 @@ export default function Personel() {
               ) : (
                 <button
                   className="bg-purple rounded-lg  px-4 p w-fit h-11 text-white"
-                  onClick={() => setModal(true)}
+                  onClick={() => {}}
                 >
-                  {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  fill="currentColor"
-                  className=" w-full  "
-                >
-                  <path d="M286.788-81Q257-81 236-102.212q-21-21.213-21-51Q215-183 236.212-204q21.213-21 51-21Q317-225 338-203.788q21 21.213 21 51Q359-123 337.788-102q-21.213 21-51 21Zm400 0Q657-81 636-102.212q-21-21.213-21-51Q615-183 636.212-204q21.213-21 51-21Q717-225 738-203.788q21 21.213 21 51Q759-123 737.788-102q-21.213 21-51 21ZM235-741l110 228h288l125-228H235Zm-30-60h589.074q22.964 0 34.945 21Q841-759 829-738L694-495q-11 19-28.559 30.5Q647.881-453 627-453H324l-56 104h491v60H277q-42 0-60.5-28t.5-63l64-118-152-322H51v-60h117l37 79Zm140 288h288-288Z"></path>
-                </svg> */}
                   Claim Airdrop
                 </button>
               )}
@@ -532,11 +535,11 @@ export default function Personel() {
             >
               <option className="p-3" value="2">
                 <span className="w-full h-10 flex justify-center items-center p-2">
-                  VIP 2
+                  Epic
                 </span>
               </option>
               <option className="p-3" value="3">
-                VIP 3
+                Legendary
               </option>
             </select>
             <button

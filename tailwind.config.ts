@@ -25,7 +25,7 @@ const config: Config = {
         "spin-slow": "spin 16s linear infinite",
         wiggle: "wiggle 1s ease-in-out infinite",
         fadeIn: "fadeIn 0.5s ease-in-out",
-        fadeIn3: "fadeIn3 4s ease-in-out",
+        fadeIn3: "fadeIn3 5s ease-in-out",
         fadeUp: "fadeUp 0.5s ease-in-out",
       },
       keyframes: {

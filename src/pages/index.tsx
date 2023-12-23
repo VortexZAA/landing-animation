@@ -11,7 +11,7 @@ export default function Intro() {
   useEffect(() => {
     setTimeout(() => {
       setShow(true);
-    }, 3000);
+    }, 2700);
     //reload
   }, []);
   return (

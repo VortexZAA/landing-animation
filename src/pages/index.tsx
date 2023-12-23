@@ -17,7 +17,7 @@ export default function Intro() {
   return (
     <>
       {show && <Header />}
-      <div className="text-2xl hidden md:block md:text-5xl w-full  h-fit text-center z-20  fixed top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 text-white launch animate-fadeIn3">
+      <div className="text-2xl md:block md:text-5xl w-full  h-fit text-center z-20  fixed top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 text-white launch animate-fadeIn3">
         <h1 id="h1" className={``}>
           SoulBound Protocol
         </h1>

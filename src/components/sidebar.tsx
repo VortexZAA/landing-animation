@@ -426,7 +426,7 @@ export default function SideBar() {
   return (
     <>
       <nav className=" flex flex-col backdrop-blur-sm bg-white/10 w-fit xl:w-64 shrink-0 border-solid h-screen top-0  justify-between items-center text-white px-3 md:px-4 pb-6 md:pb-10 pt-3 md:pt-6 gap-3 md:gap-6 transition-  text-sm fixed z-50">
-        <Link href={process.env.NEXT_PUBLIC_DOMAIN || '/'} className="w-full md:-ml-0">
+        <Link href={'/'} className="w-full md:-ml-0">
           <Image
             src={"/logo.png"}
             width={500}

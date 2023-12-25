@@ -171,7 +171,7 @@ const menu = [
   {
     id: 6,
     title: "Launch App",
-    link: "/nft-buy",
+    link: "/buy-badge",
     target: "_self",
     addClass: "border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-colors",
   },

@@ -71,7 +71,7 @@ export default function SideBar() {
           localStorage.removeItem("isEmty");
           localStorage.clear();
           dispatch(setClear());
-          router.push("/nft-buy");
+          router.push("/buy-badge");
           //router.reload();
         });
         //@ts-ignore
@@ -80,7 +80,7 @@ export default function SideBar() {
           localStorage.removeItem("isEmty");
           localStorage.clear();
           dispatch(setClear());
-          router.push("/nft-buy");
+          router.push("/buy-badge");
           //router.reload();
         });
         checkIsAdmin();
@@ -113,10 +113,10 @@ export default function SideBar() {
 
       localStorage.setItem("isEmty", JSON.stringify({ isEmty: emty }));
       dispatch(setEmty(emty));
-      let authPath = ["/dashboard", "/personal-information"];
+      let authPath = ["/dashboard", "/my-account"];
       if (authPath.includes(router.pathname)) {
-        emty && router.push("/nft-buy");
-      } else if (router.pathname === "/nft-buy") {
+        emty && router.push("/buy-badge");
+      } else if (router.pathname === "/buy-badge") {
         !emty && router.push("/dashboard");
       }
       console.log("id", id, address);
@@ -313,7 +313,7 @@ export default function SideBar() {
     {
       id: 2,
       name: "My Account",
-      path: "/personal-information",
+      path: "/my-account",
       icon: (
         <svg
           width="16"
@@ -341,7 +341,7 @@ export default function SideBar() {
     {
       id: 3,
       name: "Buy Badge ",
-      path: "/nft-buy",
+      path: "/buy-badge",
       icon: (
         <svg
           width="24"

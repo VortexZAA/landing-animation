@@ -138,7 +138,7 @@ const menu = [
   {
     id: 2,
     title: "Whitepaper",
-    link: "/documents/soulbond-protocol.pdf",
+    link: "/documents/soulbound-protocol.pdf",
     target: "_blank",
   },
   {

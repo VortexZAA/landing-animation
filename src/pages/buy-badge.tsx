@@ -20,7 +20,6 @@ import { selectData, setLoading } from "@/redux/auth/auth";
 import { useRouter } from "next/router";
 import BtcIcon from "@/components/icons/btc";
 
-
 export default function NftBuy() {
   function parseTo18Decimals(number: number) {
     try {
@@ -41,9 +40,9 @@ export default function NftBuy() {
     vip2: 500,
     vip3: 1000,
   });
-  const {loading,address } = useAppSelector(selectData)
+  const { loading, address } = useAppSelector(selectData);
   const dispatch = useAppDispatch();
-  const router = useRouter()
+  const router = useRouter();
 
   async function buyVip1() {
     try {
@@ -129,25 +128,43 @@ export default function NftBuy() {
     setuInput3(event.target.value);
   };
   // get btc price from binance
+  async function getPrice() {
+    const price = await fetch(
+      "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+    )
+      .then((res) => res.json())
+      .then((data) => data.price);
+    setPrice({
+      vip1:
+        price *
+        Number(
+          ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
+        ),
+      vip2:
+        price *
+        Number(
+          ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
+        ),
+      vip3:
+        price *
+        Number(
+          ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
+        ),
+    });
+  }
   useEffect(() => {
-    async function getPrice() {
-      const price = await fetch(
-        "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
-      )
-        .then((res) => res.json())
-        .then((data) => data.price);
-      setPrice({
-        vip1: price * Number(ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1  as string)),
-        vip2: price * Number(ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2  as string)),
-        vip3: price * Number(ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3  as string)),
-      });
-    }
     getPrice();
   }, []);
 
   return (
     <>
-      {alert?.show && <Alert status={alert?.status} text={alert?.text} tHashLink={alert?.tHashLink} />}
+      {alert?.show && (
+        <Alert
+          status={alert?.status}
+          text={alert?.text}
+          tHashLink={alert?.tHashLink}
+        />
+      )}
 
       <Layout title="Buy Badge">
         <div className="flex w-full justify-center items-center xl:h-[85vh] text-white">
@@ -155,9 +172,11 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-10 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 1" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip1 rounded-md">
-                <BtcIcon/> 
-                {ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string || "0")}
-                {''} = {price?.vip1.toFixed(0)}$
+                <BtcIcon />
+                {ethers.utils.formatEther(
+                  (process.env.NEXT_PUBLIC_TIER1 as string) || "0"
+                )}
+                {""} = {price?.vip1.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
                 <input
@@ -172,16 +191,18 @@ export default function NftBuy() {
                   onClick={buyVip1}
                   className="bg-purple hover:opacity-95 text-white rounded-lg py-3 disabled:opacity-70 disabled:cursor-not-allowed gap-3 w-full flex justify-center items-center"
                 >
-                  Buy {loading && <Loading/>}
+                  Buy {loading && <Loading />}
                 </button>
               </div>
             </div>
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 2" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip2 rounded-md">
-                <BtcIcon/> 
-                {ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string || "0")}
-                 {''} = {price?.vip2?.toFixed(0)}$
+                <BtcIcon />
+                {ethers.utils.formatEther(
+                  (process.env.NEXT_PUBLIC_TIER2 as string) || "0"
+                )}
+                {""} = {price?.vip2?.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
                 <input
@@ -196,16 +217,18 @@ export default function NftBuy() {
                   onClick={buyVip2}
                   className="bg-purple hover:opacity-95 text-white rounded-lg py-3 disabled:opacity-70 disabled:cursor-not-allowed w-full gap-3 flex justify-center items-center"
                 >
-                  Buy {loading && <Loading/>}
+                  Buy {loading && <Loading />}
                 </button>
               </div>
             </div>
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 3" />
               <div className="flex justify-center items-center  gap-3 border-2 p-6 border-vip3 rounded-md">
-                <BtcIcon/> 
-                {ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string || "0")}
-                {''} = {price?.vip3?.toFixed(0)}$
+                <BtcIcon />
+                {ethers.utils.formatEther(
+                  (process.env.NEXT_PUBLIC_TIER3 as string) || "0"
+                )}
+                {""} = {price?.vip3?.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
                 <input
@@ -220,7 +243,7 @@ export default function NftBuy() {
                   onClick={buyVip3}
                   className="bg-purple hover:opacity-95 text-white rounded-lg py-3 disabled:opacity-70 disabled:cursor-not-allowed w-full gap-3 flex justify-center items-center"
                 >
-                  Buy {loading && <Loading/>}
+                  Buy {loading && <Loading />}
                 </button>
               </div>
             </div>

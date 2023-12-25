@@ -1,6 +1,6 @@
 import  {Handle}  from "reactflow";
 import  {Position}  from "reactflow";
-import BtcBtn from "../icons/btc";
+import BtcIcon from "../icons/btc";
 
 function CardPlus({
   userCount = 1,
@@ -102,17 +102,17 @@ function CardPlus({
         {data?.open && data?.children.length > 1 && (
           <>
             <div className="border-[3px] absolute -bottom-14 w-[120px] text-center justify-center text-[10px] -left-10 flex gap-0.5 items-center bg-[#D2F5DC] text-green-600 border-green-400 px-2 h-7 rounded-full shrink-0">
-              Revenue: <BtcBtn addClass="!h-2/3"/>{data?.leftChildRevenue || 0}
+              Revenue: <BtcIcon addClass="!h-2/3"/>{data?.leftChildRevenue || 0}
             </div>
             <div className="border-[3px] absolute -bottom-14 w-[120px] text-center justify-center text-[10px] -right-10 flex gap-0.5 items-center bg-[#D2F5DC] text-green-600 border-green-400 px-2 h-7 rounded-full shrink-0">
-              Revenue: <BtcBtn addClass="!h-2/3"/>{data?.rightChildRevenue || 0}
+              Revenue: <BtcIcon addClass="!h-2/3"/>{data?.rightChildRevenue || 0}
             </div>
           </>
         )}
         {data?.open && data?.children.length === 1 && (
           <>
             <div className="border-[3px] absolute -bottom-14 w-[120px] text-center justify-center text-[10px] left-1/4 flex gap-0.5 items-center bg-[#D2F5DC] text-green-600 border-green-400 px-2 h-7 rounded-full shrink-0">
-              Revenue: <BtcBtn addClass="!h-2/3"/>{data?.leftChildRevenue || data?.rightChildRevenue || 0}
+              Revenue: <BtcIcon addClass="!h-2/3"/>{data?.leftChildRevenue || data?.rightChildRevenue || 0}
             </div>
           </>
         )}

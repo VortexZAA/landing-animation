@@ -45,12 +45,12 @@ export default function Header() {
               alt=""
             />
           </Link>
-          <ul className="flex-col w-full   hidden lg:flex lg:relative pt-12 lg:pt-0 bottom-0 left-0 items-center justify-center h-full  lg:h-auto lg:flex-row lg:mt-0 text-sm xl:text-sm font-normal  gap-6 2xl:gap-16 transition-all">
+          <ul className="flex-col w-full   hidden lg:flex lg:relative pt-12 lg:pt-0 bottom-0 left-0 items-center justify-center h-full  lg:h-auto lg:flex-row lg:mt-0 text-sm xl:text-sm font-normal  gap-6 2xl:gap-12 transition-all">
             {menu.map((item, index) => {
               return (
                 <li
                   key={index}
-                  className="flex justify-center items-center  shrink-0 w-fit "
+                  className="flex flex-col justify-center group items-center  shrink-0 w-fit "
                 >
                   <Link
                     href={item.link}
@@ -59,6 +59,9 @@ export default function Header() {
                   >
                     {item.title}
                   </Link>
+                    {item.comingSoon && (
+                      <span className="text-xs group-hover:flex absolute -bottom-2 hidden text-orange-400 font-bold">Coming soon</span>
+                    )}
                 </li>
               );
             })}
@@ -130,35 +133,45 @@ const menu = [
     title: "Community",
     link: "https://twitter.com/SoulBound_BTC",
     target: "_blank",
+    
   },
   {
     id: 2,
     title: "Whitepaper",
-    link: "#",
-    target: "_self",
+    link: "/documents/soulbound-protocol-whitepaper.pdf",
+    target: "_blank",
+  },
+  {
+    id: 2,
+    title: "One Pager",
+    link: "/documents/soulbound-protocol-onepager.pdf",
+    target: "_blank",
   },
   {
     id: 3,
     title: "Mint BRC-20",
     link: "#",
     target: "_self",
+    comingSoon: true,
   },
   {
     id: 4,
     title: "Mint RGB-20",
     link: "#",
     target: "_self",
+    comingSoon: true,
   },
   {
     id: 5,
     title: "Create Taproot Assets",
     link: "#",
     target: "_self",
+    comingSoon: true,
   },
   {
     id: 6,
     title: "Launch App",
-    link: "/nft-buy",
+    link: "/buy-badge",
     target: "_self",
     addClass: "border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-colors",
   },

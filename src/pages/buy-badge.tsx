@@ -128,6 +128,22 @@ export default function NftBuy() {
   const refVip3 = (event: any) => {
     setuInput3(event.target.value);
   };
+  // get btc price from binance
+  useEffect(() => {
+    async function getPrice() {
+      const price = await fetch(
+        "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+      )
+        .then((res) => res.json())
+        .then((data) => data.price);
+      setPrice({
+        vip1: price * Number(ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1  as string)),
+        vip2: price * Number(ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2  as string)),
+        vip3: price * Number(ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3  as string)),
+      });
+    }
+    getPrice();
+  }, []);
 
   return (
     <>
@@ -141,6 +157,7 @@ export default function NftBuy() {
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip1 rounded-md">
                 <BtcIcon/> 
                 {ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string || "0")}
+                {''} = {price?.vip1.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
                 <input
@@ -164,6 +181,7 @@ export default function NftBuy() {
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip2 rounded-md">
                 <BtcIcon/> 
                 {ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string || "0")}
+                 {''} = {price?.vip2?.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
                 <input
@@ -187,6 +205,7 @@ export default function NftBuy() {
               <div className="flex justify-center items-center  gap-3 border-2 p-6 border-vip3 rounded-md">
                 <BtcIcon/> 
                 {ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string || "0")}
+                {''} = {price?.vip3?.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
                 <input

@@ -144,7 +144,7 @@ const menu = [
   {
     id: 2,
     title: "One Pager",
-    link: "/documents/one-pager.pdf",
+    link: "/documents/soulbound-protocol-onepager.pdf",
     target: "_blank",
   },
   {

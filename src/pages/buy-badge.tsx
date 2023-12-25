@@ -135,21 +135,21 @@ export default function NftBuy() {
       .then((res) => res.json())
       .then((data) => data.price);
     setPrice({
-      vip1:
-        price *
+      vip1: 100
+        /* price *
         Number(
           ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
-        ),
-      vip2:
-        price *
+        ) */,
+      vip2: 500
+        /* price *
         Number(
           ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
-        ),
-      vip3:
-        price *
+        ) */,
+      vip3: 1000
+        /* price *
         Number(
           ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
-        ),
+        ) */,
     });
   }
   useEffect(() => {

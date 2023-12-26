@@ -129,28 +129,30 @@ export default function NftBuy() {
   };
   // get btc price from binance
   async function getPrice() {
-    const price = await fetch(
-      "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
-    )
-      .then((res) => res.json())
-      .then((data) => data.price);
-    setPrice({
-      vip1: 100
+    try {
+      /* const price = await fetch(
+        "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+      )
+        .then((res) => res.json())
+        .then((data) => data.price); */
+      setPrice({
+        vip1: 100,
         /* price *
-        Number(
-          ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
-        ) */,
-      vip2: 500
+          Number(
+            ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
+          ) */ vip2: 500,
         /* price *
-        Number(
-          ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
-        ) */,
-      vip3: 1000
+          Number(
+            ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
+          ) */ vip3: 1000,
         /* price *
-        Number(
-          ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
-        ) */,
-    });
+          Number(
+            ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
+          ) */
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
   useEffect(() => {
     getPrice();

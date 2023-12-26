@@ -7,16 +7,11 @@ import {
   callWithdraw,
   callUpgrade,
   checkAllowance,
-  callBuyNFT,
-  callListNFT,
   claimReferralReward,
   callApproveNFT,
   callApproveNFT2,
   callGetReferralCodeForLeft,
   callGetReferralCodeForRight,
-  callListings,
-  callCancelListing,
-  callgetAllListedNFTs,
   parseIntHex,
 } from "@/contractInteractions/useAppContract";
 import Vip from "@/components/vip";
@@ -152,38 +147,7 @@ export default function Personel() {
     }
   }
 
-  async function listingNft(e: any) {
-    e.preventDefault();
-    try {
-      dispatch(setLoading(true));
-      const price = e.target.price.value;
-      let aprove = await callApproveNFT();
-      if (nftId && price && aprove) {
-        //price değerini 18 decimala çevir
-        /* let price18 = parseTo18Decimals(Number(price));
-        console.log(price18); */
-
-        let res = await callListNFT(
-          nftId,
-          ethers.utils.parseUnits(price, 18),
-          address
-        );
-        console.log(res);
-        res &&
-          ToastSuccess({
-            tHashLink: res.hash,
-          }).fire("NFT Listing Successfully");
-      }
-      dispatch(setLoading(false));
-      setModal(false);
-    } catch (error) {
-      console.log(error);
-      ToastError.fire({
-        title: "Something went wrong",
-      });
-      dispatch(setLoading(false));
-    }
-  }
+  
   async function ClaimReferralReward() {
     try {
       dispatch(setLoading(true));
@@ -498,32 +462,7 @@ export default function Personel() {
           </div>
         </form>
       </Modal>
-      <Modal
-        modal={modal}
-        setModal={setModal}
-        title="Sell my account on marketplace"
-      >
-        <form
-          onSubmit={listingNft}
-          className="w-full min-w-[60vw] xl:min-w-[40vw] p-6  relative"
-        >
-          <div className="w-full  flex flex-col gap-3">
-            <input
-              type="number"
-              name="price"
-              className="outline-none border-2 rounded-lg border-gray-200 p-3"
-              placeholder="Price"
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-purple hover:opacity-95 text-white rounded-lg py-3 w-full flex justify-center items-center gap-3 disabled:opacity-90"
-            >
-              List for sale {loading && <Loading />}
-            </button>
-          </div>
-        </form>
-      </Modal>
+     
     </Layout>
   );
 }

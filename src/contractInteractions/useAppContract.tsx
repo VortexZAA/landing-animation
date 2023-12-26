@@ -2,7 +2,6 @@ import { ethers } from "ethers";
 import {
   callNFTContract,
   callTokenContract,
-  callMarketplaceContract,
 } from "./etherumContracts";
 import { ToastError } from "@/components/alert/SweatAlert";
 import Ethers from "@/lib/ethers";
@@ -462,107 +461,8 @@ export const callBalanceOf = async (account: string) => {
 
 //Marketplace FUNCTIONS
 
-export const callBuyNFT = async (tokenId: number) => {
-  try {
-    const { contractWithSigner } = await callMarketplaceContract();
-    let tx = await contractWithSigner.buyNFT(tokenId);
-    let receipt = await tx.wait();
-    const txHash = tx.hash;
-    // transaction receipt hash
-    return { hash: txHash, res: receipt };
-  } catch (error) {
-    console.error("Error during buyNFT:", error);
-    /* alert("There was an error during the buyNFT process. Please try again."); */
-    ToastError.fire({
-      title: "There was an error during the buyNFT process. Please try again.",
-    });
-    return false;
-  }
-};
-
-export const callCancelListing = async (tokenId: number) => {
-  try {
-    const { contractWithSigner } = await callMarketplaceContract();
-    let tx = await contractWithSigner.cancelListing(tokenId);
-    let receipt = await tx.wait();
-    const txHash = tx.hash;
-    // transaction receipt hash
-    return { hash: txHash, res: receipt };
-  } catch (error) {
-    console.error("Error during cancelListing:", error);
-    /* alert("There was an error during the cancelListing process. Please try again."); */
-    ToastError.fire({
-      title:
-        "There was an error during the cancelListing process. Please try again.",
-    });
-    return false;
-  }
-};
-
-export const callListNFT = async (
-  tokenId: number,
-  price: any,
-  address: string
-) => {
-  try {
-    let approve = await callIsApprovedForAll(address);
-    console.log("approve", approve);
-    if (!approve) {
-      let res = await callApproveNFT();
-      if (!res) {
-        return false;
-      }
-    }
-    const { contractWithSigner } = await callMarketplaceContract();
-    let tx = await contractWithSigner.listNFT(tokenId, price);
-    let receipt = await tx.wait();
-    const txHash = tx.hash;
-    // transaction receipt hash
-    return { hash: txHash, res: receipt };
-  } catch (error) {
-    console.error("Error during listNFT:", error);
-    /* alert("There was an error during the listNFT process. Please try again."); */
-    ToastError.fire({
-      title: "There was an error during the listNFT process. Please try again.",
-    });
-    return false;
-  }
-};
-
 //READ FUNCTIONS
 //READ FUNCTIONS
-
-export const callgetAllListedNFTs = async () => {
-  try {
-    const { contractWithSigner } = await callMarketplaceContract();
-    let allListedNFTs = await contractWithSigner.getAllListedNFTs();
-    return allListedNFTs;
-  } catch (error) {
-    console.error("Error during getAllListedNFTs:", error);
-    /* alert("There was an error during the getAllListedNFTs process. Please try again."); */
-    ToastError.fire({
-      title:
-        "There was an error during the getAllListedNFTs process. Please try again.",
-    });
-    return false;
-  }
-};
-
-export const callListings = async (tokenId: number) => {
-  try {
-    const { contractWithSigner } = await callMarketplaceContract();
-    let list = await contractWithSigner.listings(tokenId);
-    return list;
-  } catch (error) {
-    console.error("Error during getPrice:", error);
-    /* alert("There was an error during the listings process. Please try again."); */
-    ToastError.fire({
-      title:
-        "There was an error during the listings process. Please try again.",
-    });
-    return false;
-  }
-};
 
 export const callIsApprovedForAll = async (owner: string) => {
   try {

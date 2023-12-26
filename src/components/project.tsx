@@ -12,7 +12,7 @@ export default function Project({
   return (
     <>
       <div
-        className={`w-28 lg:w-32  h-10 xl:h-12 absolute top-6 left-6 shrink-0 border-2 ${color} right-0 flex gap-1 md:gap-2 justify-center items-center -top-14 px-2 md:px-3 font-semibold   rounded-full`}
+        className={`w-28 lg:w-32  h-10 xl:h-12 absolute top-4 md:top-6 left-3 md:left-6 shrink-0 border-2 ${color} right-0 flex gap-1 md:gap-2 justify-center items-center -top-14 px-2 md:px-3 font-semibold   rounded-full`}
       >
         {text}
       </div>

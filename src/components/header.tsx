@@ -59,9 +59,11 @@ export default function Header() {
                   >
                     {item.title}
                   </Link>
-                    {item.comingSoon && (
-                      <span className="text-xs group-hover:flex absolute -bottom-2 hidden text-orange-400 font-bold">Coming soon</span>
-                    )}
+                  {item.comingSoon && (
+                    <span className="text-xs group-hover:flex absolute -bottom-2 hidden text-orange-400 font-bold">
+                      Coming soon
+                    </span>
+                  )}
                 </li>
               );
             })}
@@ -100,7 +102,7 @@ export default function Header() {
         </div>
       </header>
       <ul
-        className="flex lg:hidden z-40 flex-col fixed  bg-black lg:bg-transparent lg:relative  top-0 left-0 items-center justify-center lg:justify-end  lg:h-auto lg:flex-row lg:mt-0 text-xl font-normal w-full lg:w-1/2 gap-6  transition-all h-screen overflow-y-auto"
+        className="flex lg:hidden z-40 flex-col fixed  bg-black lg:bg-transparent lg:relative  top-0 left-0 items-center justify-center lg:justify-end  lg:h-auto lg:flex-row lg:mt-0 text-xl font-normal w-full lg:w-1/2 gap-6 text-white transition-all h-screen overflow-y-auto"
         style={{
           transform: showMobile ? "translateX(0)" : "translateX(100%)",
           transition: "all 0.3s ease-in-out",
@@ -110,19 +112,30 @@ export default function Header() {
           return (
             <li
               key={index}
-              className="flex justify-center items-center  shrink-0 w-fit "
+              className="flex justify-center group items-center text-white relative shrink-0 w-fit "
             >
               <Link
                 href={item.link}
                 target={item.target}
                 onClick={() => setShowMobile(!showMobile)}
-                className={`flex justify-center items-center py-0  lg:border-0 lg:hover:text-orange-400 transition-colors cursor-pointer text-center w-full `}
+                className={` justify-center items-center py-0 !text-white lg:border-0 lg:hover:text-orange-400 transition-colors cursor-pointer text-center w-full ${item?.addClass} `}
               >
                 {item.title}
               </Link>
+              {item.comingSoon && (
+                <span className="text-xs group-hover:flex absolute -bottom-3 md:-bottom-2  md:hidden text-orange-400 font-bold">
+                  Coming soon
+                </span>
+              )}
             </li>
           );
         })}
+        <li className="flex flex-col md:hidden group text-white justify-center items-center py-0 -mt-2  lg:border-0 lg:hover:text-orange-400 transition-colors cursor-pointer text-center w-full relative">
+          <button className=" justify-center items-center peer  lg:border-0 lg:hover:text-orange-400  cursor-pointer text-center w-fullborder-2 border-white rounded-full px-6 py-2 bg-white text-black md:text-white md:bg-transparent hover:bg-white hover:text-black transition-colors font-semi-bold flex">
+            Launch App
+          </button>
+          <span className="hidden peer-hover:block text-xs group-hover:flex absolute -bottom-5 md:-bottom-2  md:hidden text-orange-400 font-bold">Mobile is not supported.</span>
+        </li>
       </ul>
     </>
   );
@@ -133,7 +146,6 @@ const menu = [
     title: "Community",
     link: "https://twitter.com/SoulBound_BTC",
     target: "_blank",
-    
   },
   {
     id: 2,
@@ -173,6 +185,7 @@ const menu = [
     title: "Launch App",
     link: "/buy-badge",
     target: "_self",
-    addClass: "border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-colors",
+    addClass:
+      "border-2 border-white rounded-full px-6 py-2 bg-white text-black md:text-white md:bg-transparent hover:bg-white hover:text-black transition-colors font-semi-bold hidden md:flex ",
   },
 ];

@@ -58,7 +58,6 @@ export default function Personel() {
   useEffect(() => {
     const addres = localStorage.getItem("address");
     addres && dispatch(setAddress(addres));
-    checkListing();
   }, []);
 
   async function getReferralCodeLeft(address?: string) {
@@ -176,7 +175,6 @@ export default function Personel() {
           }).fire("NFT Listing Successfully");
       }
       dispatch(setLoading(false));
-      checkListing();
       setModal(false);
     } catch (error) {
       console.log(error);
@@ -203,52 +201,6 @@ export default function Personel() {
     }
   }
   const [islisting, setislisting] = useState(false);
-
-  async function checkListing() {
-    try {
-      if (nftId) {
-        const res = await callListings(nftId);
-        let marketlistings = await callgetAllListedNFTs();
-        let resArray: any[] = [];
-        marketlistings &&
-          (await marketlistings.map((item: any) => {
-            const newArray = {
-              tokenID: parseIntHex(item.tokenId),
-              seller: item.seller,
-              price: Number(ethers.utils.formatEther(item.price)),
-            };
-            resArray.push(newArray);
-          }));
-        console.log("resArray", resArray);
-        setislisting(
-          resArray.find((item) => item.tokenID === nftId) ? true : false
-        );
-        console.log("checkListing", res, "nftId", nftId, "islisting");
-      }
-    } catch (error) {}
-  }
-
-  async function cancelListings() {
-    try {
-      if (nftId) {
-        dispatch(setLoading(true));
-        let res = await callCancelListing(nftId);
-        console.log(res);
-        res &&
-          ToastSuccess({
-            tHashLink: res.hash,
-          }).fire("NFT Cancel Listing Successfully");
-        dispatch(setLoading(false));
-        checkListing();
-      }
-    } catch (error) {
-      console.log(error);
-      ToastError.fire({
-        title: "Something went wrong",
-      });
-      dispatch(setLoading(false));
-    }
-  }
 
   return (
     <Layout title="My Account">
@@ -332,22 +284,13 @@ export default function Personel() {
               >
                 Claim Harvesting
               </button>
-              {islisting ? (
-                <button
-                  className="bg-purple transition-all hover:bg-red-500 shrink-0 group rounded-lg  px-4  w-32 h-11 text-white"
-                  onClick={cancelListings}
-                >
-                  <span className="group-hover:hidden">On Sale</span>
-                  <span className="hidden group-hover:block">Cancel List</span>
-                </button>
-              ) : (
-                <button
-                  className="bg-purple rounded-lg  px-4 p w-fit h-11 text-white"
-                  onClick={() => {}}
-                >
-                  Claim Airdrop
-                </button>
-              )}
+
+              <button
+                className="bg-purple rounded-lg  px-4 p w-fit h-11 text-white"
+                onClick={() => {}}
+              >
+                Claim Airdrop
+              </button>
             </div>
           </div>
         </div>

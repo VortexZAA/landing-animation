@@ -118,7 +118,7 @@ export default function Header() {
                 href={item.link}
                 target={item.target}
                 onClick={() => setShowMobile(!showMobile)}
-                className={`flex justify-center items-center py-0  lg:border-0 lg:hover:text-orange-400 transition-colors cursor-pointer text-center w-full `}
+                className={`flex justify-center items-center py-0  lg:border-0 lg:hover:text-orange-400 transition-colors cursor-pointer text-center w-full ${item?.addClass} `}
               >
                 {item.title}
               </Link>
@@ -180,6 +180,6 @@ const menu = [
     link: "/buy-badge",
     target: "_self",
     addClass:
-      "border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-colors",
+      "border-2 border-white rounded-full px-6 py-2 bg-white text-black md:text-white md:bg-transparent hover:bg-white hover:text-black transition-colors font-semi-bold",
   },
 ];

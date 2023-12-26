@@ -78,7 +78,7 @@ canvas {
 }
 .launch h1 {
   font-family: 'Cinzel', serif;
-  @apply text-3xl md:text-[1em];
+  @apply text-2xl md:text-[1em];
   font-weight: 400;
   letter-spacing: 0.35em;
 }

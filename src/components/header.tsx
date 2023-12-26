@@ -59,9 +59,11 @@ export default function Header() {
                   >
                     {item.title}
                   </Link>
-                    {item.comingSoon && (
-                      <span className="text-xs group-hover:flex absolute -bottom-2 hidden text-orange-400 font-bold">Coming soon</span>
-                    )}
+                  {item.comingSoon && (
+                    <span className="text-xs group-hover:flex absolute -bottom-2 hidden text-orange-400 font-bold">
+                      Coming soon
+                    </span>
+                  )}
                 </li>
               );
             })}
@@ -110,7 +112,7 @@ export default function Header() {
           return (
             <li
               key={index}
-              className="flex justify-center items-center  shrink-0 w-fit "
+              className="flex justify-center group items-center text-white relative shrink-0 w-fit "
             >
               <Link
                 href={item.link}
@@ -120,6 +122,11 @@ export default function Header() {
               >
                 {item.title}
               </Link>
+              {item.comingSoon && (
+                <span className="text-xs group-hover:flex absolute -bottom-3 md:-bottom-2  md:hidden text-orange-400 font-bold">
+                  Coming soon
+                </span>
+              )}
             </li>
           );
         })}
@@ -133,7 +140,6 @@ const menu = [
     title: "Community",
     link: "https://twitter.com/SoulBound_BTC",
     target: "_blank",
-    
   },
   {
     id: 2,
@@ -173,6 +179,7 @@ const menu = [
     title: "Launch App",
     link: "/buy-badge",
     target: "_self",
-    addClass: "border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-colors",
+    addClass:
+      "border-2 border-white rounded-full px-6 py-2 hover:bg-white hover:text-black transition-colors",
   },
 ];

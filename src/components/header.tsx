@@ -160,6 +160,12 @@ const menu = [
     target: "_blank",
   },
   {
+    id: 2,
+    title: "Audit",
+    link: "/documents/smart_contract_security_audit_report.pdf",
+    target: "_blank",
+  },
+  {
     id: 3,
     title: "Mint BRC-20",
     link: "#",

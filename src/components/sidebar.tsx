@@ -258,9 +258,9 @@ export default function SideBar() {
       const { provider, ethereum } = Ethers();
 
       await ethereum.send("eth_requestAccounts");
-      //const signer = await provider?.getSigner();
+      // connect to just metamask
 
-      await ethereum.send("eth_requestAccounts");
+      //const signer = await provider?.getSigner();
 
       const signer = await provider?.getSigner();
       const [address, chainId, networkName] = await Promise.all([

@@ -19,8 +19,7 @@ export default function Layout({
   const { loading } = reduxData;
   return (
     <main
-      className={`flex min-h-screen w-screen max-w-[100vw] overflow-x-hidden gap-6  items-center justify-between z-20 relative`}
-    >
+      className={`flex min-h-screen w-screen max-w-[100vw] overflow-x-hidden gap-6  items-center justify-between z-20 relative`}>
       <MatrixBackground />
       <SideBar />
       <div className="w-full pl-[86px] xl:pl-[280px] h-full pb-6 flex flex-col gap-3 min-h-[100vh] max-w-[100vw]  text-white p-3 xl:p-6 relative animate-fadeIn">

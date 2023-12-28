@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
 import { selectData, setLoading } from "@/redux/auth/auth";
 import Loading from "@/components/loading";
 import { parseTo18Decimals } from "@/hook/parse18decimals";
-import { callWithdraw } from "@/contractInteractions/useAppContract";
+import { callRefresh, callWithdraw } from "@/contractInteractions/useAppContract";
 import { ToastError, ToastSuccess } from "@/components/alert/SweatAlert";
 
 
@@ -32,7 +32,7 @@ export default function Home() {
   async function handleSubmit() {
     try {
       dispatch(setLoading(true));
-      const res: any = await callWithdraw();
+      const res: any = await callRefresh();
       console.log(res);
       if (res) {
         ToastSuccess({ tHashLink: res.hash }).fire({

@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import {
   callNFTContract,
+  callNFTContractBiget,
   callTokenContract,
 } from "./etherumContracts";
 import { ToastError } from "@/components/alert/SweatAlert";
@@ -246,6 +247,25 @@ export const callGetNFTInfos = async (tokenIds: number[]) => {
   }
 };
 // NFT ID'sine göre bilgilerini dönen fonksiyon
+export const callGetNFTInfoBiget = async (ID: number) => {
+  try {
+    console.log("ID", ID);
+
+    const { contractWithSigner } = await callNFTContractBiget();
+    let NFTInfo = await contractWithSigner.getNFTInfo(ID);
+    return NFTInfo;
+  } catch (error) {
+    console.error("Error during getNFTInfo:", error);
+    /* alert(
+      "There was an error during the getNFTInfo process. Please try again."
+    ); */
+    ToastError.fire({
+      title:
+        "There was an error during the getNFTInfo process. Please try again.",
+    });
+    return false;
+  }
+};
 export const callGetNFTInfo = async (ID: number) => {
   try {
     console.log("ID", ID);
@@ -271,6 +291,24 @@ export const callGetNFT = async (holder: string) => {
     console.log("holder", holder);
 
     const { contractWithSigner } = await callNFTContract();
+    let NFTId = await contractWithSigner.getNFT(holder);
+    console.log("NFTId", NFTId);
+
+    return NFTId;
+  } catch (error) {
+    console.error("Error during getNFT:", error);
+    //alert("There was an error during the getNFT process. Please try again.");
+    /* ToastError.fire({
+      title: "There was an error during the getNFT process. Please try again.",
+    }); */
+    return false;
+  }
+};
+export const callGetNFTBiget = async (holder: string) => {
+  try {
+    console.log("holder", holder);
+
+    const { contractWithSigner } = await callNFTContractBiget();
     let NFTId = await contractWithSigner.getNFT(holder);
     console.log("NFTId", NFTId);
 

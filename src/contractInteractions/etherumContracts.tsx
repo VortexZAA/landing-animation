@@ -1,5 +1,4 @@
 import { ethers } from "ethers";
-import MarketAbi from "@/abi/marketplace.json";
 import nftAbi from "@/abi/nft.json";
 import tokenAbi from "@/abi/token.json";
 declare global {
@@ -35,21 +34,21 @@ export const callTokenContract = async () => {
   return { contractWithSigner, tokenContractAddress, abi, msgSender };
 };
 
-export const callMarketplaceContract = async () => {
-  const metamaskAddress = await window.ethereum.request({
+
+
+
+export const callNFTContractBiget = async () => {
+  //@ts-ignore
+  const metamaskAddress = await window.bitkeep.ethereum.request({
     method: "eth_requestAccounts",
   });
   const msgSender = metamaskAddress[0];
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //@ts-ignore
+  const provider = new ethers.providers.Web3Provider(window.bitkeep.ethereum);
   const signer = provider.getSigner();
-  const abi = MarketAbi;
-  const marketplaceContractAddress = process.env
-    .NEXT_PUBLIC_MARKETPLACE as string;
-  const marketplaceContract = new ethers.Contract(
-    marketplaceContractAddress,
-    abi,
-    signer
-  );
-  const contractWithSigner = marketplaceContract.connect(signer);
-  return { contractWithSigner, marketplaceContract, abi, msgSender };
+  const abi = nftAbi;
+  const NFTContractAddress = process.env.NEXT_PUBLIC_CONTRACT as string;
+  const NFTContract = new ethers.Contract(NFTContractAddress, abi, signer);
+  const contractWithSigner = NFTContract.connect(signer);
+  return { contractWithSigner, NFTContractAddress, abi, msgSender };
 };

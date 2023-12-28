@@ -7,7 +7,9 @@ import CopyBtn from "./button/copyBtn";
 import {
   callCalculateChildRevenue,
   callGetNFT,
+  callGetNFTBiget,
   callGetNFTInfo,
+  callGetNFTInfoBiget,
   parseIntHex,
 } from "@/contractInteractions/useAppContract";
 import { Alert } from "./alert/alert";
@@ -31,6 +33,50 @@ import {
 } from "@/redux/auth/auth";
 import Image from "next/image";
 import CloseBtn from "./icons/close";
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+import { bigetConnect, bigetSwitch } from "@/lib/biget";
+import Modal from "./Modal";
+
+/* // Create a connector
+const connector = new WalletConnect({
+  bridge: 'https://bridge.walletconnect.org', // Required
+  qrcodeModal: QRCodeModal,
+});
+
+// Check if connection is already established
+if (!connector.connected) {
+  // create new session
+  connector.createSession();
+}
+
+// Subscribe to connection events
+connector.on('connect', (error, payload) => {
+  if (error) {
+    throw error;
+  }
+
+  // Get provided accounts and chainId
+  const { accounts, chainId } = payload.params[0];
+});
+
+connector.on('session_update', (error, payload) => {
+  if (error) {
+    throw error;
+  }
+
+  // Get updated accounts and chainId
+  const { accounts, chainId } = payload.params[0];
+});
+
+connector.on('disconnect', (error, payload) => {
+  if (error) {
+    throw error;
+  }
+
+  // Delete connector
+}); */
+//
 
 export default function SideBar() {
   const [selected, setSelected]: any = useState(1);
@@ -272,7 +318,7 @@ export default function SideBar() {
           .getNetwork()
           .then((network: { name: any }) => network.name),
       ]);
-
+      
       checkIsAdmin();
 
       console.log("address", address);
@@ -407,7 +453,17 @@ export default function SideBar() {
       id: 6,
       name: "FAQ",
       path: "/faq",
-      icon: (<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="20" width="20" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>),
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          height="20"
+          width="20"
+          viewBox="0 0 512 512"
+        >
+          <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
+        </svg>
+      ),
       status: true,
     },
     {
@@ -465,7 +521,27 @@ export default function SideBar() {
       comingSoon: true,
     },
   ];
+  async function BigetConnect() {
+    try {
+      /* const id = await callGetNFT(
+        "0xa89F5B9196BaA0cc8a944eB0b6c4Cd7423517c4A"
+      );
+      console.log("id", id);
+      let ID = Number(id);
+       const res2 = await callGetNFTInfo(ID);
+      console.log(res2); 
+      const res = await callGetNFTInfoBiget(ID);
+      console.log(res); */
+      await bigetConnect();
+      await bigetSwitch(selectedChain);
 
+      /*  */
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const [modal, setModal] = useState(false);
+  const [selectedChain, setSelectedChain] = useState<"0x5dd" | "0x38">("0x38");
   return (
     <>
       <nav className=" flex flex-col backdrop-blur-sm bg-white/10 w-fit xl:w-64 shrink-0 border-solid h-screen top-0  justify-between items-center text-white px-3 md:px-4 pb-6 md:pb-10 pt-3 md:pt-6 gap-3 md:gap-6 transition-  text-sm fixed z-50">
@@ -507,9 +583,7 @@ export default function SideBar() {
                         </span>
                       </>
                     ) : (
-                      <span className=" hidden xl:block">
-                        {item.name}
-                      </span>
+                      <span className=" hidden xl:block">{item.name}</span>
                     )}
                   </Link>
                 </li>
@@ -541,19 +615,33 @@ export default function SideBar() {
           )}
         </ul>
         {isOpen && (
-          <div className="bg-white text-black rounded-lg  pb-6 pt-3 w-52 absolute bottom-28 left-6 border flex flex-col font-bold text-base ">
+          <div className="bg-white text-black rounded-lg  pb-6 pt-3 w-60 absolute bottom-36 left-6 border flex flex-col font-bold text-base ">
             <div className="flex w-full justify-between px-3">
               <span>Connect Wallet</span>
               <button type="button" onClick={Close}>
                 <CloseBtn />
               </button>
             </div>
-            <div className="flex gap-3 mt-3 px-6">
+            <div className="flex flex-col gap-3 mt-3 px-6 text-black">
               <button
-                onClick={connecWallet}
-                className="w-full h-12 p-3 border-2 flex justify-center items-center transition-colors text-white rounded-md"
+                onClick={() => {
+                  setModal(true);
+                  setSelectedChain("0x38");
+                }}
+                className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
-                <img src="/metamask.svg" alt="" className="w-2/3" />
+                <img src="/bnb.svg" alt="" className="h-full" />
+                BNB Chain
+              </button>
+              <button
+                onClick={() => {
+                  setModal(true);
+                  setSelectedChain("0x5dd");
+                }}
+                className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+              >
+                <img src="/bevm.svg" alt="" className="h-full" />
+                Chain
               </button>
             </div>
           </div>
@@ -578,22 +666,45 @@ export default function SideBar() {
             className="w-fit xl:w-full p-3 h-12 bg-purple hover:bg-purple/90 transition-colors text-white rounded-md xl:mx-6"
           >
             <span className="hidden xl:block">Connect Wallet</span>
-            <span className="block xl:hidden h-6 w-6">
-              <svg
-                className="w-full "
-                viewBox="0 0 40 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M27.5781 3.79688C27.5156 3.8125 25.1563 4.21094 22.3438 4.6875C9.92969 6.79688 6.33594 7.42188 5.97656 7.53906C5.23438 7.78906 4.65625 8.15625 4.05469 8.75C3.57031 9.22656 3.39063 9.46875 3.10156 10.0781C2.4375 11.4531 2.46875 10.8984 2.46094 21.4062C2.46094 30.0078 2.46875 30.7031 2.60156 31.1719C2.82031 32.0078 3.24219 32.7734 3.80469 33.3594C4.44531 34.0469 5.01563 34.4219 5.85938 34.7188L6.52344 34.9609H19.9609H33.3984L34.0625 34.7188C34.9141 34.4141 35.4922 34.0312 36.1328 33.3438C36.6875 32.7422 37.1016 31.9922 37.3203 31.1719C37.4531 30.7031 37.4609 30.0469 37.4609 22.5C37.4609 14.9531 37.4531 14.2969 37.3203 13.8281C36.8672 12.1484 35.625 10.7969 34.0234 10.25L33.3984 10.0391L22.7344 10C14.8672 9.96875 12.0313 9.9375 11.9141 9.86719C11.4609 9.60938 11.2891 9.05469 11.5156 8.60938C11.7813 8.08594 11.0156 8.125 22.6953 8.14062L33.2813 8.16406V7.96094C33.2813 7.85156 33.2109 7.5625 33.125 7.3125C32.8438 6.49219 32.4844 5.92188 31.8359 5.27344C31.1016 4.53125 30.2578 4.07031 29.2813 3.875C28.7422 3.76562 27.8906 3.72656 27.5781 3.79688ZM29.8125 20.2422C30.2969 20.4766 30.7734 20.9453 31.0156 21.4453C31.1641 21.7656 31.2031 21.9609 31.2031 22.5C31.2109 23.1094 31.1875 23.2031 30.9453 23.6562C30.6563 24.1953 30.3203 24.5078 29.7656 24.7812C29.25 25.0312 28.2344 25.0234 27.6953 24.7656C25.6641 23.7812 25.8359 20.9062 27.9688 20.125C28.4531 19.9531 29.2969 20.0078 29.8125 20.2422Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
+            <span className="block xl:hidden h-6 w-6 text-white">
+              <Image src={"/wallet.svg"} width={500} height={500} alt="" />
             </span>
           </button>
         )}
+        <button onClick={BigetConnect}>tıkla</button>
       </nav>
+      <Modal title="Select Wallet" modal={modal} setModal={setModal}>
+        <div className="grid grid-cols-2 gap-3  px-6 text-black  font-bold p-6 bg-white">
+          <button
+            onClick={connecWallet}
+            className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+          >
+            <img src="/metamask2.svg" alt="" className="h-2/3" />
+            Metamask Wallet
+          </button>
+          <button
+            onClick={connecWallet}
+            className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+          >
+            <img src="/okx.svg" alt="" className="h-full" />
+            OKX Wallet
+          </button>
+          <button
+            onClick={connecWallet}
+            className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+          >
+            <img src="/tokenpocket.png" alt="" className="h-full" />
+            TokenPocket Wallet
+          </button>
+          <button
+            onClick={BigetConnect}
+            className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+          >
+            <img src="/bitget.svg" alt="" className="h-full" />
+            Bitget Wallet
+          </button>
+        </div>
+      </Modal>
     </>
   );
 }

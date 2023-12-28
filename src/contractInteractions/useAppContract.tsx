@@ -20,9 +20,9 @@ export const callRegister = async (
 ) => {
   try {
     const { contractWithSigner } = await callNFTContract();
-    let priceOfTier1 = await contractWithSigner.getNFTPrice(1);
-    let priceOfTier2 = await contractWithSigner.getNFTPrice(2);
-    let priceOfTier3 = await contractWithSigner.getNFTPrice(3);
+    let priceOfTier1 = process.env.NEXT_PUBLIC_TIER1 //await contractWithSigner.getNFTPrice(1);
+    let priceOfTier2 = process.env.NEXT_PUBLIC_TIER2 //await contractWithSigner.getNFTPrice(2);
+    let priceOfTier3 =process.env.NEXT_PUBLIC_TIER3 //await contractWithSigner.getNFTPrice(3);
     const weiValue = vipTier=== 1 ? priceOfTier1 : vipTier=== 2 ? priceOfTier2 : priceOfTier3
     console.log("weiValue", weiValue);
     

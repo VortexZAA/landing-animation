@@ -566,7 +566,8 @@ function m(t) {
   for (
     var e,
       n = document.getElementById(t),
-      i = n.innerHTML.replace("&amp;", "&").split(""),
+      //@ts-ignore
+      i = n?.innerHTML.replace("&amp;", "&").split(""),
       a = "",
       o = 0,
       s = i.length;

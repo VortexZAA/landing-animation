@@ -37,46 +37,7 @@ import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import { bigetConnect, bigetSwitch } from "@/lib/biget";
 import Modal from "./Modal";
-
-/* // Create a connector
-const connector = new WalletConnect({
-  bridge: 'https://bridge.walletconnect.org', // Required
-  qrcodeModal: QRCodeModal,
-});
-
-// Check if connection is already established
-if (!connector.connected) {
-  // create new session
-  connector.createSession();
-}
-
-// Subscribe to connection events
-connector.on('connect', (error, payload) => {
-  if (error) {
-    throw error;
-  }
-
-  // Get provided accounts and chainId
-  const { accounts, chainId } = payload.params[0];
-});
-
-connector.on('session_update', (error, payload) => {
-  if (error) {
-    throw error;
-  }
-
-  // Get updated accounts and chainId
-  const { accounts, chainId } = payload.params[0];
-});
-
-connector.on('disconnect', (error, payload) => {
-  if (error) {
-    throw error;
-  }
-
-  // Delete connector
-}); */
-//
+import ChainData from "@/data/chain.json";
 
 export default function SideBar() {
   const [selected, setSelected]: any = useState(1);
@@ -122,11 +83,11 @@ export default function SideBar() {
         });
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
-          localStorage.removeItem("address");
+          /* localStorage.removeItem("address");
           localStorage.removeItem("isEmty");
           localStorage.clear();
           dispatch(setClear());
-          router.push("/buy-badge");
+          router.push("/buy-badge"); */
           //router.reload();
         });
         checkIsAdmin();
@@ -299,6 +260,15 @@ export default function SideBar() {
     }
   }
   const [isAdmin, setIsAdmin] = useState(false);
+
+  async function tıkla() {
+    //@ts-ignore
+    await okxwallet.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: selectedChain }],
+    });
+  }
+
   async function connecWallet() {
     try {
       const { provider, ethereum } = Ethers();
@@ -318,16 +288,43 @@ export default function SideBar() {
           .getNetwork()
           .then((network: { name: any }) => network.name),
       ]);
-      
+
       checkIsAdmin();
 
       console.log("address", address);
       localStorage.setItem("address", address);
+      console.log("chainId", chainId);
+      //@ts-ignore
       dispatch(setAddress(address));
       setIsOpen(false);
       ToastSuccess({}).fire({
         title: "Your wallet is connected successfully.",
       });
+      if (chainId.toString() !== "97" || true) {
+        //@ts-ignore
+        ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: ChainData[selectedChain].chainId,
+              chainName: ChainData[selectedChain].name,
+              nativeCurrency: {
+                name: ChainData[selectedChain].nativeCurrency.name,
+                symbol: ChainData[selectedChain].nativeCurrency.symbol,
+                decimals: 18,
+              },
+              rpcUrls: ChainData[selectedChain].rpcUrls,
+              blockExplorerUrls: ChainData[selectedChain].blockExplorerUrls,
+            },
+          ],
+        }) ||
+          //@ts-ignore
+          ethereum?.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: ChainData[selectedChain].chainId }],
+          });
+      }
+
       router.push("/dashboard");
     } catch (error) {
       console.log(error);
@@ -533,7 +530,7 @@ export default function SideBar() {
       const res = await callGetNFTInfoBiget(ID);
       console.log(res); */
       await bigetConnect();
-      await bigetSwitch(selectedChain);
+      //await bigetSwitch(selectedChain);
 
       /*  */
     } catch (error) {
@@ -541,7 +538,7 @@ export default function SideBar() {
     }
   }
   const [modal, setModal] = useState(false);
-  const [selectedChain, setSelectedChain] = useState<"0x5dd" | "0x38">("0x38");
+  const [selectedChain, setSelectedChain] = useState<"0x61" | "0x5de">("0x61"); //<"0x5dd" | "0x38">("0x38");
   return (
     <>
       <nav className=" flex flex-col backdrop-blur-sm bg-white/10 w-fit xl:w-64 shrink-0 border-solid h-screen top-0  justify-between items-center text-white px-3 md:px-4 pb-6 md:pb-10 pt-3 md:pt-6 gap-3 md:gap-6 transition-  text-sm fixed z-50">
@@ -626,7 +623,7 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  setSelectedChain("0x38");
+                  setSelectedChain("0x61");
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
@@ -636,7 +633,7 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  setSelectedChain("0x5dd");
+                  setSelectedChain("0x5de");
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
@@ -671,7 +668,7 @@ export default function SideBar() {
             </span>
           </button>
         )}
-        <button onClick={BigetConnect}>tıkla</button>
+        <button className="hidden" onClick={tıkla}>tıkla</button>
       </nav>
       <Modal title="Select Wallet" modal={modal} setModal={setModal}>
         <div className="grid grid-cols-2 gap-3  px-6 text-black  font-bold p-6 bg-white">

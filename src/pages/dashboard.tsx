@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
       <Layout title="Dashboard">
-        <div className="flex flex-col gap-12  h-[85vh] justify-center items-center backdrop-blur-sm bg-white/10 rounded-xl shadow-md w-full overflow-auto ">
+        <div className="flex flex-col gap-12  h-[80vh] justify-center items-center backdrop-blur-sm bg-white/10 rounded-xl shadow-md w-full overflow-auto ">
           <FlowChartWithAutoLayout tokenId={false} />
         </div>
       </Layout>

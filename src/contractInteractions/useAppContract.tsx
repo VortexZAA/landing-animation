@@ -121,10 +121,10 @@ export const callGetReferralCodeForRight = async (user: string) => {
 };
 
 // Biriken ödülü çekmek için kullanılan fonksiyon
-export const callWithdraw = async () => {
+export const callWithdraw = async (amount: number) => {
   try {
     const { contractWithSigner } = await callNFTContract();
-    let tx = await contractWithSigner.distributeRewards();
+    let tx = await contractWithSigner.withdrawReward(amount);
     let receipt = await tx.wait();
     let hash = tx.hash;
     return { hash: hash, res: receipt };
@@ -166,6 +166,24 @@ export const callWithdraw = async () => {
     return false;
   }
 };
+
+export const callRefresh = async () => {
+  try {
+    const { contractWithSigner } = await callNFTContract();
+    let tx = await contractWithSigner.refresh();
+    let receipt = await tx.wait();
+    let hash = tx.hash;
+    return { hash: hash, res: receipt };
+  } catch (error) {
+    console.error("Error during refresh:", error);
+    /* alert("There was an error during the refresh process. Please try again."); */
+    ToastError.fire({
+      title:
+        "There was an error during the refresh process. Please try again.",
+    });
+    return false;
+  }
+}
 // Biriken refferal ödülünü çekmek için kullanılan fonksiyon
 export const claimReferralReward = async () => {
   try {

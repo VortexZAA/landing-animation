@@ -102,10 +102,10 @@ export default function SideBar() {
   const [chain, setChain]: any = useState(ChainData);
   async function checkChain(chainId: string) {
     //dispatch(setChainId(chainId));
-    if (chainId.toString() !== selectedChain) {
+    if (chainId.toString() !== "0x5dd") {
       const { name } = chain[chainId] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
-      const toNetwork = chain[selectedChain]?.name || "Binance Smart Chain2";
+      const toNetwork = chain["0x5dd"]?.name || "Binance Smart Chain2";
 
       await Swal.fire({
         title: "Please Change Network",
@@ -122,30 +122,28 @@ export default function SideBar() {
         if (result.isConfirmed) {
           window.ethereum?.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: chain[selectedChain].chainId }],
-          })||
-          window.ethereum.request({
-            method: "wallet_addEthereumChain",
-            params: [
-              {
-                chainId: chain[selectedChain].chainId,
-                chainName: chain[selectedChain].name,
-                nativeCurrency: {
-                  name: chain[selectedChain].nativeCurrency.name,
-                  symbol: chain[selectedChain].nativeCurrency.symbol,
-                  decimals: 18,
+            params: [{ chainId: chain["0x5dd"].chainId }],
+          }) ||
+            window.ethereum.request({
+              method: "wallet_addEthereumChain",
+              params: [
+                {
+                  chainId: chain["0x5dd"].chainId,
+                  chainName: chain["0x5dd"].name,
+                  nativeCurrency: {
+                    name: chain["0x5dd"].nativeCurrency.name,
+                    symbol: chain["0x5dd"].nativeCurrency.symbol,
+                    decimals: 18,
+                  },
+                  rpcUrls: chain["0x5dd"].rpcUrls,
+                  blockExplorerUrls: chain["0x5dd"].blockExplorerUrls,
                 },
-                rpcUrls: chain[selectedChain].rpcUrls,
-                blockExplorerUrls: chain[selectedChain].blockExplorerUrls,
-              },
-            ],
-          }) 
-           
-            
+              ],
+            });
         }
       });
     }
-    if (chainId.toString() === selectedChain) {
+    if (chainId.toString() === "0x5dd") {
       ToastSuccess({}).fire({
         title: "Network Changed",
       });
@@ -317,7 +315,6 @@ export default function SideBar() {
   }
   const [isAdmin, setIsAdmin] = useState(false);
 
-
   async function connecWallet() {
     try {
       const { provider, ethereum } = Ethers();
@@ -349,30 +346,32 @@ export default function SideBar() {
       ToastSuccess({}).fire({
         title: "Your wallet is connected successfully.",
       });
-      console.log("status",ethers.utils.formatEther(selectedChain));
+      console.log("status", ethers.utils.formatEther(selectedChain));
       dispatch(setChainId(selectedChain));
-      if (chainId.toString() !== ethers.utils.formatEther(selectedChain).toString()) {
+      if (
+        chainId.toString() !==
+        ethers.utils.formatEther(selectedChain).toString()
+      ) {
         ethereum?.request({
           method: "wallet_switchEthereumChain",
           params: [{ chainId: chain[selectedChain].chainId }],
         }) ||
-        ethereum.request({
-          method: "wallet_addEthereumChain",
-          params: [
-            {
-              chainId: chain[selectedChain].chainId,
-              chainName: chain[selectedChain].name,
-              nativeCurrency: {
-                name: chain[selectedChain].nativeCurrency.name,
-                symbol: chain[selectedChain].nativeCurrency.symbol,
-                decimals: 18,
+          ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: chain[selectedChain].chainId,
+                chainName: chain[selectedChain].name,
+                nativeCurrency: {
+                  name: chain[selectedChain].nativeCurrency.name,
+                  symbol: chain[selectedChain].nativeCurrency.symbol,
+                  decimals: 18,
+                },
+                rpcUrls: chain[selectedChain].rpcUrls,
+                blockExplorerUrls: chain[selectedChain].blockExplorerUrls,
               },
-              rpcUrls: chain[selectedChain].rpcUrls,
-              blockExplorerUrls: chain[selectedChain].blockExplorerUrls,
-            },
-          ],
-        }) 
-          
+            ],
+          });
       }
       //console.log("hexlify", ethers.utils.hexlify(selectedChain));
 
@@ -580,13 +579,13 @@ export default function SideBar() {
     }
   }
   const [modal, setModal] = useState(false);
-  const [selectedChain, setSelectedChain]= useState<string>("0x38"); //<"0x5dd" | "0x38">("0x38");
+  const [selectedChain, setSelectedChain] = useState<string>("0x38"); //<"0x5dd" | "0x38">("0x38");
   useEffect(() => {
     localStorage.setItem("chainId", chainId);
     setSelectedChain(chainId);
   }, [chainId]);
   console.log();
-  
+
   return (
     <>
       <nav className=" flex flex-col backdrop-blur-sm bg-white/10 w-fit xl:w-64 shrink-0 border-solid h-screen top-0  justify-between items-center text-white px-3 md:px-4 pb-6 md:pb-10 pt-3 md:pt-6 gap-3 md:gap-6 transition-  text-sm fixed z-50">
@@ -674,7 +673,7 @@ export default function SideBar() {
                   setSelectedChain("0x38");
                   dispatch(setChainId("0x38"));
                 }}
-                className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+                className="w-full hidden h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
                 <img src="/bnb.svg" alt="" className="h-full" />
                 BNB Chain
@@ -730,7 +729,8 @@ export default function SideBar() {
             }}
             className="w-fit xl:w-full p-3 -mt-3 h-12 bg-red-500 hover:bg-500/90 transition-colors text-white rounded-md xl:mx-6"
           >
-            Disconnect
+            <span className="hidden xl:block" >Disconnect</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className=" block xl:hidden h-full w-fit" viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
           </button>
         )}
       </nav>

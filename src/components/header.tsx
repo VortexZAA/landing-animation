@@ -141,12 +141,12 @@ export default function Header() {
   );
 }
 const menu = [
-  {
+  /* {
     id: 1,
     title: "Community",
     link: "https://twitter.com/SoulBound_BTC",
     target: "_blank",
-  },
+  }, */
   {
     id: 2,
     title: "Whitepaper",
@@ -155,8 +155,8 @@ const menu = [
   },
   {
     id: 2,
-    title: "One Pager",
-    link: "/documents/soulbound-protocol-onepager.pdf",
+    title: "Docs",
+    link: "https://soulbound-1.gitbook.io/soulbound-btc-allpaper/",
     target: "_blank",
   },
   {

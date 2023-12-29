@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -22,6 +23,7 @@ export default function Intro() {
           SoulBound Protocol
         </h1>
       </div>
+      <Footer status={true}/>
     </>
   );
 }

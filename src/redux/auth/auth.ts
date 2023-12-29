@@ -39,7 +39,7 @@ const initialState: AuthState = {
 	hidden: true,
 	status: 'loading',
   change: false,
-  chainId: ''
+  chainId: '0x5dd'
 };
 
 

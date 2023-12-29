@@ -51,7 +51,7 @@ export function bigetDisconnect() {
       console.log(error);
     });
 }
-export async function bigetSwitch(chain:"0x38"|"0x5dd") {
+export async function bigetSwitch(chain:string) {
   //@ts-ignore
   const provider = window.bitkeep && window.bitkeep.ethereum;
 

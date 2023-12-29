@@ -79,7 +79,7 @@
 	"token": "BTC",
 	"chainName": "Bevm",
 	"nativeCurrency": { "name": "Bitcoin", "symbol": "BTC", "decimals": 18 },
-	"rpcUrls": ["https://rpc.bevm.io/rpc"],
+	"rpcUrls": ["https://rpc-2.bevm.io"],
 	"blockExplorerUrls": ["https://scan.bevm.io/"]
   }
 }

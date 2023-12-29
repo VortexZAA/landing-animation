@@ -101,13 +101,13 @@ export default function SideBar() {
   });
   const [chain, setChain]: any = useState(ChainData);
   async function checkChain(chainId: string) {
-    setChainId(chainId);
+    //dispatch(setChainId(chainId));
     if (chainId.toString() !== selectedChain) {
       const { name } = chain[chainId] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
-      const toNetwork = chain[selectedChain]?.name || "Binance Smart Chain";
+      const toNetwork = chain[selectedChain]?.name || "Binance Smart Chain2";
 
-      const result = await Swal.fire({
+      await Swal.fire({
         title: "Please Change Network",
         text: `From ${fromNetwork} to ${toNetwork}`,
         icon: "warning",
@@ -118,39 +118,40 @@ export default function SideBar() {
         confirmButtonColor: "#282828",
         color: "#fff",
         confirmButtonText: "Yes, Change It!",
-      });
-      if (result.isConfirmed) {
-        //@ts-ignore
-        window.ethereum.request({
-          method: "wallet_addEthereumChain",
-          params: [
-            {
-              chainId: ChainData[selectedChain].chainId,
-              chainName: ChainData[selectedChain].name,
-              nativeCurrency: {
-                name: ChainData[selectedChain].nativeCurrency.name,
-                symbol: ChainData[selectedChain].nativeCurrency.symbol,
-                decimals: 18,
-              },
-              rpcUrls: ChainData[selectedChain].rpcUrls,
-              blockExplorerUrls: ChainData[selectedChain].blockExplorerUrls,
-            },
-          ],
-        }) ||
-          //@ts-ignore
+      }).then((result) => {
+        if (result.isConfirmed) {
           window.ethereum?.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: ChainData[selectedChain].chainId }],
-          });
-        if (chainId.toString() === selectedChain) {
-          /* ToastSuccess({}).fire({
-            title: "Network Changed",
-          }); */
+            params: [{ chainId: chain[selectedChain].chainId }],
+          })||
+          window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: chain[selectedChain].chainId,
+                chainName: chain[selectedChain].name,
+                nativeCurrency: {
+                  name: chain[selectedChain].nativeCurrency.name,
+                  symbol: chain[selectedChain].nativeCurrency.symbol,
+                  decimals: 18,
+                },
+                rpcUrls: chain[selectedChain].rpcUrls,
+                blockExplorerUrls: chain[selectedChain].blockExplorerUrls,
+              },
+            ],
+          }) 
+           
+            
         }
-      }
+      });
+    }
+    if (chainId.toString() === selectedChain) {
+      ToastSuccess({}).fire({
+        title: "Network Changed",
+      });
+      router.reload();
     }
   }
-
   async function checkIsAdmin() {
     if (address === process.env.NEXT_PUBLIC_ADMIN_ADDRESS) {
       setIsAdmin(true);
@@ -316,13 +317,6 @@ export default function SideBar() {
   }
   const [isAdmin, setIsAdmin] = useState(false);
 
-  async function tıkla() {
-    //@ts-ignore
-    await okxwallet.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: selectedChain }],
-    });
-  }
 
   async function connecWallet() {
     try {
@@ -355,31 +349,32 @@ export default function SideBar() {
       ToastSuccess({}).fire({
         title: "Your wallet is connected successfully.",
       });
-      if (chainId.toString() !== ethers.utils.hexlify(selectedChain)) {
-        //@ts-ignore
+      console.log("status",ethers.utils.formatEther(selectedChain));
+      dispatch(setChainId(selectedChain));
+      if (chainId.toString() !== ethers.utils.formatEther(selectedChain).toString()) {
+        ethereum?.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: chain[selectedChain].chainId }],
+        }) ||
         ethereum.request({
           method: "wallet_addEthereumChain",
           params: [
             {
-              chainId: ChainData[selectedChain].chainId,
-              chainName: ChainData[selectedChain].name,
+              chainId: chain[selectedChain].chainId,
+              chainName: chain[selectedChain].name,
               nativeCurrency: {
-                name: ChainData[selectedChain].nativeCurrency.name,
-                symbol: ChainData[selectedChain].nativeCurrency.symbol,
+                name: chain[selectedChain].nativeCurrency.name,
+                symbol: chain[selectedChain].nativeCurrency.symbol,
                 decimals: 18,
               },
-              rpcUrls: ChainData[selectedChain].rpcUrls,
-              blockExplorerUrls: ChainData[selectedChain].blockExplorerUrls,
+              rpcUrls: chain[selectedChain].rpcUrls,
+              blockExplorerUrls: chain[selectedChain].blockExplorerUrls,
             },
           ],
-        }) ||
-          //@ts-ignore
-          ethereum?.request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: ChainData[selectedChain].chainId }],
-          });
+        }) 
+          
       }
-      console.log("hexlify", ethers.utils.hexlify(selectedChain));
+      //console.log("hexlify", ethers.utils.hexlify(selectedChain));
 
       router.push("/dashboard");
     } catch (error) {
@@ -585,10 +580,13 @@ export default function SideBar() {
     }
   }
   const [modal, setModal] = useState(false);
-  const [selectedChain, setSelectedChain] = useState<"0x38" | "0x5dd">("0x38"); //<"0x5dd" | "0x38">("0x38");
+  const [selectedChain, setSelectedChain]= useState<string>("0x38"); //<"0x5dd" | "0x38">("0x38");
   useEffect(() => {
     localStorage.setItem("chainId", chainId);
+    setSelectedChain(chainId);
   }, [chainId]);
+  console.log();
+  
   return (
     <>
       <nav className=" flex flex-col backdrop-blur-sm bg-white/10 w-fit xl:w-64 shrink-0 border-solid h-screen top-0  justify-between items-center text-white px-3 md:px-4 pb-6 md:pb-10 pt-3 md:pt-6 gap-3 md:gap-6 transition-  text-sm fixed z-50">
@@ -720,21 +718,27 @@ export default function SideBar() {
             </span>
           </button>
         )}
-        {address && <button
-          type="button"
-          onClick={() => {
-            localStorage.removeItem("address");
-            localStorage.removeItem("isEmty");
-            localStorage.clear();
-            dispatch(setClear());
-            router.push("/buy-badge");
-          }}
-          className="w-fit xl:w-full p-3 -mt-3 h-12 bg-red-500 hover:bg-500/90 transition-colors text-white rounded-md xl:mx-6"
-        >
-          Disconnect
-        </button>}
+        {address && (
+          <button
+            type="button"
+            onClick={() => {
+              localStorage.removeItem("address");
+              localStorage.removeItem("isEmty");
+              localStorage.clear();
+              dispatch(setClear());
+              router.push("/buy-badge");
+            }}
+            className="w-fit xl:w-full p-3 -mt-3 h-12 bg-red-500 hover:bg-500/90 transition-colors text-white rounded-md xl:mx-6"
+          >
+            Disconnect
+          </button>
+        )}
       </nav>
-      <Modal title="Select Wallet" modal={address ? false : modal} setModal={setModal}>
+      <Modal
+        title="Select Wallet"
+        modal={address ? false : modal}
+        setModal={setModal}
+      >
         <div className="grid grid-cols-2 gap-3  px-6 text-black  font-bold p-6 bg-white">
           <button
             onClick={connecWallet}

@@ -81,16 +81,16 @@ export default function SideBar() {
           localStorage.clear();
           dispatch(setClear());
           router.push("/buy-badge");
-          //router.reload();
+          router.reload();
         });
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
-          /* localStorage.removeItem("address");
+          localStorage.removeItem("address");
           localStorage.removeItem("isEmty");
           localStorage.clear();
           dispatch(setClear());
-          router.push("/buy-badge"); */
-          //router.reload();
+          router.push("/buy-badge");
+          router.reload();
           checkChain(chainId);
         });
         checkIsAdmin();

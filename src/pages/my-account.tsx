@@ -102,13 +102,13 @@ export default function Personel() {
       const numberWithdraw = tempWithdraw as number;
       console.log(numberWithdraw);
       const withdraw18: any = parseTo18Decimals(numberWithdraw);
-      const res: any = await callWithdraw();
+      /* const res: any = await callWithdraw();
       console.log(res);
       if (res) {
         ToastSuccess({ tHashLink: res.hash }).fire({
           title: "Transaction Successful",
         });
-      }
+      } */
       dispatch(setLoading(false));
     } catch (error) {
       console.log(error);

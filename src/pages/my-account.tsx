@@ -24,6 +24,7 @@ import Modal from "@/components/Modal";
 import LvlRatio from "@/hook/lvlratio";
 import { parseTo18Decimals } from "@/hook/parse18decimals";
 import BtcIcon from "@/components/icons/btc";
+import BnbIcon from "@/components/icons/bnb";
 
 export default function Personel() {
   const [withdrawNum, setwithdrawNum] = useState("");
@@ -46,6 +47,7 @@ export default function Personel() {
     referralIncome,
     lvl,
     lowPotentiel,
+    chainId,
   } = reduxData;
 
   const dispatch = useAppDispatch();
@@ -197,7 +199,7 @@ export default function Personel() {
               <div>
                 <h4 className="text-gray-400">Total Revenue</h4>
                 <div className="flex gap-2 items-center h-8">
-                  <BtcIcon />
+                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
                   <h1>{totalRevenue}</h1>
                 </div>
               </div>
@@ -229,14 +231,14 @@ export default function Personel() {
               <div className="">
                 <h4 className="text-gray-400">Branching Reward</h4>
                 <div className="flex gap-2 items-center h-8">
-                  <BtcIcon />
+                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
                   <h2>{referralIncome}</h2>
                 </div>
               </div>
               <div className="">
                 <h4 className="text-gray-400">Harvesting Reward</h4>
                 <div className="flex gap-2 items-center h-8">
-                  <BtcIcon />
+                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
                   <h2>{withdrawableBalance}</h2>
                 </div>
               </div>

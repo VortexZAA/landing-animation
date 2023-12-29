@@ -19,6 +19,7 @@
     "@splinetool/runtime": "^0.9.498",
     "@walletconnect/client": "^1.8.0",
     "@walletconnect/qrcode-modal": "^1.8.0",
+    "axios": "^1.6.3",
     "dagre": "^0.8.5",
     "ethers": "^5.7",
     "lodash": "^4.17.21",

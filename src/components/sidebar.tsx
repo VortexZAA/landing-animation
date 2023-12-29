@@ -143,9 +143,9 @@ export default function SideBar() {
             params: [{ chainId: ChainData[selectedChain].chainId }],
           });
         if (chainId.toString() === selectedChain) {
-          ToastSuccess({}).fire({
+          /* ToastSuccess({}).fire({
             title: "Network Changed",
-          });
+          }); */
         }
       }
     }

@@ -50,9 +50,10 @@ export default function NftBuy() {
     try {
       dispatch(setLoading(true));
       console.log([uInput1, 1]);
-      const tempInput1 = uInput1 as unknown;
-      const numberInput1 = tempInput1 as number;
-      const tx: any = await callRegister(numberInput1, 1, address);
+      // random number 1-2
+      const rndNumber = Math.floor(Math.random() * 2);
+      const tempInput1 = uInput1||  childRef[rndNumber];
+      const tx: any = await callRegister(tempInput1, 1, address);
       tx &&
         ToastSuccess({
           tHashLink: tx.hash,
@@ -73,14 +74,20 @@ export default function NftBuy() {
   const refVip1 = (event: any) => {
     setuInput1(event.target.value);
   };
-
+  const childRef = [
+    process.env.NEXT_PUBLIC_LEFT_NODE as string,
+    process.env.NEXT_PUBLIC_RIGHT_NODE as string,
+  ]
   async function buyVip2() {
     try {
       dispatch(setLoading(true));
       console.log([uInput2, 2]);
-      const tempInput2 = uInput2 as unknown;
-      const numberInput2 = tempInput2 as number;
-      const tx: any = await callRegister(numberInput2, 2, address);
+      // random number 1-2
+      const rndNumber = Math.floor(Math.random() * 2);
+      const tempInput2 = uInput2 ||  childRef[rndNumber];
+      
+      
+      const tx: any = await callRegister(tempInput2, 2, address);
       tx &&
         ToastSuccess({
           tHashLink: tx.hash,
@@ -106,9 +113,10 @@ export default function NftBuy() {
     try {
       dispatch(setLoading(true));
       console.log([uInput3, 3]);
-      const tempInput3 = uInput3 as unknown;
-      const numberInput3 = tempInput3 as number;
-      const tx: any = await callRegister(numberInput3, 3, address);
+      // random number 1-2
+      const rndNumber = Math.floor(Math.random() * 2);
+      const tempInput3 = uInput3 || childRef[rndNumber];
+      const tx: any = await callRegister(tempInput3, 3, address);
       tx &&
         ToastSuccess({
           tHashLink: tx.hash,
@@ -158,18 +166,18 @@ export default function NftBuy() {
           ) */
       });
       const { contractWithSigner } = await callBevmNFTContract();
-      const sats1 =
-        chainId !== "0x38"
+      const sats1 =ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
+        /* chainId !== "0x38"
           ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
-          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(1));
-      const sats2 =
-        chainId !== "0x38"
+          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(1)); */
+      const sats2 = ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
+        /* chainId !== "0x38"
           ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
-          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(2));
-      const sats3 =
-        chainId !== "0x38"
+          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(2)); */
+      const sats3 = ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
+        /* chainId !== "0x38"
           ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
-          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(3));
+          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(3)); */
       setSats({
         sats1:Number(sats1),
         sats2: Number(sats2),
@@ -200,7 +208,7 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-10 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 1" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip1 rounded-md">
-                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
+                {/* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon/>}
                 {sats.sats1.toFixed(6)}
                 {""} = {price?.vip1.toFixed(0)}$
               </div>
@@ -224,7 +232,7 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 2" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip2 rounded-md">
-                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
+                {/* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon/>}
                 {sats.sats2.toFixed(6)}
                 {""} = {price?.vip2?.toFixed(0)}$
               </div>
@@ -248,7 +256,7 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 3" />
               <div className="flex justify-center items-center  gap-3 border-2 p-6 border-vip3 rounded-md">
-                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
+                {/* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon/>}
                 {sats.sats3.toFixed(6)}
                 {""} = {price?.vip3?.toFixed(0)}$
               </div>

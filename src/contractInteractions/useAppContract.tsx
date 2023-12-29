@@ -102,7 +102,7 @@ export const callRegisterForBNB = async (
 
 //BEVM NFT
 export const callRegister = async (
-  refferal: number,
+  refferal: string,
   vipTier: number,
   minterAddres: string,
   etherAmount?: string

@@ -25,7 +25,21 @@ import LvlRatio from "@/hook/lvlratio";
 import { parseTo18Decimals } from "@/hook/parse18decimals";
 import BtcIcon from "@/components/icons/btc";
 import BnbIcon from "@/components/icons/bnb";
-
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: '0px solid #dadde9',
+  },
+}));
 export default function Personel() {
   const [withdrawNum, setwithdrawNum] = useState("");
 
@@ -149,7 +163,6 @@ export default function Personel() {
     }
   }
 
-  
   async function ClaimReferralReward() {
     try {
       dispatch(setLoading(true));
@@ -199,7 +212,9 @@ export default function Personel() {
               <div>
                 <h4 className="text-gray-400">Total Revenue</h4>
                 <div className="flex gap-2 items-center h-8">
-                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
+                  {
+                    /* chainId === "0x38" ? <BnbIcon /> : <BtcIcon />*/ <BtcIcon />
+                  }
                   <h1>{totalRevenue}</h1>
                 </div>
               </div>
@@ -231,14 +246,18 @@ export default function Personel() {
               <div className="">
                 <h4 className="text-gray-400">Branching Reward</h4>
                 <div className="flex gap-2 items-center h-8">
-                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
+                  {
+                    /* chainId === "0x38" ? <BnbIcon /> : <BtcIcon />*/ <BtcIcon />
+                  }
                   <h2>{referralIncome}</h2>
                 </div>
               </div>
               <div className="">
                 <h4 className="text-gray-400">Harvesting Reward</h4>
                 <div className="flex gap-2 items-center h-8">
-                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
+                  {
+                    /* chainId === "0x38" ? <BnbIcon /> : <BtcIcon />*/ <BtcIcon />
+                  }
                   <h2>{withdrawableBalance}</h2>
                 </div>
               </div>
@@ -304,26 +323,7 @@ export default function Personel() {
             <div className="flex flex-col gap-2">
               <h3 className="text-gray-400 flex gap-3">
                 Maximum Withdraw Amount This Week{" "}
-                <button
-                  type="button"
-                  onMouseOver={() => {}}
-                  className="text-gray-300 hover:text-gray-700 transition-colors"
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM12.2666 11C12.8189 11 13.2666 11.4477 13.2666 12V16C13.2666 16.5523 12.8189 17 12.2666 17C11.7143 17 11.2666 16.5523 11.2666 16V12C11.2666 11.4477 11.7143 11 12.2666 11ZM11.2666 8C11.2666 7.44772 11.7143 7 12.2666 7H12.2766C12.8289 7 13.2766 7.44772 13.2766 8C13.2766 8.55228 12.8289 9 12.2766 9H12.2666C11.7143 9 11.2666 8.55228 11.2666 8Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </button>
+                
               </h3>
               <h2>$ {vipLvl === 1 ? 2500 : vipLvl === 2 ? 5000 : 10000}</h2>
             </div>
@@ -374,7 +374,54 @@ export default function Personel() {
           </div>
         </div>
         <div className="flex flex-col col-span-2 p-3 md:p-4 2xl:p-6 gap-3 backdrop-blur-sm bg-white/10 rounded-xl shadow-md w-ful">
-          <h2 className="mb-3">Referral Codes</h2>
+          <div className="flex gap-3 items-center">
+            <h2 className="mb-3">Referral Codes</h2>
+            <HtmlTooltip
+              title={
+                <React.Fragment>
+                  <Typography color="inherit">Each code can be used unlimited times</Typography>
+                </React.Fragment>
+              }
+            >
+              <button className="flex items-center pb-1">
+                <svg
+                  className="h-6 w-fit"
+                  viewBox="0 0 12 12"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_885_2323)">
+                    <path
+                      d="M6 11.25C8.89949 11.25 11.25 8.89949 11.25 6C11.25 3.1005 8.89949 0.75 6 0.75C3.1005 0.75 0.75 3.1005 0.75 6C0.75 8.89949 3.1005 11.25 6 11.25Z"
+                      stroke="#999999"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6 6V8.25"
+                      stroke="#999999"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6 3.75H6.005"
+                      stroke="#999999"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_885_2323">
+                      <rect width="12" height="12" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </button>
+            </HtmlTooltip>
+          </div>
           <span className="text-gray-400">Left Referral Code</span>
           <div className="flex-col md:flex-row flex justify-between items-center gap-3">
             <div className="border-gray-200 w-full border-2 flex justify-between p-3 rounded-lg ">
@@ -464,7 +511,6 @@ export default function Personel() {
           </div>
         </form>
       </Modal>
-     
     </Layout>
   );
 }

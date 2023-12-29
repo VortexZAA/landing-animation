@@ -30,6 +30,7 @@ import {
   setReferralIncome,
   setLvl,
   setLowPotentiel,
+  setChainId,
 } from "@/redux/auth/auth";
 import Image from "next/image";
 import CloseBtn from "./icons/close";
@@ -38,6 +39,7 @@ import QRCodeModal from "@walletconnect/qrcode-modal";
 import { bigetConnect, bigetSwitch } from "@/lib/biget";
 import Modal from "./Modal";
 import ChainData from "@/data/chain.json";
+import Swal from "sweetalert2";
 
 export default function SideBar() {
   const [selected, setSelected]: any = useState(1);
@@ -46,7 +48,7 @@ export default function SideBar() {
 
   const [isOpen, setIsOpen] = useState(false);
   const reduxData = useAppSelector(selectData);
-  const { address, isEmty } = reduxData;
+  const { address, isEmty, chainId } = reduxData;
   const dispatch = useAppDispatch();
   function Close() {
     setIsOpen(false);
@@ -89,6 +91,7 @@ export default function SideBar() {
           dispatch(setClear());
           router.push("/buy-badge"); */
           //router.reload();
+          checkChain(chainId);
         });
         checkIsAdmin();
       } catch (err) {
@@ -96,6 +99,58 @@ export default function SideBar() {
       }
     }
   });
+  const [chain, setChain]: any = useState(ChainData);
+  async function checkChain(chainId: string) {
+    setChainId(chainId);
+    if (chainId.toString() !== selectedChain) {
+      const { name } = chain[chainId] || { name: "UNKNOW" };
+      const fromNetwork = name || "Unknown Network";
+      const toNetwork = chain[selectedChain]?.name || "Binance Smart Chain";
+
+      const result = await Swal.fire({
+        title: "Please Change Network",
+        text: `From ${fromNetwork} to ${toNetwork}`,
+        icon: "warning",
+        iconColor: "#fff",
+        showCancelButton: false,
+        backdrop: true,
+        background: "#191919",
+        confirmButtonColor: "#282828",
+        color: "#fff",
+        confirmButtonText: "Yes, Change It!",
+      });
+      if (result.isConfirmed) {
+        //@ts-ignore
+        window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: ChainData[selectedChain].chainId,
+              chainName: ChainData[selectedChain].name,
+              nativeCurrency: {
+                name: ChainData[selectedChain].nativeCurrency.name,
+                symbol: ChainData[selectedChain].nativeCurrency.symbol,
+                decimals: 18,
+              },
+              rpcUrls: ChainData[selectedChain].rpcUrls,
+              blockExplorerUrls: ChainData[selectedChain].blockExplorerUrls,
+            },
+          ],
+        }) ||
+          //@ts-ignore
+          window.ethereum?.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: ChainData[selectedChain].chainId }],
+          });
+        if (chainId.toString() === selectedChain) {
+          ToastSuccess({}).fire({
+            title: "Network Changed",
+          });
+        }
+      }
+    }
+  }
+
   async function checkIsAdmin() {
     if (address === process.env.NEXT_PUBLIC_ADMIN_ADDRESS) {
       setIsAdmin(true);
@@ -300,7 +355,7 @@ export default function SideBar() {
       ToastSuccess({}).fire({
         title: "Your wallet is connected successfully.",
       });
-      if (chainId.toString() !== "97" || true) {
+      if (chainId.toString() !== ethers.utils.hexlify(selectedChain)) {
         //@ts-ignore
         ethereum.request({
           method: "wallet_addEthereumChain",
@@ -324,6 +379,7 @@ export default function SideBar() {
             params: [{ chainId: ChainData[selectedChain].chainId }],
           });
       }
+      console.log("hexlify", ethers.utils.hexlify(selectedChain));
 
       router.push("/dashboard");
     } catch (error) {
@@ -520,17 +576,8 @@ export default function SideBar() {
   ];
   async function BigetConnect() {
     try {
-      /* const id = await callGetNFT(
-        "0xa89F5B9196BaA0cc8a944eB0b6c4Cd7423517c4A"
-      );
-      console.log("id", id);
-      let ID = Number(id);
-       const res2 = await callGetNFTInfo(ID);
-      console.log(res2); 
-      const res = await callGetNFTInfoBiget(ID);
-      console.log(res); */
       await bigetConnect();
-      //await bigetSwitch(selectedChain);
+      await bigetSwitch(selectedChain);
 
       /*  */
     } catch (error) {
@@ -538,7 +585,7 @@ export default function SideBar() {
     }
   }
   const [modal, setModal] = useState(false);
-  const [selectedChain, setSelectedChain] = useState<"0x61" | "0x5de">("0x61"); //<"0x5dd" | "0x38">("0x38");
+  const [selectedChain, setSelectedChain] = useState<"0x38" | "0x5dd">("0x38"); //<"0x5dd" | "0x38">("0x38");
   return (
     <>
       <nav className=" flex flex-col backdrop-blur-sm bg-white/10 w-fit xl:w-64 shrink-0 border-solid h-screen top-0  justify-between items-center text-white px-3 md:px-4 pb-6 md:pb-10 pt-3 md:pt-6 gap-3 md:gap-6 transition-  text-sm fixed z-50">
@@ -623,7 +670,8 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  setSelectedChain("0x61");
+                  setSelectedChain("0x38");
+                  setChainId("0x38");
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
@@ -633,7 +681,8 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  setSelectedChain("0x5de");
+                  setSelectedChain("0x5dd");
+                  setChainId("0x5dd");
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
@@ -668,7 +717,9 @@ export default function SideBar() {
             </span>
           </button>
         )}
-        <button className="hidden" onClick={tıkla}>tıkla</button>
+        <button className="hidden" onClick={tıkla}>
+          tıkla
+        </button>
       </nav>
       <Modal title="Select Wallet" modal={modal} setModal={setModal}>
         <div className="grid grid-cols-2 gap-3  px-6 text-black  font-bold p-6 bg-white">

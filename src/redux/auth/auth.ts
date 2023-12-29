@@ -18,6 +18,7 @@ export interface AuthState {
 	hidden: boolean;
   change: boolean
 	status: 'idle' | 'loading' | 'failed';
+  chainId: string;
 
 }
 
@@ -38,6 +39,7 @@ const initialState: AuthState = {
 	hidden: true,
 	status: 'loading',
   change: false,
+  chainId: '0x38'
 };
 
 
@@ -103,6 +105,9 @@ export const AuthSlice = createSlice({
     },
     setLowPotentiel: (state, action: PayloadAction<number>) => {
       state.lowPotentiel = action.payload;
+    },
+    setChainId: (state, action: PayloadAction<string>) => {
+      state.chainId = action.payload;
     }
 
 		
@@ -140,8 +145,8 @@ export const {
   setDownlines,
   setReferralIncome,
   setLvl, 
-  setLowPotentiel
-
+  setLowPotentiel,
+  setChainId
 } = AuthSlice.actions;
 
 
@@ -163,7 +168,8 @@ export const selectData = (state: RootState) => ({
   downlines: state.Auth.downlines,
   referralIncome: state.Auth.referralIncome,
   lvl: state.Auth.lvl, 
-  lowPotentiel: state.Auth.lowPotentiel
+  lowPotentiel: state.Auth.lowPotentiel,
+  chainId: state.Auth.chainId
 });
 
 

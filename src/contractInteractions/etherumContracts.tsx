@@ -2,21 +2,27 @@ import { ethers } from "ethers";
 import bnbNFT from "@/abi/bnbMLM.json";
 import bevmNFT from "@/abi/bevmMLM.json";
 import tokenAbi from "@/abi/token.json";
+import { useAppSelector } from "@/hook/redux/hooks";
+import { selectData } from "@/redux/auth/auth";
 declare global {
   interface Window {
     ethereum: any;
   }
 }
+const NFTContractBNB = process.env.NEXT_PUBLIC_CONTRACT as string;
+const NFTContractBEVM = process.env.NEXT_PUBLIC_CONTRACT2 as string;
 
 export const callNFTContract = async () => {
+  const reduxData = useAppSelector(selectData);
+  const { chainId } = reduxData;
   const metamaskAddress = await window.ethereum.request({
     method: "eth_requestAccounts",
   });
   const msgSender = metamaskAddress[0];
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const abi = bnbNFT;
-  const NFTContractAddress = process.env.NEXT_PUBLIC_CONTRACT as string;
+  const abi = chainId === "0x38" ? bnbNFT : bevmNFT;
+  const NFTContractAddress = chainId === "0x38" ? NFTContractBNB :  NFTContractBEVM;
   const NFTContract = new ethers.Contract(NFTContractAddress, abi, signer);
   const contractWithSigner = NFTContract.connect(signer);
   return { contractWithSigner, NFTContractAddress, abi, msgSender };
@@ -37,6 +43,7 @@ export const callBevmNFTContract = async () => {
 };
 
 export const callTokenContract = async () => {
+  
   const metamaskAddress = await window.ethereum.request({
     method: "eth_requestAccounts",
   });

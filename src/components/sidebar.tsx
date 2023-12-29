@@ -717,9 +717,19 @@ export default function SideBar() {
             </span>
           </button>
         )}
-        <button className="hidden" onClick={tıkla}>
-          tıkla
-        </button>
+        {address && <button
+          type="button"
+          onClick={() => {
+            localStorage.removeItem("address");
+            localStorage.removeItem("isEmty");
+            localStorage.clear();
+            dispatch(setClear());
+            router.push("/buy-badge");
+          }}
+          className="w-fit xl:w-full p-3 -mt-3 h-12 bg-red-500 hover:bg-500/90 transition-colors text-white rounded-md xl:mx-6"
+        >
+          Disconnect
+        </button>}
       </nav>
       <Modal title="Select Wallet" modal={modal} setModal={setModal}>
         <div className="grid grid-cols-2 gap-3  px-6 text-black  font-bold p-6 bg-white">

@@ -44,7 +44,7 @@ export default function Mint({ address }: { address: string }) {
       ToastSuccess({
         tHashLink: txHash,
       }).fire({
-        title: "Transaction Successful",
+        title: "Inscribe Successful",
       });
       setTxHash(res.data.data);
     } catch (error: any) {
@@ -132,26 +132,26 @@ export default function Mint({ address }: { address: string }) {
           />
         </div>
       </div>
-      <div className="flex justify-center w-full">
+      <div className="flex flex-col gap-3 items-center justify-start w-full">
         <button
           type="submit"
           className="bg-btnActive px-6 py-3 w-2/3 flex text-white rounded-lg text-center justify-center hover:bg-gray-700 hover:text-white transition-colors border border-black hover:border-white text-xl"
         >
           Inscribe
         </button>
-        PayAddress:{" " + txHash?.payAddress}
-        <br />
-        Amount: {" " + txHash?.amount} sats
-        <br />
-        OrderId: {" " + txHash?.orderId}
-        <button
-          onClick={() => sendBtc(txHash?.payAddress, txHash?.amount)}
-          type="button"
-          className="bg-white text-black w-fit p-3 rounded-md"
-        >
-          Transfer
-        </button>
       </div>
+      PayAddress:{" " + txHash?.payAddress}
+      <br />
+      Amount: {" " + txHash?.amount} sats
+      <br />
+      OrderId: {" " + txHash?.orderId}
+      <button
+        onClick={() => sendBtc(txHash?.payAddress, txHash?.amount)}
+        type="button"
+        className="bg-white text-black w-fit p-3 rounded-md"
+      >
+        Transfer
+      </button>
     </form>
   );
 }

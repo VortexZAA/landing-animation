@@ -36,7 +36,7 @@ export default function Deploy({ address }: { address: string }) {
           },
         }
       );
-      console.log(res);
+      //console.log(res);
       console.log(res.data);
       let txHash = ""/*  res?.data?.txid */;
       ToastSuccess({

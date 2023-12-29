@@ -3,15 +3,99 @@ import {
   callNFTContract,
   callNFTContractBiget,
   callTokenContract,
+  callBevmNFTContract,
 } from "./etherumContracts";
 import { ToastError } from "@/components/alert/SweatAlert";
 import Ethers from "@/lib/ethers";
+
+//**************************************************************
+/*
+TODO:
+Fonksiyonlar bevm için ayrı bnb için ayrı çağırılacağıından 
+contractWithSigner'ı fonksiyonlara parametre olarak göndermek gerekecek.
+Networke göre doğru contractWithSigner seçildiğinden emin olunmalı.
+*/
 
 const marketContract = process.env.NEXT_PUBLIC_MARKETPLACE as string;
 const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 //NFT Functions
 
 // NFT satın almak için kullanılan fonksiyon
+//BNB NFT
+export const callRegisterForBNB = async (
+  refferal: number,
+  vipTier: number,
+  minterAddres: string,
+  etherAmount?: string
+) => {
+  try {
+    const { contractWithSigner } = await callBevmNFTContract();
+    let priceOfTier1 = await contractWithSigner.getNFTPrice(1);
+    let priceOfTier2 = await contractWithSigner.getNFTPrice(2);
+    let priceOfTier3 = await contractWithSigner.getNFTPrice(3);
+    const weiValue = vipTier=== 1 ? priceOfTier1 : vipTier=== 2 ? priceOfTier2 : priceOfTier3
+    console.log("weiValue", weiValue);
+    
+    let tx = await contractWithSigner.register(
+      [refferal, vipTier],
+      minterAddres,
+      { value: weiValue }
+    );
+    let receipt = await tx.wait();
+    const txHash = tx.hash;
+    // transaction receipt hash
+    return { hash: txHash, res: receipt };
+  } catch (error) {
+    const err = error as any; // Type assertion
+
+    console.error("Error during register:", err);
+
+    // Check for user rejection
+    if (err.code === "ACTION_REJECTED") {
+      /* alert("Transaction was rejected by the user."); */
+      ToastError.fire({
+        title: "Transaction was rejected by the user.",
+      });
+    }
+    // Check for revert reason: "You already have an NFT."
+    else if (err.message && err.message.includes("You already have an NFT")) {
+      /* alert("You have already registered an NFT."); */
+      ToastError.fire({
+        title: "You have already registered an NFT.",
+      });
+    } else if (
+      err.message &&
+      err.message.includes("Desired parent node is not empty")
+    ) {
+      /* alert("Desired parent node is not empty."); */
+      ToastError.fire({
+        title: "Desired parent node is not empty.",
+      });
+    }
+    // Check for insufficient funds
+    else if (err.message && err.message.includes("insufficient funds")) {
+      /* alert("You do not have enough USDT in your account to mint."); */
+      ToastError.fire({
+        title: "You do not have enough USDT in your account to mint.",
+      });
+    }
+    // Generic error message for other cases
+    else {
+      /* alert(
+        "There was an error during the registering process. Please check your accounts balance and try again." 
+      ); */
+      ToastError.fire({
+        title:
+          "There was an error during the registering process. Please check your accounts balance and try again.",
+      });
+      console.log(err);
+    }
+
+    return false;
+  }
+};
+
+//BEVM NFT
 export const callRegister = async (
   refferal: number,
   vipTier: number,

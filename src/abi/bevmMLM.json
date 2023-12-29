@@ -206,6 +206,34 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_holder",
+				"type": "address"
+			},
+			{
+				"internalType": "uint32",
+				"name": "_tier",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_parent",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_isLeft",
+				"type": "bool"
+			}
+		],
+		"name": "initialRegister",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "refresh",
 		"outputs": [],

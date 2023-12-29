@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
-import nftAbi from "@/abi/nft.json";
+import bnbNFT from "@/abi/bnbMLM.json";
+import bevmNFT from "@/abi/bevmMLM.json";
 import tokenAbi from "@/abi/token.json";
 declare global {
   interface Window {
@@ -14,12 +15,27 @@ export const callNFTContract = async () => {
   const msgSender = metamaskAddress[0];
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const abi = nftAbi;
+  const abi = bnbNFT;
   const NFTContractAddress = process.env.NEXT_PUBLIC_CONTRACT as string;
   const NFTContract = new ethers.Contract(NFTContractAddress, abi, signer);
   const contractWithSigner = NFTContract.connect(signer);
   return { contractWithSigner, NFTContractAddress, abi, msgSender };
 };
+
+export const callBevmNFTContract = async () => {
+  const metamaskAddress = await window.ethereum.request({
+    method: "eth_requestAccounts",
+  });
+  const msgSender = metamaskAddress[0];
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const abi = bevmNFT;
+  const NFTContractAddress = process.env.NEXT_PUBLIC_CONTRACT as string;
+  const NFTContract = new ethers.Contract(NFTContractAddress, abi, signer);
+  const contractWithSigner = NFTContract.connect(signer);
+  return { contractWithSigner, NFTContractAddress, abi, msgSender };
+};
+
 export const callTokenContract = async () => {
   const metamaskAddress = await window.ethereum.request({
     method: "eth_requestAccounts",
@@ -46,7 +62,7 @@ export const callNFTContractBiget = async () => {
   //@ts-ignore
   const provider = new ethers.providers.Web3Provider(window.bitkeep.ethereum);
   const signer = provider.getSigner();
-  const abi = nftAbi;
+  const abi = bnbNFT;
   const NFTContractAddress = process.env.NEXT_PUBLIC_CONTRACT as string;
   const NFTContract = new ethers.Contract(NFTContractAddress, abi, signer);
   const contractWithSigner = NFTContract.connect(signer);

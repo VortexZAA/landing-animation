@@ -85,7 +85,7 @@ export default function Home() {
             Connect
           </button>
         )}
-        <div className="form backdrop-blur-sm p-6 max-w-3xl mx-auto w-full z-50">
+        <div className="form backdrop-blur-sm p-6 max-w-4xl mx-auto w-full z-50">
           <div className="w-full backdrop-blur-md bg-white/20  p-6 rounded-xl flex flex-col justify-center py-10 gap-6">
             <div className="flex w-full justify-between">
               {["mint", "deploy", "transfer"].map((tab) => (

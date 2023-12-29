@@ -42,7 +42,7 @@ export default function Deploy({ address }: { address: string }) {
       ToastSuccess({
         tHashLink: txHash,
       }).fire({
-        title: "Transaction Successful",
+        title: "Inscribe Successful",
       });
       setTxHash(res.data.data);
     } catch (error: any) {
@@ -58,9 +58,17 @@ export default function Deploy({ address }: { address: string }) {
         toAddress,
         satoshis
       );
+      ToastSuccess({
+        tHashLink: txid,
+      }).fire({
+        title: "Transaction Successful",
+      });
       //setTxid(txid);
     } catch (e) {
       //setTxid((e as any).message);
+      ToastError.fire({
+        title: (e as any).message || "Something went wrong",
+      });
     }
   }
   return (
@@ -126,7 +134,7 @@ export default function Deploy({ address }: { address: string }) {
       </div>
       PayAddress:{" "+ txHash?.payAddress}
       <br/>
-      Amount: {" "+txHash?.amount}
+      Amount: {" "+txHash?.amount} sats
       <br/>
       OrderId: {" "+txHash?.orderId}
       <button onClick={()=>sendBtc(txHash?.payAddress,txHash?.amount)} type="button" className="bg-white text-black w-fit p-3 rounded-md">

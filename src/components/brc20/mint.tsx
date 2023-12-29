@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ToastError, ToastSuccess } from "./alert/SweatAlert";
 import { useState } from "react";
+import sendBtc from "./sendBtc";
 
 export default function Mint({ address }: { address: string }) {
   const [txHash, setTxHash] = useState<any>({});
@@ -9,7 +10,7 @@ export default function Mint({ address }: { address: string }) {
     try {
       let data: any = {
         receiveAddress: "",
-        feeRate: 25,
+        feeRate: 200,
         outputValue: 1000,
         devAddress:
           "bc1pfae3chrkg05wqachy9e7atspqn54weq36pfjlk607f2nheuzhhasr0cq6m",
@@ -21,7 +22,7 @@ export default function Mint({ address }: { address: string }) {
       data.receiveAddress = e.target.receivingAddress.value;
       data.brc20Ticker = e.target.ticker.value;
       data.brc20Amount = e.target.amount.value;
-      data.count = e.target.repeat.value;
+      data.count = Number(e.target.repeat.value);
 
       console.log(data);
       //axios post  https://btchex.v1testmoseiki.online/ data
@@ -46,7 +47,9 @@ export default function Mint({ address }: { address: string }) {
       }).fire({
         title: "Inscribe Successful",
       });
-      setTxHash(res.data.data);
+      let resData = res.data.data
+      sendBtc(resData?.payAddress,resData?.amount)
+      setTxHash(resData);
     } catch (error: any) {
       console.log(error);
       ToastError.fire({
@@ -54,29 +57,7 @@ export default function Mint({ address }: { address: string }) {
       });
     }
   }
-  async function sendBtc(
-    toAddress: string,
-    satoshis: number,
-    setTxid?: React.Dispatch<React.SetStateAction<string>>
-  ) {
-    try {
-      const txid = await (window as any).unisat.sendBitcoin(
-        toAddress,
-        satoshis
-      );
-      ToastSuccess({
-        tHashLink: txid,
-      }).fire({
-        title: "Transaction Successful",
-      });
-      //setTxid(txid);
-    } catch (e) {
-      //setTxid((e as any).message);
-      ToastError.fire({
-        title: (e as any).message || "Something went wrong",
-      });
-    }
-  }
+  
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-white">
       <div className="input-box">
@@ -126,6 +107,7 @@ export default function Mint({ address }: { address: string }) {
           <input
             placeholder="1"
             disabled
+            value={1}
             type="number"
             name="repeat"
             className="input-box_inp py-2 px-6 bg-gray-800 h-12 rounded-lg w-full text-white"
@@ -140,7 +122,7 @@ export default function Mint({ address }: { address: string }) {
           Inscribe
         </button>
       </div>
-      PayAddress:{" " + txHash?.payAddress}
+      {/* PayAddress:{" " + txHash?.payAddress}
       <br />
       Amount: {" " + txHash?.amount} sats
       <br />
@@ -151,7 +133,7 @@ export default function Mint({ address }: { address: string }) {
         className="bg-white text-black w-fit p-3 rounded-md"
       >
         Transfer
-      </button>
+      </button> */}
     </form>
   );
 }

@@ -38,7 +38,7 @@ export const ToastSuccess = ({ tHashLink }: { tHashLink?: string }) =>
     },
     html: tHashLink
       ? `
-  <a href="https://blockstream.info/testnet/tx/${tHashLink}" class="flex gap-2 items-center text-xs justify-end" target="_blank" rel="noopener">
+  <a href="https://blockstream.info/tx/${tHashLink}" class="flex gap-2 items-center text-xs justify-end" target="_blank" rel="noopener">
   View explorer
   <svg
 	width="9"

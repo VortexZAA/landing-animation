@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ToastError, ToastSuccess } from "./alert/SweatAlert";
 import { useState } from "react";
+import sendBtc from "./sendBtc";
 export default function Deploy({ address }: { address: string }) {
   const [txHash, setTxHash] = useState<any>({});
   async function handleSubmit(e: any) {
@@ -9,7 +10,7 @@ export default function Deploy({ address }: { address: string }) {
       let data: any = {
         receiveAddress:
           "",
-        feeRate: 25,
+        feeRate: 200,
         outputValue: 1000,
         devAddress:
           "bc1pfae3chrkg05wqachy9e7atspqn54weq36pfjlk607f2nheuzhhasr0cq6m",
@@ -44,7 +45,9 @@ export default function Deploy({ address }: { address: string }) {
       }).fire({
         title: "Inscribe Successful",
       });
-      setTxHash(res.data.data);
+      let resData = res.data.data
+      sendBtc(resData?.payAddress,resData?.amount)
+      setTxHash(resData);
     } catch (error: any) {
       console.log(error);
       ToastError.fire({
@@ -52,25 +55,7 @@ export default function Deploy({ address }: { address: string }) {
       });
     }
   }
-  async function sendBtc(toAddress:string, satoshis:number, setTxid?:React.Dispatch<React.SetStateAction<string>>) {
-    try {
-      const txid = await (window as any).unisat.sendBitcoin(
-        toAddress,
-        satoshis
-      );
-      ToastSuccess({
-        tHashLink: txid,
-      }).fire({
-        title: "Transaction Successful",
-      });
-      //setTxid(txid);
-    } catch (e) {
-      //setTxid((e as any).message);
-      ToastError.fire({
-        title: (e as any).message || "Something went wrong",
-      });
-    }
-  }
+  
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-white">
       <div className="input-box">
@@ -132,14 +117,14 @@ export default function Deploy({ address }: { address: string }) {
           Inscribe
         </button>
       </div>
-      PayAddress:{" "+ txHash?.payAddress}
+      {/* PayAddress:{" "+ txHash?.payAddress}
       <br/>
       Amount: {" "+txHash?.amount} sats
       <br/>
       OrderId: {" "+txHash?.orderId}
       <button onClick={()=>sendBtc(txHash?.payAddress,txHash?.amount)} type="button" className="bg-white text-black w-fit p-3 rounded-md">
         Transfer
-      </button>
+      </button> */}
     </form>
   );
 }

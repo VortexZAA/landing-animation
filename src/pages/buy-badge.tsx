@@ -85,6 +85,7 @@ export default function NftBuy() {
       // random number 1-2
       const rndNumber = Math.floor(Math.random() * 2);
       const tempInput2 = uInput2 ||  childRef[rndNumber];
+      console.log("tempInput2",tempInput2);
       
       
       const tx: any = await callRegister(tempInput2, 2, address);

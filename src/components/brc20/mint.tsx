@@ -40,7 +40,7 @@ const [txHash, setTxHash] = useState("");
     }
   }
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-white">
       <div className="input-box">
         <div className="input-box_head">
           <div className="input-box_label">Receiving address (taproot)</div>
@@ -99,7 +99,7 @@ const [txHash, setTxHash] = useState("");
       <div className="flex justify-center w-full">
         <button
           type="submit"
-          className="bg-white px-6 py-3 w-2/3 flex text-black rounded-lg text-center justify-center hover:bg-gray-700 hover:text-white transition-colors border border-black hover:border-white text-xl"
+          className="bg-btnActive px-6 py-3 w-2/3 flex text-white rounded-lg text-center justify-center hover:bg-gray-700 hover:text-white transition-colors border border-black hover:border-white text-xl"
         >
           Inscribe
         </button>

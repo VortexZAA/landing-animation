@@ -586,6 +586,9 @@ export default function SideBar() {
   }
   const [modal, setModal] = useState(false);
   const [selectedChain, setSelectedChain] = useState<"0x38" | "0x5dd">("0x38"); //<"0x5dd" | "0x38">("0x38");
+  useEffect(() => {
+    localStorage.setItem("chainId", chainId);
+  }, [chainId]);
   return (
     <>
       <nav className=" flex flex-col backdrop-blur-sm bg-white/10 w-fit xl:w-64 shrink-0 border-solid h-screen top-0  justify-between items-center text-white px-3 md:px-4 pb-6 md:pb-10 pt-3 md:pt-6 gap-3 md:gap-6 transition-  text-sm fixed z-50">
@@ -671,7 +674,7 @@ export default function SideBar() {
                 onClick={() => {
                   setModal(true);
                   setSelectedChain("0x38");
-                  setChainId("0x38");
+                  dispatch(setChainId("0x38"));
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
@@ -682,7 +685,7 @@ export default function SideBar() {
                 onClick={() => {
                   setModal(true);
                   setSelectedChain("0x5dd");
-                  setChainId("0x5dd");
+                  dispatch(setChainId("0x5dd"));
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
@@ -731,7 +734,7 @@ export default function SideBar() {
           Disconnect
         </button>}
       </nav>
-      <Modal title="Select Wallet" modal={modal} setModal={setModal}>
+      <Modal title="Select Wallet" modal={address ? false : modal} setModal={setModal}>
         <div className="grid grid-cols-2 gap-3  px-6 text-black  font-bold p-6 bg-white">
           <button
             onClick={connecWallet}

@@ -19,6 +19,8 @@ import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
 import { selectData, setLoading } from "@/redux/auth/auth";
 import { useRouter } from "next/router";
 import BtcIcon from "@/components/icons/btc";
+import { callBevmNFTContract } from "@/contractInteractions/etherumContracts";
+import BnbIcon from "@/components/icons/bnb";
 
 export default function NftBuy() {
   function parseTo18Decimals(number: number) {
@@ -40,7 +42,7 @@ export default function NftBuy() {
     vip2: 500,
     vip3: 1000,
   });
-  const { loading, address } = useAppSelector(selectData);
+  const { loading, address, chainId } = useAppSelector(selectData);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -127,6 +129,11 @@ export default function NftBuy() {
   const refVip3 = (event: any) => {
     setuInput3(event.target.value);
   };
+  const [sats, setSats] = useState({
+    sats1: 0,
+    sats2: 0,
+    sats3: 0,
+  });
   // get btc price from binance
   async function getPrice() {
     try {
@@ -150,14 +157,33 @@ export default function NftBuy() {
             ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
           ) */
       });
+      const { contractWithSigner } = await callBevmNFTContract();
+      const sats1 =
+        chainId !== "0x38"
+          ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
+          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(1));
+      const sats2 =
+        chainId !== "0x38"
+          ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
+          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(2));
+      const sats3 =
+        chainId !== "0x38"
+          ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
+          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(3));
+      setSats({
+        sats1:Number(sats1),
+        sats2: Number(sats2),
+        sats3: Number(sats3),
+      });
     } catch (error) {
       console.log(error);
     }
   }
   useEffect(() => {
     getPrice();
-  }, []);
-
+  }, [chainId]);
+  console.log("sats", sats,"chainId",chainId);
+  
   return (
     <>
       {alert?.show && (
@@ -174,10 +200,8 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-10 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 1" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip1 rounded-md">
-                <BtcIcon />
-                {ethers.utils.formatEther(
-                  (process.env.NEXT_PUBLIC_TIER1 as string) || "0"
-                )}
+                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
+                {sats.sats1.toFixed(6)}
                 {""} = {price?.vip1.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
@@ -200,10 +224,8 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 2" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip2 rounded-md">
-                <BtcIcon />
-                {ethers.utils.formatEther(
-                  (process.env.NEXT_PUBLIC_TIER2 as string) || "0"
-                )}
+                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
+                {sats.sats2.toFixed(6)}
                 {""} = {price?.vip2?.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
@@ -226,10 +248,8 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 3" />
               <div className="flex justify-center items-center  gap-3 border-2 p-6 border-vip3 rounded-md">
-                <BtcIcon />
-                {ethers.utils.formatEther(
-                  (process.env.NEXT_PUBLIC_TIER3 as string) || "0"
-                )}
+                {chainId === "0x38" ? <BnbIcon /> : <BtcIcon />}
+                {sats.sats3.toFixed(6)}
                 {""} = {price?.vip3?.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">

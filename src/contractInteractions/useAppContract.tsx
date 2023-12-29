@@ -33,9 +33,14 @@ export const callRegisterForBNB = async (
     let priceOfTier1 = await contractWithSigner.getNFTPrice(1);
     let priceOfTier2 = await contractWithSigner.getNFTPrice(2);
     let priceOfTier3 = await contractWithSigner.getNFTPrice(3);
-    const weiValue = vipTier=== 1 ? priceOfTier1 : vipTier=== 2 ? priceOfTier2 : priceOfTier3
+    const weiValue =
+      vipTier === 1
+        ? priceOfTier1
+        : vipTier === 2
+        ? priceOfTier2
+        : priceOfTier3;
     console.log("weiValue", weiValue);
-    
+
     let tx = await contractWithSigner.register(
       [refferal, vipTier],
       minterAddres,
@@ -104,12 +109,25 @@ export const callRegister = async (
 ) => {
   try {
     const { contractWithSigner } = await callNFTContract();
-    let priceOfTier1 = process.env.NEXT_PUBLIC_TIER1 //await contractWithSigner.getNFTPrice(1);
-    let priceOfTier2 = process.env.NEXT_PUBLIC_TIER2 //await contractWithSigner.getNFTPrice(2);
-    let priceOfTier3 =process.env.NEXT_PUBLIC_TIER3 //await contractWithSigner.getNFTPrice(3);
-    const weiValue = vipTier=== 1 ? priceOfTier1 : vipTier=== 2 ? priceOfTier2 : priceOfTier3
+    const chainId = localStorage.getItem("chainId");
+    let priceOfTier1, priceOfTier2, priceOfTier3;
+    if (chainId === "0x38") {
+      priceOfTier1 = await contractWithSigner.getNFTPrice(1);
+      priceOfTier2 = await contractWithSigner.getNFTPrice(2);
+      priceOfTier3 = await contractWithSigner.getNFTPrice(3);
+    } else {
+      priceOfTier1 = process.env.NEXT_PUBLIC_TIER1; //await contractWithSigner.getNFTPrice(1);
+      priceOfTier2 = process.env.NEXT_PUBLIC_TIER2; //await contractWithSigner.getNFTPrice(2);
+      priceOfTier3 = process.env.NEXT_PUBLIC_TIER3; //await contractWithSigner.getNFTPrice(3);
+    }
+    const weiValue =
+      vipTier === 1
+        ? priceOfTier1
+        : vipTier === 2
+        ? priceOfTier2
+        : priceOfTier3;
     console.log("weiValue", weiValue);
-    
+
     let tx = await contractWithSigner.register(
       [refferal, vipTier],
       minterAddres,
@@ -262,12 +280,11 @@ export const callRefresh = async () => {
     console.error("Error during refresh:", error);
     /* alert("There was an error during the refresh process. Please try again."); */
     ToastError.fire({
-      title:
-        "There was an error during the refresh process. Please try again.",
+      title: "There was an error during the refresh process. Please try again.",
     });
     return false;
   }
-}
+};
 // Biriken refferal ödülünü çekmek için kullanılan fonksiyon
 export const claimReferralReward = async () => {
   try {
@@ -292,10 +309,15 @@ export const claimReferralReward = async () => {
 export const callUpgrade = async (tier: number) => {
   try {
     const { contractWithSigner } = await callNFTContract();
-    const weiValue =  tier === 1 ? process.env.NEXT_PUBLIC_TIER1 : tier === 2 ? process.env.NEXT_PUBLIC_TIER2 : process.env.NEXT_PUBLIC_TIER3
+    const weiValue =
+      tier === 1
+        ? process.env.NEXT_PUBLIC_TIER1
+        : tier === 2
+        ? process.env.NEXT_PUBLIC_TIER2
+        : process.env.NEXT_PUBLIC_TIER3;
     console.log("weiValue", weiValue);
-    
-    let tx = await contractWithSigner.upgradeTier(tier,{ value: weiValue });
+
+    let tx = await contractWithSigner.upgradeTier(tier, { value: weiValue });
     let receipt = await tx.wait();
     let hash = tx.hash;
     return {

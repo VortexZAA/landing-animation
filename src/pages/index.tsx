@@ -23,7 +23,7 @@ export default function Intro() {
           SoulBound Protocol
         </h1>
       </div>
-      <Footer status={true}/>
+      {show && <Footer status={true}/>}
     </>
   );
 }

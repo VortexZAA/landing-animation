@@ -168,9 +168,9 @@ const menu = [
   {
     id: 3,
     title: "Mint BRC-20",
-    link: "#",
+    link: "/brc20",
     target: "_self",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 4,

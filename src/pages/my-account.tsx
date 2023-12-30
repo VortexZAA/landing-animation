@@ -25,19 +25,19 @@ import LvlRatio from "@/hook/lvlratio";
 import { parseTo18Decimals } from "@/hook/parse18decimals";
 import BtcIcon from "@/components/icons/btc";
 import BnbIcon from "@/components/icons/bnb";
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
+import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: '#f5f5f9',
-    color: 'rgba(0, 0, 0, 0.87)',
+    backgroundColor: "#f5f5f9",
+    color: "rgba(0, 0, 0, 0.87)",
     maxWidth: 220,
     fontSize: theme.typography.pxToRem(12),
-    border: '0px solid #dadde9',
+    border: "0px solid #dadde9",
   },
 }));
 export default function Personel() {
@@ -338,53 +338,60 @@ export default function Personel() {
           </div>
         </div>
         <div className="flex flex-col col-span-2 p-3 md:p-4 2xl:p-6 gap-3 backdrop-blur-sm bg-white/10 rounded-xl shadow-md w-ful">
-          <div className="flex gap-3 items-center">
-            <h2 className="mb-3">Referral Code</h2>
-            <HtmlTooltip
-              title={
-                <React.Fragment>
-                  <Typography color="inherit">Each code can be used unlimited times</Typography>
-                </React.Fragment>
-              }
-            >
-              <button className="flex items-center pb-1">
-                <svg
-                  className="h-6 w-fit"
-                  viewBox="0 0 12 12"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clip-path="url(#clip0_885_2323)">
-                    <path
-                      d="M6 11.25C8.89949 11.25 11.25 8.89949 11.25 6C11.25 3.1005 8.89949 0.75 6 0.75C3.1005 0.75 0.75 3.1005 0.75 6C0.75 8.89949 3.1005 11.25 6 11.25Z"
-                      stroke="#999999"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M6 6V8.25"
-                      stroke="#999999"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M6 3.75H6.005"
-                      stroke="#999999"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_885_2323">
-                      <rect width="12" height="12" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </button>
-            </HtmlTooltip>
+          <div className="flex gap-3 justify-between items-center">
+            <div className="flex gap-3 items-center">
+              <h2 className="mb-3">Referral Code</h2>
+              <HtmlTooltip
+                title={
+                  <React.Fragment>
+                    <Typography color="inherit">
+                      Each code can be used unlimited times
+                    </Typography>
+                  </React.Fragment>
+                }
+              >
+                <button className="flex items-center pb-1">
+                  <svg
+                    className="h-6 w-fit"
+                    viewBox="0 0 12 12"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_885_2323)">
+                      <path
+                        d="M6 11.25C8.89949 11.25 11.25 8.89949 11.25 6C11.25 3.1005 8.89949 0.75 6 0.75C3.1005 0.75 0.75 3.1005 0.75 6C0.75 8.89949 3.1005 11.25 6 11.25Z"
+                        stroke="#999999"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M6 6V8.25"
+                        stroke="#999999"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M6 3.75H6.005"
+                        stroke="#999999"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_885_2323">
+                        <rect width="12" height="12" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </button>
+              </HtmlTooltip>
+            </div>
+            <div className="flex gap-3 items-center">
+              My Referrals : <span className="font-semibold">{downlines}</span>
+            </div>
           </div>
           <div className="flex-col md:flex-row flex justify-between items-center gap-3">
             <div className="border-gray-200 w-full border-2 flex justify-between p-3 rounded-lg ">

@@ -147,12 +147,12 @@ const menu = [
     link: "https://twitter.com/SoulBound_BTC",
     target: "_blank",
   }, */
-/*   {
+  {
     id: 2,
     title: "Whitepaper",
     link: "/documents/soulbound-protocol-whitepaper.pdf",
     target: "_blank",
-  }, */
+  },
   {
     id: 2,
     title: "Docs",

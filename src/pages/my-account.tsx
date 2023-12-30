@@ -209,15 +209,6 @@ export default function Personel() {
                 </svg>
                 <h3 className="hidden">Wallet Name</h3>
               </div>
-              <div>
-                <h4 className="text-gray-400">Total Revenue</h4>
-                <div className="flex gap-2 items-center h-8">
-                  {
-                    /* chainId === "0x38" ? <BnbIcon /> : <BtcIcon />*/ <BtcIcon />
-                  }
-                  <h1>{totalRevenue}</h1>
-                </div>
-              </div>
             </div>
             <div className="shrink-0 w-fit flex items-center gap-3">
               My SoulBound Badge =
@@ -252,24 +243,8 @@ export default function Personel() {
                   <h2>{referralIncome}</h2>
                 </div>
               </div>
-              <div className="">
-                <h4 className="text-gray-400">Harvesting Reward</h4>
-                <div className="flex gap-2 items-center h-8">
-                  {
-                    /* chainId === "0x38" ? <BnbIcon /> : <BtcIcon />*/ <BtcIcon />
-                  }
-                  <h2>{withdrawableBalance}</h2>
-                </div>
-              </div>
             </div>
             <div className="h-full w-full md:w-fit flex justify-end gap-3 shrink-0  items-end">
-              <button
-                className="bg-purple rounded-lg  px-4 p w-fit h-11 text-white"
-                onClick={() => {}}
-              >
-                Claim Harvesting
-              </button>
-
               <button
                 className="bg-purple rounded-lg  px-4 p w-fit h-11 text-white"
                 onClick={() => {}}
@@ -320,19 +295,8 @@ export default function Personel() {
               <h3 className="text-gray-400">Experience Point</h3>
               <h2>100/{LvlRatio({ lvl: lvl, low: lowPotentiel })}</h2>
             </div>
-            <div className="flex flex-col gap-2">
-              <h3 className="text-gray-400 flex gap-3">
-                Maximum Withdraw Amount This Week{" "}
-                
-              </h3>
-              <h2>$ {vipLvl === 1 ? 2500 : vipLvl === 2 ? 5000 : 10000}</h2>
-            </div>
           </div>
           <div className="flex justify-start items-center w-full gap-6 ">
-            <div>
-              <h3 className="text-gray-400">Downlines</h3>
-              <h3>{downlines}</h3>
-            </div>
             {/* <div>
               <span className="text-gray-400">Referrals</span>
               <h3>3</h3>
@@ -366,7 +330,7 @@ export default function Personel() {
               disabled={loading || islisting}
               className="border-2 border-purple disabled:backdrop-blur-sm bg-white/10 disabled:text-black disabled:cursor-not-allowed hover:bg-purple w-full md:w-fit hover:text-white transition-colors rounded-md py-3 px-3 md:px-4 2xl:px-6 shrink-0"
             >
-              Upgrade your wallet
+              Upgrade your badge
             </button>
             {/* <button className="border-2 border-purple hover:bg-purple hover:text-white transition-colors rounded-md py-3 px-6">
               Level Up
@@ -375,7 +339,7 @@ export default function Personel() {
         </div>
         <div className="flex flex-col col-span-2 p-3 md:p-4 2xl:p-6 gap-3 backdrop-blur-sm bg-white/10 rounded-xl shadow-md w-ful">
           <div className="flex gap-3 items-center">
-            <h2 className="mb-3">Referral Codes</h2>
+            <h2 className="mb-3">Referral Code</h2>
             <HtmlTooltip
               title={
                 <React.Fragment>
@@ -422,7 +386,6 @@ export default function Personel() {
               </button>
             </HtmlTooltip>
           </div>
-          <span className="text-gray-400">Left Referral Code</span>
           <div className="flex-col md:flex-row flex justify-between items-center gap-3">
             <div className="border-gray-200 w-full border-2 flex justify-between p-3 rounded-lg ">
               <span>
@@ -440,29 +403,6 @@ export default function Personel() {
               type="submit"
               disabled={loading}
               onClick={() => getReferralCodeLeft(address)}
-              className="bg-purple py-3 px-6 w-full md:w-fit shrink-0 text-white rounded-md"
-            >
-              Generate
-            </button>
-          </div>
-          <span className="text-gray-400">Right Referral Code</span>
-          <div className="flex-col md:flex-row flex justify-between items-center gap-3">
-            <div className="border-gray-200 w-full border-2 flex justify-between p-3 rounded-lg ">
-              <span>
-                {refCode.right &&
-                  refCode.right.slice(0, 8) +
-                    "....." +
-                    refCode.right.slice(
-                      refCode.right.length - 8,
-                      refCode.right.length
-                    )}
-              </span>
-              <CopyBtn text={refCode.right} />
-            </div>
-            <button
-              type="submit"
-              disabled={loading}
-              onClick={() => getReferralCodeRight(address)}
               className="bg-purple py-3 px-6 w-full md:w-fit shrink-0 text-white rounded-md"
             >
               Generate

@@ -156,7 +156,7 @@ export default function SideBar() {
     } else {
       setIsAdmin(false);
       if (router.pathname === "/admin") {
-        router.push("/dashboard");
+        router.push("/my-account");
       }
     }
   }
@@ -174,11 +174,11 @@ export default function SideBar() {
 
       localStorage.setItem("isEmty", JSON.stringify({ isEmty: emty }));
       dispatch(setEmty(emty));
-      let authPath = ["/dashboard", "/my-account"];
+      let authPath = ["/my-account", "/my-account"];
       if (authPath.includes(router.pathname)) {
-        emty && router.push("/buy-badge");
+        /* emty && router.push("/buy-badge"); */
       } else if (router.pathname === "/buy-badge") {
-        !emty && router.push("/dashboard");
+        !emty && router.push("/my-account");
       }
       console.log("id", id, address);
 
@@ -375,34 +375,12 @@ export default function SideBar() {
       }
       //console.log("hexlify", ethers.utils.hexlify(selectedChain));
 
-      router.push("/dashboard");
+      router.push("/my-account");
     } catch (error) {
       console.log(error);
     }
   }
   const menu = [
-    {
-      id: 1,
-      name: "Dashboard",
-      path: "/dashboard",
-      icon: (
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M4 0C1.79086 0 0 1.79086 0 4V5C0 7.20914 1.79086 9 4 9H5C7.20914 9 9 7.20914 9 5V4C9 1.79086 7.20914 0 5 0H4ZM15 0C12.7909 0 11 1.79086 11 4V5C11 7.20914 12.7909 9 15 9H16C18.2091 9 20 7.20914 20 5V4C20 1.79086 18.2091 0 16 0H15ZM4 11C1.79086 11 0 12.7909 0 15V16C0 18.2091 1.79086 20 4 20H5C7.20914 20 9 18.2091 9 16V15C9 12.7909 7.20914 11 5 11H4ZM15 11C12.7909 11 11 12.7909 11 15V16C11 18.2091 12.7909 20 15 20H16C18.2091 20 20 18.2091 20 16V15C20 12.7909 18.2091 11 16 11H15Z"
-            fill="currentColor"
-          />
-        </svg>
-      ),
-      status: true,
-    },
     {
       id: 2,
       name: "My Account",

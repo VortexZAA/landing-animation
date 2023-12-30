@@ -176,7 +176,7 @@ export default function SideBar() {
       dispatch(setEmty(emty));
       let authPath = ["/my-account", "/my-account"];
       if (authPath.includes(router.pathname)) {
-        /* emty && router.push("/buy-badge"); */
+        emty && router.push("/buy-badge");
       } else if (router.pathname === "/buy-badge") {
         !emty && router.push("/my-account");
       }

@@ -39,7 +39,7 @@ export default function Home() {
             id="faq"
             className="flex flex-col gap-6 xl:gap-10 items-center  w-full"
           >
-{/*             <h1>FAQ</h1> */}
+            {/*             <h1>FAQ</h1> */}
             <div className="mb-5 flex flex-col gap-3 md:gap-6 w-full items-center justify-start">
               <h2 className="text-white text-xl w-2/3">
                 General Understanding:
@@ -138,9 +138,7 @@ function CardFaq({ faq, togglePara, active }: any) {
         >
           <div className="flex flex-col gap-2 p-4 text-white-dark text-xs md:text-sm font-normal md:font-medium border-t border-[#d3d3d3]/50 w-full px-4 md:px-6">
             <span>{faq.answer}</span>
-            {faq.img && (
-              <img src={faq.img} alt="" className="w-full h-fit" />
-            )}
+            {faq.img && <img src={faq.img} alt="" className="w-full h-fit" />}
           </div>
         </AnimateHeight>
       </div>
@@ -182,43 +180,20 @@ const faqs2 = [
     question: "1. How does the SOULBOUND Protocol reward participants?",
     answer: (
       <>
-        Participants in the SOULBOUND Protocol earn rewards through Branching
-        Rewards and Harvesting Rewards. Branching rewards are earned when new
-        users join through a referral code, while harvesting rewards come from
-        revenue within their branches. <br />
-        <strong>Branching Rewards</strong> means that you receive a percentage
-        of the payment (depending on your SoulBound BADGE tier) whenever a new
-        user uses your referral code to buy SoulBound BADGE. <br />{" "}
-        <strong>
-          Harvesting Rewards means that you receive a percentage of all revenue
-          (depending on your SoulBound BADGE tier) from your branches that comes
-          from buying BADGE.
-        </strong>{" "}
+        SOULBOUND's earning mechanism is based on referral rewards: <br />
+        <strong>Branching Rewards:</strong> Branching rewards means that you
+        receive a percentage of the payment (depending on your SoulBound BADGE
+        trait) whenever a new user uses your referral code to buy SoulBound
+        BADGE.
         <br />
-        <strong>
-          The harvesting reward is calculated according to the user's LEAST
-          EARNING leg.
-        </strong>{" "}
-        if one branch of the user provides a return of $3,250 and the other
-        branch provides a return of $2,500, this makes his harvesting balance
-        $2,500, and the user receives the harvesting reward of $2,500. But this
-        does not mean that the $750 in the higher-earning branch should be
-        wasted. If the user can sell another $750 from the branch that earned
-        less, he can receive the harvesting reward on the remaining $750.
       </>
     ),
     img: "/faq-img.png",
   },
   {
-    id: 4,
-    question: "2. How does the SOULBOUND Protocol work?",
-    answer:
-      "The SOULBOUND Protocol operates as a launchpad 2.0. Users need a SoulBound BADGE to participate, which allows them to invest in projects or build their own networks. BADGEs have referral codes, and users can add new members to their branching maps using these codes.",
-  },
-  {
     id: 5,
     question:
-      "3. What are the different Badge tiers within SOULBOUND, and how do they function?",
+      "2. What are the different Badge tiers within SOULBOUND, and how do they function?",
     answer: (
       <>
         <strong>Tiers:</strong> There are three badge tiers:{" "}
@@ -226,19 +201,20 @@ const faqs2 = [
         <strong>Epic</strong> – equivalent value of 500 USDT,{" "}
         <strong>Legendary</strong> – equivalent of 1000 USDT. <br />
         <strong>Usage:</strong> <br />
-        A, With SoulBound BADGE, users can create their own networks and start
+        With SoulBound BADGE, users can create their own networks and start
         earning BTC/BNB from reward mechanism - users earn branching rewards
         when others use their referral code and harvesting rewards from revenue
         in their branches. <br />
-        B, Users can participate in <strong>projects IDO</strong> launching on
-        the Soulbound Launchpad according to their different Badge Tier. F
+        Users can participate in <strong>projects IDO</strong> launching on
+        the Soulbound Launchpad according to their different Badge Tier.
       </>
     ),
+    img: "/faq-img-2.png",
   },
   {
     id: 6,
     question:
-      "4. What distinguishes the SOULBOUND Launchpad from traditional launchpads?",
+      "3. What distinguishes the SOULBOUND Launchpad from traditional launchpads?",
     answer: (
       <>
         SOULBOUND Launchpad focus on Bitcoin Ecosystem.
@@ -253,7 +229,7 @@ const faqs2 = [
   {
     id: 7,
     question:
-      "5. Elaboration on the EVM compatibility and multi-wallet support within the SOULBOUND Protocol?",
+      "4. Elaboration on the EVM compatibility and multi-wallet support within the SOULBOUND Protocol?",
     answer: (
       <>
         SOULBOUND aims to integrate multiple wallets within the BTC ecosystem,
@@ -267,7 +243,7 @@ const faqs2 = [
   {
     id: 8,
     question:
-      "6. What is BRC-20 and RGB-20 minting, tool Taproot Asset Creation tool?",
+      "5. What is BRC-20 and RGB-20 minting, tool Taproot Asset Creation tool?",
     answer: (
       <>
         <strong>BRC-20 Minting: </strong> <br />
@@ -310,7 +286,7 @@ const faqs3 = [
       <>
         The $SBB token is the governance token of the SOULBOUND Protocol. It
         represents a decentralized governance mechanism enabling holders to
-        participate in the protocol's decision-making process.{' '}
+        participate in the protocol's decision-making process.{" "}
         <span className="text-red-600">
           Branching Rewards means that you receive a percentage
         </span>

@@ -93,7 +93,7 @@ export default function SideBar() {
     console.log("id", id, chainId);
     
     if (id.toString() !== chainId) {
-      const { name } = chain[chainId] || { name: "UNKNOW" };
+      const { name } = chain[id] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
       const toNetwork = chain[chainId]?.name || "Binance Smart Chain2";
 

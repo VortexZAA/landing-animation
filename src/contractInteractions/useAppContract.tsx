@@ -24,7 +24,7 @@ const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 //BNB NFT
 export const callGetNFTPrice = async (tier: number) => {
   try {
-    const { contractWithSigner } = await callBevmNFTContract();
+    const { contractWithSigner } = await callNFTContract();
     let price = await contractWithSigner.getNFTPrice(tier);
     return price;
   } catch (error) {
@@ -44,7 +44,7 @@ export const callRegisterForBNB = async (
   etherAmount?: string
 ) => {
   try {
-    const { contractWithSigner } = await callBevmNFTContract();
+    const { contractWithSigner } = await callNFTContract();
     let priceOfTier1 = await callGetNFTPrice(1);
     let priceOfTier2 = await callGetNFTPrice(2);
     let priceOfTier3 = await callGetNFTPrice(3);

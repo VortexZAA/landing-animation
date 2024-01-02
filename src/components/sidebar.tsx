@@ -698,7 +698,7 @@ console.log("chainId",chainId);
             onClick={() => {
               localStorage.removeItem("address");
               localStorage.removeItem("isEmty");
-              localStorage.clear();
+              router.reload();
               dispatch(setClear());
               router.push("/buy-badge");
             }}

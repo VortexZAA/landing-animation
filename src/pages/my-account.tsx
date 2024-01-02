@@ -4,10 +4,8 @@ import CardPlus from "../components/cards/userPlus";
 import Layout from "@/layout/layout";
 import CopyBtn from "@/components/button/copyBtn";
 import {
-  callUpgrade,
   claimReferralReward,
-  callGetReferralCodeForLeft,
-  callGetReferralCodeForRight,
+  callGetReferralCode,
 } from "@/contractInteractions/useAppContract";
 import Vip from "@/components/vip";
 import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
@@ -63,12 +61,12 @@ export default function Personel() {
     addres && dispatch(setAddress(addres));
   }, []);
 
-  async function getReferralCodeLeft(address?: string) {
+  async function getReferralCode(address?: string) {
     try {
       dispatch(setLoading(true));
       const addres = localStorage.getItem("address") || "";
       if (addres) {
-        let reffCode = await callGetReferralCodeForLeft(addres);
+        let reffCode = await callGetReferralCode("0xa89F5B9196BaA0cc8a944eB0b6c4Cd7423517c4A"||addres);
         let reff = reffCode.toString();
         console.log(reff);
         setrefCode({
@@ -82,25 +80,7 @@ export default function Personel() {
       dispatch(setLoading(false));
     }
   }
-  async function getReferralCodeRight(address?: string) {
-    try {
-      dispatch(setLoading(true));
-      const addres = localStorage.getItem("address") || "";
-      if (addres) {
-        let reffCode = await callGetReferralCodeForRight(addres);
-        let reff = reffCode.toString();
-        console.log(reff);
-        setrefCode({
-          left: refCode.left,
-          right: reff,
-        });
-        dispatch(setLoading(false));
-      }
-    } catch (error) {
-      console.log(error);
-      dispatch(setLoading(false));
-    }
-  }
+  
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -237,6 +217,13 @@ export default function Personel() {
               </div>
             </div>
             <div className="h-full w-full md:w-fit flex justify-end gap-3 shrink-0  items-end">
+            <button
+              onClick={() => setShow(true)}
+              disabled={loading || islisting}
+              className="border-2 border-purple disabled:backdrop-blur-sm bg-white/10 disabled:text-black disabled:cursor-not-allowed hover:bg-purple w-full md:w-fit hover:text-white transition-colors rounded-md py-2 px-3 md:px-4 2xl:px-6 shrink-0"
+            >
+              Upgrade your badge
+            </button>
               <button
                 className="bg-purple rounded-lg  px-4 p w-fit h-11 text-white"
                 onClick={() => {}}
@@ -246,88 +233,16 @@ export default function Personel() {
             </div>
           </div>
         </div>
-        <form
-          onSubmit={handleSubmit}
-          className={` ${
-            islisting && ""
-          }  col-span-2 p-3 md:p-4 2xl:p-6 hidden  flex-col justify-center items-start gap-3 text-black backdrop-blur-sm bg-white/10 rounded-xl shadow-md relative`}
-        >
-          {islisting && (
-            <div className="absolute left-0 top-0 rounded-xl w-full h-full backdrop-blur-sm  cursor-not-allowed z-10 flex  " />
-          )}
-          <span className="text-gray-400">Amount to be withdrawn</span>
-          <div className="flex items-center relative w-full font-medium ">
-            <input
-              type="number"
-              onChange={withdrawNumber}
-              min={0}
-              className="border-gray-200 border-2 bg-transparent text-white text-xl w-full rounded-lg outline-none text-end py-3 px-3"
-            />
-            <span className="absolute left-6 text-white ">$</span>
-          </div>
-          <div className="flex justify-center w-full ">
-            <button
-              type="submit"
-              disabled={loading || islisting}
-              className="bg-purple py-3 px-6 w-full md:w-2/3 text-white rounded-md disabled:cursor-not-allowed disabled:opacity-70 justify-center flex gap-3 items-center"
-            >
-              Withdraw {loading && <Loading />}
-            </button>
-          </div>
-        </form>
+        
         <div
           className={` col-span-2 xl:col-span-3 p-3 md:p-4 2xl:p-6 justify-start items-start backdrop-blur-sm bg-white/10 rounded-xl shadow-md w-full flex flex-col gap-3 relative`}
         >
           {islisting && (
             <div className="absolute left-0 top-0 rounded-xl w-full h-full bg-black/60 backdrop-blur-sm cursor-not-allowed z-10 flex  " />
           )}
-          <h2 className="mb-3">Experience</h2>
-          <div className="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between w-full">
-            <div className="flex flex-col gap-2">
-              <h3 className="text-gray-400">Experience Point</h3>
-              <h2>100/{LvlRatio({ lvl: lvl, low: lowPotentiel })}</h2>
-            </div>
-          </div>
-          <div className="flex justify-start items-center w-full gap-6 ">
-            {/* <div>
-              <span className="text-gray-400">Referrals</span>
-              <h3>3</h3>
-            </div> */}
-          </div>
-          <div className="flex flex-col md:flex-row justify-between items-center w-full gap-3 md:gap-6 pt-8 md:pt-6">
-            <div className="border-[#1FCB4F] border-2 rounded-lg w-full  md:w-2/3 h-12 relative">
-              <div className="absolute border-[3px] h-12 w-14 bg-red-300 text-black border-yellow-400 rounded-full text-xl font-semibold -right-2 flex justify-center items-center -top-14 md:-top-[60px] scale-90">
-                {lvl} lvl
-              </div>
-              <div
-                className={`h-full  ${
-                  LvlRatio({ lvl: lvl, low: lowPotentiel }) < 98
-                    ? "rounded-l-md"
-                    : "rounded-md"
-                }`}
-                style={{
-                  background:
-                    "linear-gradient(90deg, #1FCB4F 0%, #96C535 53.08%, #FFC01E 100%)",
-                  //background: "linear-gradient(90deg, #FFC11E 0%, #F46D22 100%)",
-
-                  width: `${LvlRatio({ lvl: lvl, low: lowPotentiel })}%`,
-                }}
-              />
-            </div>
-            {/* <div className="w-20 border-2 border-[#FFC01E] right-0 flex justify-center items-center -top-14 bg-[#FFC01E]/20 h-11 px-4 font-semibold text-[#FFC01E]  rounded-full">
-              VIP 2
-            </div> */}
-            <button
-              onClick={() => setShow(true)}
-              disabled={loading || islisting}
-              className="border-2 border-purple disabled:backdrop-blur-sm bg-white/10 disabled:text-black disabled:cursor-not-allowed hover:bg-purple w-full md:w-fit hover:text-white transition-colors rounded-md py-3 px-3 md:px-4 2xl:px-6 shrink-0"
-            >
-              Upgrade your badge
-            </button>
-            {/* <button className="border-2 border-purple hover:bg-purple hover:text-white transition-colors rounded-md py-3 px-6">
-              Level Up
-            </button> */}
-          </div>
+          <h2 className="mb-3">My IDOs</h2>
+          
+        
         </div>
         <div className="flex flex-col col-span-2 p-3 md:p-4 2xl:p-6 gap-3 backdrop-blur-sm bg-white/10 rounded-xl shadow-md w-ful">
           <div className="flex gap-3 justify-between items-center">
@@ -401,7 +316,7 @@ export default function Personel() {
             <button
               type="submit"
               disabled={loading}
-              onClick={() => getReferralCodeLeft(address)}
+              onClick={() => getReferralCode(address)}
               className="bg-purple py-3 px-6 w-full md:w-fit shrink-0 text-white rounded-md"
             >
               Generate

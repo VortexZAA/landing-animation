@@ -4,18 +4,12 @@ import CardPlus from "../components/cards/userPlus";
 import Layout from "@/layout/layout";
 import CopyBtn from "@/components/button/copyBtn";
 import {
-  callWithdraw,
   callUpgrade,
-  checkAllowance,
   claimReferralReward,
-  callApproveNFT,
-  callApproveNFT2,
   callGetReferralCodeForLeft,
   callGetReferralCodeForRight,
-  parseIntHex,
 } from "@/contractInteractions/useAppContract";
 import Vip from "@/components/vip";
-import { ethers } from "ethers";
 import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
 import { selectData, setAddress, setLoading } from "@/redux/auth/auth";
 import { ToastError, ToastSuccess } from "@/components/alert/SweatAlert";
@@ -24,9 +18,7 @@ import Modal from "@/components/Modal";
 import LvlRatio from "@/hook/lvlratio";
 import { parseTo18Decimals } from "@/hook/parse18decimals";
 import BtcIcon from "@/components/icons/btc";
-import BnbIcon from "@/components/icons/bnb";
 import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -142,7 +134,7 @@ export default function Personel() {
   async function upVipLvl(e: any) {
     e.preventDefault();
     try {
-      dispatch(setLoading(true));
+      /* dispatch(setLoading(true));
       const tempLvl = vipLvl as unknown;
       const upLvl = Number(e.target.upLvl.value) as number;
       console.log(upLvl);
@@ -155,7 +147,7 @@ export default function Personel() {
           ToastSuccess({
             tHashLink: res.hash,
           }).fire("Wallet Upgrade Successfully");
-      }
+      } */
       dispatch(setLoading(false));
     } catch (error) {
       console.log(error);

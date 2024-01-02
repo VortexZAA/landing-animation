@@ -180,14 +180,6 @@ export default function NftBuy() {
   
   return (
     <>
-      {alert?.show && (
-        <Alert
-          status={alert?.status}
-          text={alert?.text}
-          tHashLink={alert?.tHashLink}
-        />
-      )}
-
       <Layout title="Buy Badge">
         <div className="flex w-full justify-center items-center xl:h-[80vh] text-white pb-20">
           <div className="items-center justify-center w-full grid md:grid-cols-2 lg:grid-cols-3 h-full lg:h-2/3 gap-3 md:gap-4 xl:gap-6">

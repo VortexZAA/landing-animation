@@ -200,18 +200,10 @@ export default function SideBar() {
           id: parseIntHex(getNFTInfo[1]),
           holder: getNFTInfo[2],
           parent: parseIntHex(getNFTInfo[3]),
-          //claimLimit: ethers.utils.formatEther(getNFTInfo[4]),
-          //usedClaimLimit: ethers.utils.formatEther(getNFTInfo["usedClaimLimit"]),
-          leftChild: parseIntHex(getNFTInfo[4]),
-          rightChild: parseIntHex(getNFTInfo[5]),
-          leftPotentielChild: ethers.utils.formatEther(getNFTInfo[6]),
-          rightPotentielChild: ethers.utils.formatEther(getNFTInfo[7]),
-          //totalPotentielChild: parseIntHex(getNFTInfo[9]),
-          referralIncome: ethers.utils.formatEther(getNFTInfo[8]),
-          //affiliateReward: parseIntHex(getNFTInfo[12]),
-          claimedPotential: parseIntHex(getNFTInfo[9]),
-          listed: getNFTInfo[11],
-          counter: parseIntHex(getNFTInfo["counter"]),
+          leftPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[6]),
+          rightPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[7]),
+          referralIncome: ethers.utils.formatEther(getNFTInfo[4]),
+          counter: parseIntHex(getNFTInfo[5]),
         };
 
         let lowPotentiel =
@@ -281,12 +273,11 @@ export default function SideBar() {
           address: data.holder,
           leftChildRevenue: childData?.leftChildRevenue,
           rightChildRevenue: childData?.rightChildRevenue,
-          vipLvl: data.vipLvl,
+          //vipLvl: data.vipLvl,
           parent: data.parent.toString(),
-          count:
-            (data.leftChild === 0 ? 0 : 1) + (data.rightChild === 0 ? 0 : 1),
+          count:data.counter,
           children: [
-            {
+            /* {
               id: data.leftChild,
               name: "b",
               parent: data.id.toString(),
@@ -297,7 +288,7 @@ export default function SideBar() {
               name: "c",
               parent: data.id.toString(),
               children: [],
-            },
+            }, */
           ],
         };
 

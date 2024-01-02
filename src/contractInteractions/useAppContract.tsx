@@ -26,6 +26,10 @@ export const callGetNFTPrice = async (tier: number) => {
   try {
     const { contractWithSigner } = await callNFTContract();
     let price = await contractWithSigner.getNFTPrice(tier);
+    console.log("price", Number(price));
+    console.log();
+    
+    
     return price;
   } catch (error) {
     console.error("Error during getPrice:", error);

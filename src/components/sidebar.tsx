@@ -337,29 +337,29 @@ export default function SideBar() {
       ToastSuccess({}).fire({
         title: "Your wallet is connected successfully.",
       });
-      console.log("status", ethers.utils.formatEther(selectedChain));
-      dispatch(setChainId(selectedChain));
+      console.log("status", ethers.utils.formatEther(chainId));
+      //dispatch(setChainId(chainId));
       if (
         chainId.toString() !==
-        ethers.utils.formatEther(selectedChain).toString()
+        ethers.utils.formatEther(chainId).toString()
       ) {
         ethereum?.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: chain[selectedChain].chainId }],
+          params: [{ chainId: chain[chainId].chainId }],
         }) ||
           ethereum.request({
             method: "wallet_addEthereumChain",
             params: [
               {
-                chainId: chain[selectedChain].chainId,
-                chainName: chain[selectedChain].name,
+                chainId: chain[chainId].chainId,
+                chainName: chain[chainId].name,
                 nativeCurrency: {
-                  name: chain[selectedChain].nativeCurrency.name,
-                  symbol: chain[selectedChain].nativeCurrency.symbol,
+                  name: chain[chainId].nativeCurrency.name,
+                  symbol: chain[chainId].nativeCurrency.symbol,
                   decimals: 18,
                 },
-                rpcUrls: chain[selectedChain].rpcUrls,
-                blockExplorerUrls: chain[selectedChain].blockExplorerUrls,
+                rpcUrls: chain[chainId].rpcUrls,
+                blockExplorerUrls: chain[chainId].blockExplorerUrls,
               },
             ],
           });
@@ -540,7 +540,7 @@ export default function SideBar() {
   async function BigetConnect() {
     try {
       await bigetConnect();
-      await bigetSwitch(selectedChain);
+      await bigetSwitch(chainId);
 
       /*  */
     } catch (error) {
@@ -548,14 +548,14 @@ export default function SideBar() {
     }
   }
   const [modal, setModal] = useState(false);
-  const [selectedChain, setSelectedChain] = useState<string>("0x5dd"); //<"0x5dd" | "0x38">("0x38");
+  //const [selectedChain, setSelectedChain] = useState<string>("0x5dd"); //<"0x5dd" | "0x38">("0x38");
   useEffect(() => {
     localStorage.setItem("chainId", chainId);
-    setSelectedChain(chainId);
+    //setSelectedChain(chainId);
   }, [chainId]);
   useEffect(() => {
     const localChainId = localStorage.getItem("chainId") || "0x5dd";
-    setSelectedChain(localChainId);
+   // setSelectedChain(localChainId);
     dispatch(setChainId(localChainId));
   }, []);
 
@@ -643,7 +643,7 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  setSelectedChain("0x38");
+                  //setSelectedChain("0x38");
                   dispatch(setChainId("0x38"));
                 }}
                 className="w-full hidden h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
@@ -654,7 +654,7 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  setSelectedChain("0x5dd");
+                  //setSelectedChain("0x5dd");
                   dispatch(setChainId("0x5dd"));
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
@@ -665,7 +665,7 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  setSelectedChain("0x58f8");
+                  //setSelectedChain("0x58f8");
                   dispatch(setChainId("0x58f8"));
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"

@@ -26,6 +26,8 @@ export const callNFTContract = async () => {
   const abi = chainId === "0x38" ? bnbNFT : chainId === "0x5dd" ? bevmNFT : mapoNFT;
   const NFTContractAddress =
     chainId === "0x38" ? NFTContractBNB : chainId === "0x5dd" ? NFTContractBEVM : NFTContractMAPO;
+    console.log(chainId, NFTContractAddress);
+    
   const NFTContract = new ethers.Contract(NFTContractAddress, abi, signer);
   const contractWithSigner = NFTContract.connect(signer);
   return { contractWithSigner, NFTContractAddress, abi, msgSender };

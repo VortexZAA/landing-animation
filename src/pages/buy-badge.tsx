@@ -8,6 +8,7 @@ import {
   checkAllowance,
   callGetPrice,
   parseIntHex,
+  callGetNFTPrice,
 } from "@/contractInteractions/useAppContract";
 import Ethers from "@/lib/ethers";
 import { ethers } from "ethers";
@@ -167,9 +168,9 @@ export default function NftBuy() {
           ) */
       });
       const { contractWithSigner } = await callBevmNFTContract();
-      const sats1 = ethers.utils.formatEther(await contractWithSigner.getNFTPrice(1)); 
-      const sats2 = ethers.utils.formatEther(await contractWithSigner.getNFTPrice(2)); 
-      const sats3 = ethers.utils.formatEther(await contractWithSigner.getNFTPrice(3)); 
+      const sats1 = ethers.utils.formatEther(await callGetNFTPrice(1)); 
+      const sats2 = ethers.utils.formatEther(await callGetNFTPrice(2)); 
+      const sats3 = ethers.utils.formatEther(await callGetNFTPrice(3)); 
       setSats({
         sats1:Number(sats1), 
         sats2: Number(sats2),

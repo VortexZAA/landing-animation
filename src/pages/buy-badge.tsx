@@ -194,7 +194,7 @@ export default function NftBuy() {
                 <input
                   type="text"
                   onChange={refVip1}
-                  placeholder="Referral Code"
+                  placeholder={"Main Referral Code: "+childRef[0]}
                   className="outline-none border-2 rounded-lg border-gray-200 p-3 text-black"
                 />
                 <button
@@ -218,7 +218,7 @@ export default function NftBuy() {
                 <input
                   type="text"
                   onChange={refVip2}
-                  placeholder="Referral Code"
+                  placeholder={"Main Referral Code: "+childRef[0]}
                   className="outline-none border-2 rounded-lg border-gray-200 p-3 text-black"
                 />
                 <button
@@ -242,7 +242,7 @@ export default function NftBuy() {
                 <input
                   type="text"
                   onChange={refVip3}
-                  placeholder="Referral Code"
+                  placeholder={"Main Referral Code: "+childRef[0]}
                   className="outline-none border-2 rounded-lg border-gray-200 p-3 text-black"
                 />
                 <button

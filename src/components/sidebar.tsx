@@ -166,7 +166,7 @@ export default function SideBar() {
       dispatch(setEmty(emty));
       let authPath = ["/my-account", "/dashboard"];
       if (authPath.includes(router.pathname)) {
-        //emty && router.push("/buy-badge");
+        emty && router.push("/buy-badge");
       } else if (router.pathname === "/buy-badge") {
         !emty && router.push("/my-account");
       }
@@ -637,7 +637,7 @@ console.log("chainId",chainId);
                   //setSelectedChain("0x38");
                   dispatch(setChainId("0x38"));
                 }}
-                className="w-full hidden h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
+                className="w-full flex h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
                 <img src="/bnb.svg" alt="" className="h-full" />
                 BNB Chain

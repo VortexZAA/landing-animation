@@ -101,7 +101,7 @@ export default function SideBar() {
   });
   const [chain, setChain]: any = useState(ChainData);
   async function checkChain(chainId: string) {
-    //dispatch(setChainId(chainId));
+    dispatch(setChainId(chainId));
     if (chainId.toString() !== chainId) {
       const { name } = chain[chainId] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
@@ -556,8 +556,8 @@ export default function SideBar() {
   useEffect(() => {
     const localChainId = localStorage.getItem("chainId") || "0x5dd";
     setSelectedChain(localChainId);
+    dispatch(setChainId(localChainId));
   }, []);
-  console.log();
 
   return (
     <>

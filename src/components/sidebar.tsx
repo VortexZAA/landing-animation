@@ -1,25 +1,19 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Ethers from "@/lib/ethers";
 import CopyBtn from "./button/copyBtn";
 import {
-  callCalculateChildRevenue,
   callGetNFT,
-  callGetNFTBiget,
   callGetNFTInfo,
-  callGetNFTInfoBiget,
   parseIntHex,
 } from "@/contractInteractions/useAppContract";
-import { Alert } from "./alert/alert";
 import { ToastError, ToastSuccess } from "./alert/SweatAlert";
 import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
 import {
   setNftInfo,
-  setTotalRevenue,
   setVipLvl,
-  setWithdrawableBalance,
   setEmty,
   setClear,
   selectData,
@@ -34,8 +28,6 @@ import {
 } from "@/redux/auth/auth";
 import Image from "next/image";
 import CloseBtn from "./icons/close";
-import WalletConnect from "@walletconnect/client";
-import QRCodeModal from "@walletconnect/qrcode-modal";
 import { bigetConnect, bigetSwitch } from "@/lib/biget";
 import Modal from "./Modal";
 import ChainData from "@/data/chain.json";
@@ -76,8 +68,6 @@ export default function SideBar() {
       try {
         //@ts-ignore
         window.ethereum?.on("accountsChanged", (accounts) => {
-          localStorage.removeItem("address");
-          localStorage.removeItem("isEmty");
           localStorage.clear();
           dispatch(setClear());
           router.push("/buy-badge");
@@ -85,13 +75,11 @@ export default function SideBar() {
         });
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
-          localStorage.removeItem("address");
-          localStorage.removeItem("isEmty");
-          localStorage.clear();
+          checkChain(chainId);
+          //localStorage.clear();
           dispatch(setClear());
           router.push("/buy-badge");
-          router.reload();
-          checkChain(chainId);
+          //router.reload();
         });
         checkIsAdmin();
       } catch (err) {
@@ -100,12 +88,14 @@ export default function SideBar() {
     }
   });
   const [chain, setChain]: any = useState(ChainData);
-  async function checkChain(chainId: string) {
+  async function checkChain(id: string) {
     //dispatch(setChainId(chainId));
-    if (chainId.toString() !== "0x5dd") {
+    console.log("id", id, chainId);
+    
+    if (id.toString() !== chainId) {
       const { name } = chain[chainId] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
-      const toNetwork = chain["0x5dd"]?.name || "Binance Smart Chain2";
+      const toNetwork = chain[chainId]?.name || "Binance Smart Chain2";
 
       await Swal.fire({
         title: "Please Change Network",
@@ -122,28 +112,28 @@ export default function SideBar() {
         if (result.isConfirmed) {
           window.ethereum?.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: chain["0x5dd"].chainId }],
+            params: [{ chainId: chain[chainId].chainId }],
           }) ||
             window.ethereum.request({
               method: "wallet_addEthereumChain",
               params: [
                 {
-                  chainId: chain["0x5dd"].chainId,
-                  chainName: chain["0x5dd"].name,
+                  chainId: chain[chainId].chainId,
+                  chainName: chain[chainId].name,
                   nativeCurrency: {
-                    name: chain["0x5dd"].nativeCurrency.name,
-                    symbol: chain["0x5dd"].nativeCurrency.symbol,
+                    name: chain[chainId].nativeCurrency.name,
+                    symbol: chain[chainId].nativeCurrency.symbol,
                     decimals: 18,
                   },
-                  rpcUrls: chain["0x5dd"].rpcUrls,
-                  blockExplorerUrls: chain["0x5dd"].blockExplorerUrls,
+                  rpcUrls: chain[chainId].rpcUrls,
+                  blockExplorerUrls: chain[chainId].blockExplorerUrls,
                 },
               ],
             });
         }
       });
     }
-    if (chainId.toString() === "0x5dd") {
+    if (chainId.toString() === chainId) {
       ToastSuccess({}).fire({
         title: "Network Changed",
       });
@@ -174,7 +164,7 @@ export default function SideBar() {
 
       localStorage.setItem("isEmty", JSON.stringify({ isEmty: emty }));
       dispatch(setEmty(emty));
-      let authPath = ["/my-account", "/my-account"];
+      let authPath = ["/my-account", "/dashboard"];
       if (authPath.includes(router.pathname)) {
         emty && router.push("/buy-badge");
       } else if (router.pathname === "/buy-badge") {
@@ -200,18 +190,10 @@ export default function SideBar() {
           id: parseIntHex(getNFTInfo[1]),
           holder: getNFTInfo[2],
           parent: parseIntHex(getNFTInfo[3]),
-          //claimLimit: ethers.utils.formatEther(getNFTInfo[4]),
-          //usedClaimLimit: ethers.utils.formatEther(getNFTInfo["usedClaimLimit"]),
-          leftChild: parseIntHex(getNFTInfo[4]),
-          rightChild: parseIntHex(getNFTInfo[5]),
-          leftPotentielChild: ethers.utils.formatEther(getNFTInfo[6]),
-          rightPotentielChild: ethers.utils.formatEther(getNFTInfo[7]),
-          //totalPotentielChild: parseIntHex(getNFTInfo[9]),
-          referralIncome: ethers.utils.formatEther(getNFTInfo[8]),
-          //affiliateReward: parseIntHex(getNFTInfo[12]),
-          claimedPotential: parseIntHex(getNFTInfo[9]),
-          listed: getNFTInfo[11],
-          counter: parseIntHex(getNFTInfo["counter"]),
+          leftPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[6]),
+          rightPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[7]),
+          referralIncome: ethers.utils.formatEther(getNFTInfo[4]),
+          counter: parseIntHex(getNFTInfo[5]),
         };
 
         let lowPotentiel =
@@ -240,13 +222,13 @@ export default function SideBar() {
         dispatch(setLvl(lvl));
         dispatch(setReferralIncome(Number(data.referralIncome)));
         console.log(data);
-        let revenue = await callCalculateChildRevenue(ID);
+        // let revenue = await callCalculateChildRevenue(ID);
         //console.log(revenue);
         let childData: any = {
           leftChildRevenue: 0,
           rightChildRevenue: 0,
         };
-        if (revenue) {
+        /* if (revenue) {
           childData = {
             leftChildRevenue: ethers.utils.formatEther(revenue[0]),
             rightChildRevenue: ethers.utils.formatEther(revenue[1]),
@@ -273,7 +255,7 @@ export default function SideBar() {
             JSON.stringify(withdrawableBalance)
           );
           dispatch(setWithdrawableBalance(withdrawableBalance));
-        }
+        } */
         //console.log(childData);
         const datas: any = {
           id: data.id.toString(),
@@ -281,12 +263,11 @@ export default function SideBar() {
           address: data.holder,
           leftChildRevenue: childData?.leftChildRevenue,
           rightChildRevenue: childData?.rightChildRevenue,
-          vipLvl: data.vipLvl,
+          //vipLvl: data.vipLvl,
           parent: data.parent.toString(),
-          count:
-            (data.leftChild === 0 ? 0 : 1) + (data.rightChild === 0 ? 0 : 1),
+          count:data.counter,
           children: [
-            {
+            /* {
               id: data.leftChild,
               name: "b",
               parent: data.id.toString(),
@@ -297,7 +278,7 @@ export default function SideBar() {
               name: "c",
               parent: data.id.toString(),
               children: [],
-            },
+            }, */
           ],
         };
 
@@ -325,7 +306,7 @@ export default function SideBar() {
       //const signer = await provider?.getSigner();
 
       const signer = await provider?.getSigner();
-      const [address, chainId, networkName] = await Promise.all([
+      const [address, chainIdNow, networkName] = await Promise.all([
         signer.getAddress(),
         signer.provider
           .getNetwork()
@@ -346,29 +327,29 @@ export default function SideBar() {
       ToastSuccess({}).fire({
         title: "Your wallet is connected successfully.",
       });
-      console.log("status", ethers.utils.formatEther(selectedChain));
-      dispatch(setChainId(selectedChain));
+      console.log("status", ethers.utils.formatEther(chainId));
+      //dispatch(setChainId(chainId));
       if (
         chainId.toString() !==
-        ethers.utils.formatEther(selectedChain).toString()
+        ethers.utils.formatEther(chainIdNow).toString()
       ) {
         ethereum?.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: chain[selectedChain].chainId }],
+          params: [{ chainId: chain[chainId].chainId }],
         }) ||
           ethereum.request({
             method: "wallet_addEthereumChain",
             params: [
               {
-                chainId: chain[selectedChain].chainId,
-                chainName: chain[selectedChain].name,
+                chainId: chain[chainId].chainId,
+                chainName: chain[chainId].name,
                 nativeCurrency: {
-                  name: chain[selectedChain].nativeCurrency.name,
-                  symbol: chain[selectedChain].nativeCurrency.symbol,
+                  name: chain[chainId].nativeCurrency.name,
+                  symbol: chain[chainId].nativeCurrency.symbol,
                   decimals: 18,
                 },
-                rpcUrls: chain[selectedChain].rpcUrls,
-                blockExplorerUrls: chain[selectedChain].blockExplorerUrls,
+                rpcUrls: chain[chainId].rpcUrls,
+                blockExplorerUrls: chain[chainId].blockExplorerUrls,
               },
             ],
           });
@@ -549,7 +530,7 @@ export default function SideBar() {
   async function BigetConnect() {
     try {
       await bigetConnect();
-      await bigetSwitch(selectedChain);
+      await bigetSwitch(chainId);
 
       /*  */
     } catch (error) {
@@ -557,12 +538,17 @@ export default function SideBar() {
     }
   }
   const [modal, setModal] = useState(false);
-  const [selectedChain, setSelectedChain] = useState<string>("0x38"); //<"0x5dd" | "0x38">("0x38");
+  //const [selectedChain, setSelectedChain] = useState<string>("0x5dd"); //<"0x5dd" | "0x38">("0x38");
   useEffect(() => {
-    localStorage.setItem("chainId", chainId);
-    setSelectedChain(chainId);
+    chainId && localStorage.setItem("chainId", chainId);
+    //setSelectedChain(chainId);
   }, [chainId]);
-  console.log();
+  useEffect(() => {
+    const localChainId = localStorage.getItem("chainId") || "0x5dd";
+   // setSelectedChain(localChainId);
+    dispatch(setChainId(localChainId));
+  }, []);
+console.log("chainId",chainId);
 
   return (
     <>
@@ -648,7 +634,7 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  setSelectedChain("0x38");
+                  //setSelectedChain("0x38");
                   dispatch(setChainId("0x38"));
                 }}
                 className="w-full hidden h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
@@ -659,13 +645,24 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  setSelectedChain("0x5dd");
+                  //setSelectedChain("0x5dd");
                   dispatch(setChainId("0x5dd"));
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
                 <img src="/bevm.svg" alt="" className="h-full" />
                 Chain
+              </button>
+              <button
+                onClick={() => {
+                  setModal(true);
+                  //setSelectedChain("0x58f8");
+                  dispatch(setChainId("0x58f8"));
+                }}
+                className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+              >
+                <img src="/mapo.png" alt="" className="h-full" />
+                Map Chain
               </button>
             </div>
           </div>
@@ -701,7 +698,7 @@ export default function SideBar() {
             onClick={() => {
               localStorage.removeItem("address");
               localStorage.removeItem("isEmty");
-              localStorage.clear();
+              router.reload();
               dispatch(setClear());
               router.push("/buy-badge");
             }}

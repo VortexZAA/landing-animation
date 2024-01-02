@@ -146,16 +146,17 @@ const FlowChartWithAutoLayout = ({
           id: parseIntHex(getNFTInfo[1]),
           holder: getNFTInfo[2],
           parent: parseIntHex(getNFTInfo[3]),
-          //claimLimit: ethers.utils.formatEther(getNFTInfo[4]),
-          leftChild: parseIntHex(getNFTInfo[4]),
-          rightChild: parseIntHex(getNFTInfo[5]),
+          leftPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[6]),
+          rightPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[7]),
+          referralIncome: ethers.utils.formatEther(getNFTInfo[4]),
+          counter: parseIntHex(getNFTInfo[5]),
         };
         console.log(contractData);
-        let revenue = await callCalculateChildRevenue(tokenId as number);
-        console.log(revenue);
+        /* let revenue = await callCalculateChildRevenue(tokenId as number);
+        console.log(revenue); */
         let childData = {
-          leftChildRevenue: ethers.utils.formatEther(revenue[0]),
-          rightChildRevenue: ethers.utils.formatEther(revenue[1]),
+          leftChildRevenue: 0,//ethers.utils.formatEther(revenue[0]),
+          rightChildRevenue: 0,//ethers.utils.formatEther(revenue[1]),
         };
         console.log(childData);
         let datas = {
@@ -164,13 +165,11 @@ const FlowChartWithAutoLayout = ({
           address: contractData.holder,
           leftChildRevenue: childData.leftChildRevenue,
           rightChildRevenue: childData.rightChildRevenue,
-          vipLvl: contractData.vipLvl,
+          //vipLvl: contractData.vipLvl,
           parent: contractData.parent.toString(),
-          count:
-            (contractData.leftChild === 0 ? 0 : 1) +
-            (contractData.rightChild === 0 ? 0 : 1),
+          count: contractData.counter,
           children: [
-            {
+            /* {
               id: contractData.leftChild,
               name: "b",
               parent: contractData.id.toString(),
@@ -181,7 +180,7 @@ const FlowChartWithAutoLayout = ({
               name: "c",
               parent: contractData.id.toString(),
               children: [],
-            },
+            }, */
           ],
         };
         datas.children = datas.children.filter((item: any) => item.id !== 0);
@@ -281,9 +280,10 @@ const FlowChartWithAutoLayout = ({
               id: parseIntHex(getNFTInfo[1]),
               holder: getNFTInfo[2],
               parent: parseIntHex(getNFTInfo[3]),
-              //claimLimit: ethers.utils.formatEther(getNFTInfo[4]),
-              leftChild: parseIntHex(getNFTInfo[4]),
-              rightChild: parseIntHex(getNFTInfo[5]),
+              leftPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[6]),
+              rightPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[7]),
+              referralIncome: ethers.utils.formatEther(getNFTInfo[4]),
+              counter: parseIntHex(getNFTInfo[5]),
             };
             console.log(contractData);
             let revenue = await callCalculateChildRevenue(Number(item.id));
@@ -302,11 +302,9 @@ const FlowChartWithAutoLayout = ({
               rightChildRevenue: childData.rightChildRevenue,
               vipLvl: contractData.vipLvl,
               parent: contractData.parent.toString(),
-              count:
-                (contractData.leftChild === 0 ? 0 : 1) +
-                (contractData.rightChild === 0 ? 0 : 1),
+              count: contractData.counter,
               children: [
-                {
+                /* {
                   id: contractData.leftChild,
                   name: "b",
                   parent: item.id.toString(),
@@ -317,7 +315,7 @@ const FlowChartWithAutoLayout = ({
                   name: "c",
                   parent: item.id.toString(),
                   children: [],
-                },
+                }, */
               ],
             };
             datas.children = datas.children.filter(

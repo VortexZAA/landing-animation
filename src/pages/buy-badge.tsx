@@ -3,11 +3,7 @@ import React, { useState } from "react";
 import Layout from "@/layout/layout";
 import {
   callRegister,
-  callApprove,
-  callAllowance,
-  checkAllowance,
-  callGetPrice,
-  parseIntHex,
+  callGetNFTPrice,
 } from "@/contractInteractions/useAppContract";
 import Ethers from "@/lib/ethers";
 import { ethers } from "ethers";
@@ -19,7 +15,6 @@ import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
 import { selectData, setLoading } from "@/redux/auth/auth";
 import { useRouter } from "next/router";
 import BtcIcon from "@/components/icons/btc";
-import { callBevmNFTContract } from "@/contractInteractions/etherumContracts";
 import BnbIcon from "@/components/icons/bnb";
 
 export default function NftBuy() {
@@ -166,21 +161,11 @@ export default function NftBuy() {
             ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
           ) */
       });
-      const { contractWithSigner } = await callBevmNFTContract();
-      const sats1 =ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
-        /* chainId !== "0x38"
-          ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
-          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(1)); */
-      const sats2 = ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
-        /* chainId !== "0x38"
-          ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
-          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(2)); */
-      const sats3 = ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
-        /* chainId !== "0x38"
-          ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
-          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(3)); */
+      const sats1 = ethers.utils.formatEther(await callGetNFTPrice(1)); 
+      const sats2 = ethers.utils.formatEther(await callGetNFTPrice(2)); 
+      const sats3 = ethers.utils.formatEther(await callGetNFTPrice(3)); 
       setSats({
-        sats1:Number(sats1),
+        sats1:Number(sats1), 
         sats2: Number(sats2),
         sats3: Number(sats3),
       });
@@ -195,14 +180,6 @@ export default function NftBuy() {
   
   return (
     <>
-      {alert?.show && (
-        <Alert
-          status={alert?.status}
-          text={alert?.text}
-          tHashLink={alert?.tHashLink}
-        />
-      )}
-
       <Layout title="Buy Badge">
         <div className="flex w-full justify-center items-center xl:h-[80vh] text-white pb-20">
           <div className="items-center justify-center w-full grid md:grid-cols-2 lg:grid-cols-3 h-full lg:h-2/3 gap-3 md:gap-4 xl:gap-6">

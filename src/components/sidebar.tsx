@@ -76,10 +76,10 @@ export default function SideBar() {
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
           checkChain(chainId);
-          localStorage.clear();
+          //localStorage.clear();
           dispatch(setClear());
           router.push("/buy-badge");
-          router.reload();
+          //router.reload();
         });
         checkIsAdmin();
       } catch (err) {
@@ -88,9 +88,11 @@ export default function SideBar() {
     }
   });
   const [chain, setChain]: any = useState(ChainData);
-  async function checkChain(chainId: string) {
-    dispatch(setChainId(chainId));
-    if (chainId.toString() !== chainId) {
+  async function checkChain(id: string) {
+    //dispatch(setChainId(chainId));
+    console.log("id", id, chainId);
+    
+    if (id.toString() !== chainId) {
       const { name } = chain[chainId] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
       const toNetwork = chain[chainId]?.name || "Binance Smart Chain2";
@@ -304,7 +306,7 @@ export default function SideBar() {
       //const signer = await provider?.getSigner();
 
       const signer = await provider?.getSigner();
-      const [address, chainId, networkName] = await Promise.all([
+      const [address, chainIdNow, networkName] = await Promise.all([
         signer.getAddress(),
         signer.provider
           .getNetwork()
@@ -329,7 +331,7 @@ export default function SideBar() {
       //dispatch(setChainId(chainId));
       if (
         chainId.toString() !==
-        ethers.utils.formatEther(chainId).toString()
+        ethers.utils.formatEther(chainIdNow).toString()
       ) {
         ethereum?.request({
           method: "wallet_switchEthereumChain",

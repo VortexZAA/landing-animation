@@ -10,26 +10,11 @@ import AnimateHeight from "react-animate-height";
 export default function Home() {
   const [selected, setSelected] = useState(1);
   const [active, setActive] = useState<string>("0");
-  const togglePara = (value: string) => {
+  const toggleFaq = (value: string) => {
     setActive((oldValue) => {
       return oldValue === value ? "" : value;
     });
   };
-  const [data, setData]: any = useState();
-  const reduxData = useAppSelector(selectData);
-  const dispatch = useAppDispatch();
-  const {
-    withdrawableBalance,
-    totalRevenue,
-    vipLvl,
-    address,
-    loading,
-    nftId,
-    downlines,
-    referralIncome,
-    lvl,
-    lowPotentiel,
-  } = reduxData;
 
   return (
     <>
@@ -49,7 +34,7 @@ export default function Home() {
                   <CardFaq
                     key={faq.id}
                     faq={faq}
-                    togglePara={togglePara}
+                    toggleFaq={toggleFaq}
                     active={active}
                   />
                 ))}
@@ -64,7 +49,7 @@ export default function Home() {
                   <CardFaq
                     key={faq.id}
                     faq={faq}
-                    togglePara={togglePara}
+                    toggleFaq={toggleFaq}
                     active={active}
                   />
                 ))}
@@ -79,7 +64,7 @@ export default function Home() {
                   <CardFaq
                     key={faq.id}
                     faq={faq}
-                    togglePara={togglePara}
+                    toggleFaq={toggleFaq}
                     active={active}
                   />
                 ))}
@@ -94,7 +79,7 @@ export default function Home() {
                   <CardFaq
                     key={faq.id}
                     faq={faq}
-                    togglePara={togglePara}
+                    toggleFaq={toggleFaq}
                     active={active}
                   />
                 ))}
@@ -106,7 +91,7 @@ export default function Home() {
     </>
   );
 }
-function CardFaq({ faq, togglePara, active }: any) {
+function CardFaq({ faq, toggleFaq, active }: any) {
   return (
     <div className="border-white/25 text-xs md:text-sm 2xl:text-base text-left  flex flex-col items-center justify-cente font-medium md:font-semibold border bg-[#0D0D0D1A]/10 backdrop-blur-sm rounded-2xl transition-all">
       <button
@@ -114,7 +99,7 @@ function CardFaq({ faq, togglePara, active }: any) {
         className={`p-4 w-full flex items-center gap-4 md:gap-4 xl:gap-6 text-left min-h-[90px] justify-between text-white-dark  ${
           active === faq.id.toString() ? "!text-primary" : ""
         }`}
-        onClick={() => faq.answer && togglePara(faq.id.toString())}
+        onClick={() => faq.answer && toggleFaq(faq.id.toString())}
       >
         <span className="leading-relaxed 2xl:leading-7 w-full">
           {faq.question}

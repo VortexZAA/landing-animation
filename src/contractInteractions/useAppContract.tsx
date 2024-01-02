@@ -111,15 +111,11 @@ export const callRegister = async (
     const { contractWithSigner } = await callNFTContract();
     const chainId = localStorage.getItem("chainId");
     let priceOfTier1, priceOfTier2, priceOfTier3;
-    if (chainId === "0x38") {
-      priceOfTier1 = await contractWithSigner.getPriceOfTier(1);
-      priceOfTier2 = await contractWithSigner.getPriceOfTier(2);
-      priceOfTier3 = await contractWithSigner.getPriceOfTier(3);
-    } else {
-      priceOfTier1 = process.env.NEXT_PUBLIC_TIER1; //await contractWithSigner.getNFTPrice(1);
-      priceOfTier2 = process.env.NEXT_PUBLIC_TIER2; //await contractWithSigner.getNFTPrice(2);
-      priceOfTier3 = process.env.NEXT_PUBLIC_TIER3; //await contractWithSigner.getNFTPrice(3);
-    }
+    
+    priceOfTier1 = await contractWithSigner.getNFTPrice(1);
+    priceOfTier2 = await contractWithSigner.getNFTPrice(2);
+    priceOfTier3 = await contractWithSigner.getNFTPrice(3);
+
     const weiValue =
       vipTier === 1
         ? priceOfTier1

@@ -81,5 +81,14 @@
 	"nativeCurrency": { "name": "Bitcoin", "symbol": "BTC", "decimals": 18 },
 	"rpcUrls": ["https://rpc-2.bevm.io"],
 	"blockExplorerUrls": ["https://scan.bevm.io/"]
+  },
+  "0x58f8":{
+    "chainId": "0x58f8",
+    "name": "MAP Mainnet",
+    "token": "MAPO",
+    "chainName": "MAP Mainnet",
+    "nativeCurrency": { "name": "MAPO", "symbol": "MAP", "decimals": 18 },
+    "rpcUrls": ["https://rpc.maplabs.io"],
+    "blockExplorerUrls": ["https://mapscan.io/"]
   }
 }

@@ -167,20 +167,11 @@ export default function NftBuy() {
           ) */
       });
       const { contractWithSigner } = await callBevmNFTContract();
-      const sats1 =ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
-        /* chainId !== "0x38"
-          ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
-          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(1)); */
-      const sats2 = ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
-        /* chainId !== "0x38"
-          ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
-          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(2)); */
-      const sats3 = ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
-        /* chainId !== "0x38"
-          ? ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
-          : ethers.utils.formatEther(await contractWithSigner.getPriceOfTier(3)); */
+      const sats1 = ethers.utils.formatEther(await contractWithSigner.getNFTPrice(1)); 
+      const sats2 = ethers.utils.formatEther(await contractWithSigner.getNFTPrice(2)); 
+      const sats3 = ethers.utils.formatEther(await contractWithSigner.getNFTPrice(3)); 
       setSats({
-        sats1:Number(sats1),
+        sats1:Number(sats1), 
         sats2: Number(sats2),
         sats3: Number(sats3),
       });

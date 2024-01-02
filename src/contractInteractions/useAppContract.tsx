@@ -22,6 +22,21 @@ const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 
 // NFT satın almak için kullanılan fonksiyon
 //BNB NFT
+export const callGetNFTPrice = async (tier: number) => {
+  try {
+    const { contractWithSigner } = await callBevmNFTContract();
+    let price = await contractWithSigner.getNFTPrice(tier);
+    return price;
+  } catch (error) {
+    console.error("Error during getPrice:", error);
+    /* alert("There was an error during the getPrice process. Please try again."); */
+    ToastError.fire({
+      title:
+        "There was an error during the getPrice process. Please try again.",
+    });
+    return false;
+  }
+}
 export const callRegisterForBNB = async (
   refferal: number,
   vipTier: number,
@@ -30,9 +45,9 @@ export const callRegisterForBNB = async (
 ) => {
   try {
     const { contractWithSigner } = await callBevmNFTContract();
-    let priceOfTier1 = await contractWithSigner.getNFTPrice(1);
-    let priceOfTier2 = await contractWithSigner.getNFTPrice(2);
-    let priceOfTier3 = await contractWithSigner.getNFTPrice(3);
+    let priceOfTier1 = await callGetNFTPrice(1);
+    let priceOfTier2 = await callGetNFTPrice(2);
+    let priceOfTier3 = await callGetNFTPrice(3);
     const weiValue =
       vipTier === 1
         ? priceOfTier1

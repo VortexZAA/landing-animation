@@ -3,9 +3,6 @@ import { ethers } from "ethers";
 import bnbNFT from "@/abi/bnbMLM.json";
 import bevmNFT from "@/abi/bevmMLM.json";
 import mapoNFT from "@/abi/mapoMLM.json";
-import tokenAbi from "@/abi/token.json";
-import { useAppSelector } from "@/hook/redux/hooks";
-import { selectData } from "@/redux/auth/auth";
 declare global {
   interface Window {
     ethereum: any;

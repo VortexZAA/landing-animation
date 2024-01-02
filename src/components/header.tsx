@@ -156,7 +156,7 @@ const menu = [
   {
     id: 2,
     title: "Docs",
-    link: "https://soulbound-1.gitbook.io/soulbound-btc-allpaper/",
+    link: "https://soulbound-1.gitbook.io/soulbound-btc-allpaper-v2",
     target: "_blank",
   },
   {

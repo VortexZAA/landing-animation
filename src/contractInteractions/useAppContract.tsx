@@ -200,28 +200,11 @@ export const callRegister = async (
 };
 
 // NFT'ye özel başklarının NFT almasında kullanıcı referans kodunu oluşturmak için kullanılan fonksiyon
-export const callGetReferralCodeForLeft = async (user: string) => {
+export const callGetReferralCode = async (user: string) => {
   try {
     const { contractWithSigner } = await callNFTContract();
     let NFTID = await contractWithSigner.getNFT(user);
-    let refferal = await contractWithSigner.encodeIDForLeft(NFTID);
-    return refferal;
-  } catch (error) {
-    console.error("Error during refferal:", error);
-    /* alert("There was an error during the refferal process. Please try again."); */
-    ToastError.fire({
-      title:
-        "There was an error during the refferal process. Please try again.",
-    });
-    return false;
-  }
-};
-
-export const callGetReferralCodeForRight = async (user: string) => {
-  try {
-    const { contractWithSigner } = await callNFTContract();
-    let NFTID = await contractWithSigner.getNFT(user);
-    let refferal = await contractWithSigner.encodeIDForRight(NFTID);
+    let refferal = await contractWithSigner.encodeID(NFTID);
     return refferal;
   } catch (error) {
     console.error("Error during refferal:", error);

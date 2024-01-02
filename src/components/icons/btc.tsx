@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
 import { selectData } from "@/redux/auth/auth";
+import BnbIcon from "./bnb";
 export default function BtcIcon({ addClass = "" }: { addClass?: string }) {
   const reduxData = useAppSelector(selectData);
   const { address, isEmty, chainId } = reduxData;
@@ -10,6 +11,8 @@ export default function BtcIcon({ addClass = "" }: { addClass?: string }) {
         <>
           <img src="/mapo.png" alt="" className="h-3/4 w-fit max-h-[40px]" />
         </>
+      ) : chainId === "0x38" ? (
+        <BnbIcon/>
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"

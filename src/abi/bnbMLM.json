@@ -144,42 +144,12 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "leftChildID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "rightChildID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "leftPotential",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "rightPotential",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
 				"name": "referralIncome",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "claimedPotential",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "usedClaimLimit",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "counter",
+				"name": "refCounter",
 				"type": "uint256"
 			},
 			{
@@ -248,82 +218,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address[]",
-				"name": "addresses",
-				"type": "address[]"
-			},
-			{
-				"internalType": "uint256",
-				"name": "rootID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint32",
-				"name": "_tier",
-				"type": "uint32"
-			}
-		],
-		"name": "batchRegister",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "calculateChildRevenue",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "leftChildRevenue",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "rightChildRevenue",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "calculateClaimableIncome",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "claimableIncome",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "_flag",
-				"type": "bool"
-			},
-			{
-				"internalType": "uint256",
-				"name": "ratio",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "claimReferralReward",
 		"outputs": [],
@@ -338,26 +232,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "encodeIDForLeft",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "encodeIDForRight",
+		"name": "encodeID",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -478,42 +353,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "leftChildID",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "rightChildID",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "leftPotential",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "rightPotential",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
 						"name": "referralIncome",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "claimedPotential",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "usedClaimLimit",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "counter",
+						"name": "refCounter",
 						"type": "uint256"
 					},
 					{
@@ -564,42 +409,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "leftChildID",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "rightChildID",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "leftPotential",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "rightPotential",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
 						"name": "referralIncome",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "claimedPotential",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "usedClaimLimit",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "counter",
+						"name": "refCounter",
 						"type": "uint256"
 					},
 					{
@@ -702,11 +517,6 @@
 				"internalType": "uint256",
 				"name": "_parent",
 				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "_isLeft",
-				"type": "bool"
 			}
 		],
 		"name": "initialRegister",
@@ -829,13 +639,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "refresh",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"components": [
@@ -863,19 +666,6 @@
 		"name": "register",
 		"outputs": [],
 		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_adminToRemove",
-				"type": "address"
-			}
-		],
-		"name": "removeAdmin",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -932,9 +722,14 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address[]",
-				"name": "_newAdmins",
-				"type": "address[]"
+				"internalType": "address",
+				"name": "_admin1",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_admin2",
+				"type": "address"
 			}
 		],
 		"name": "setAdmins",
@@ -1240,19 +1035,6 @@
 			}
 		],
 		"name": "withdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "withdrawReward",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

@@ -5,21 +5,15 @@ import { ethers } from "ethers";
 import Ethers from "@/lib/ethers";
 import CopyBtn from "./button/copyBtn";
 import {
-  callCalculateChildRevenue,
   callGetNFT,
-  callGetNFTBiget,
   callGetNFTInfo,
-  callGetNFTInfoBiget,
   parseIntHex,
 } from "@/contractInteractions/useAppContract";
-import { Alert } from "./alert/alert";
 import { ToastError, ToastSuccess } from "./alert/SweatAlert";
 import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
 import {
   setNftInfo,
-  setTotalRevenue,
   setVipLvl,
-  setWithdrawableBalance,
   setEmty,
   setClear,
   selectData,
@@ -34,8 +28,6 @@ import {
 } from "@/redux/auth/auth";
 import Image from "next/image";
 import CloseBtn from "./icons/close";
-import WalletConnect from "@walletconnect/client";
-import QRCodeModal from "@walletconnect/qrcode-modal";
 import { bigetConnect, bigetSwitch } from "@/lib/biget";
 import Modal from "./Modal";
 import ChainData from "@/data/chain.json";
@@ -76,8 +68,6 @@ export default function SideBar() {
       try {
         //@ts-ignore
         window.ethereum?.on("accountsChanged", (accounts) => {
-          localStorage.removeItem("address");
-          localStorage.removeItem("isEmty");
           localStorage.clear();
           dispatch(setClear());
           router.push("/buy-badge");
@@ -85,13 +75,11 @@ export default function SideBar() {
         });
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
-          localStorage.removeItem("address");
-          localStorage.removeItem("isEmty");
+          checkChain(chainId);
           localStorage.clear();
           dispatch(setClear());
           router.push("/buy-badge");
           router.reload();
-          checkChain(chainId);
         });
         checkIsAdmin();
       } catch (err) {
@@ -550,7 +538,7 @@ export default function SideBar() {
   const [modal, setModal] = useState(false);
   //const [selectedChain, setSelectedChain] = useState<string>("0x5dd"); //<"0x5dd" | "0x38">("0x38");
   useEffect(() => {
-    localStorage.setItem("chainId", chainId);
+    chainId && localStorage.setItem("chainId", chainId);
     //setSelectedChain(chainId);
   }, [chainId]);
   useEffect(() => {
@@ -558,6 +546,7 @@ export default function SideBar() {
    // setSelectedChain(localChainId);
     dispatch(setChainId(localChainId));
   }, []);
+console.log("chainId",chainId);
 
   return (
     <>

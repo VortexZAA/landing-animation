@@ -3,11 +3,6 @@ import React, { useState } from "react";
 import Layout from "@/layout/layout";
 import {
   callRegister,
-  callApprove,
-  callAllowance,
-  checkAllowance,
-  callGetPrice,
-  parseIntHex,
   callGetNFTPrice,
 } from "@/contractInteractions/useAppContract";
 import Ethers from "@/lib/ethers";
@@ -20,7 +15,6 @@ import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
 import { selectData, setLoading } from "@/redux/auth/auth";
 import { useRouter } from "next/router";
 import BtcIcon from "@/components/icons/btc";
-import { callBevmNFTContract } from "@/contractInteractions/etherumContracts";
 import BnbIcon from "@/components/icons/bnb";
 
 export default function NftBuy() {
@@ -167,7 +161,6 @@ export default function NftBuy() {
             ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
           ) */
       });
-      const { contractWithSigner } = await callBevmNFTContract();
       const sats1 = ethers.utils.formatEther(await callGetNFTPrice(1)); 
       const sats2 = ethers.utils.formatEther(await callGetNFTPrice(2)); 
       const sats3 = ethers.utils.formatEther(await callGetNFTPrice(3)); 

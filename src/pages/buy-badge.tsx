@@ -187,7 +187,7 @@ export default function NftBuy() {
               <Vip text="Seed 1" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip1 rounded-md">
                 {/* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon/>}
-                {sats.sats1.toFixed(6)}
+                {sats.sats1.toFixed(4)}
                 {""} = {price?.vip1.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
@@ -211,7 +211,7 @@ export default function NftBuy() {
               <Vip text="Seed 2" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip2 rounded-md">
                 {/* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon/>}
-                {sats.sats2.toFixed(6)}
+                {sats.sats2.toFixed(4)}
                 {""} = {price?.vip2?.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">
@@ -235,7 +235,7 @@ export default function NftBuy() {
               <Vip text="Seed 3" />
               <div className="flex justify-center items-center  gap-3 border-2 p-6 border-vip3 rounded-md">
                 {/* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon/>}
-                {sats.sats3.toFixed(6)}
+                {sats.sats3.toFixed(4)}
                 {""} = {price?.vip3?.toFixed(0)}$
               </div>
               <div className="w-full  flex flex-col gap-3">

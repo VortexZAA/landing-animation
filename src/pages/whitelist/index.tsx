@@ -97,7 +97,6 @@ export default function Home() {
             </div>
             <Link href={'#'} target="_blank">
               <button
-                onClick={connecWallet}
                 className="border-2 border-white rounded-md text-black font-semibold mt-6 py-3 px-10  text-xl bg-white hover:bg-black hover:text-white  transition-all"
               >
                 Galxe

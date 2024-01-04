@@ -95,7 +95,7 @@ export default function Home() {
               proceed to Galxe to complete all tasks and qualify for whitelist
               eligibility
             </div>
-            <Link href={'#'} target="_blank">
+            <Link href={'https://galxe.com/YfeKVXRYC5D657nrgNkags?hideFooter=true&id=38163'} target="_blank">
               <button
                 className="border-2 border-white rounded-md text-black font-semibold mt-6 py-3 px-10  text-xl bg-white hover:bg-black hover:text-white  transition-all"
               >

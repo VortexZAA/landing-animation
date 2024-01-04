@@ -26,7 +26,7 @@ export default function Intro() {
         </h1>
         {show && (
           <Link href={"/whitelist"}>
-            <button className="border-4 border-white hover:text-black rounded-md py-3 px-6 mt-36 text-xl hover:bg-white transition-all">
+            <button className="border-4 border-white hover:text-black animate-fadeIn rounded-md py-3 px-6 mt-36 text-xl hover:bg-white transition-all">
               Join Badge Whitelist
             </button>
           </Link>

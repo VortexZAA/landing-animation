@@ -1,3 +1,5 @@
+import GitBook from "./icons/gitbook";
+
 export default function Footer({ status = false }: { status?: boolean }) {
   return (
     <>
@@ -15,6 +17,16 @@ export default function Footer({ status = false }: { status?: boolean }) {
             &copy; {new Date().getFullYear()} All rights reserved.
           </p>
           <ul className="flex items-center gap-3">
+            <li className="inline-block mx-1">
+              <a
+                href="https://soulbound-1.gitbook.io/soulbound-btc-allpaper-v2"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-orange-400 transition-colors"
+              >
+                <GitBook />
+              </a>
+            </li>
             <li className="inline-block mx-1">
               <a
                 href="https://twitter.com/SoulBound_BTC"

@@ -47,19 +47,20 @@ export default function Home() {
         .getFirstListItem(`address="${address}"`)
         .then((record: any) => {
           console.log(record);
-          return true;
+          return false;
         })
         .catch((error: any) => {
           console.log(error);
-          return false;
+          return true;
         });
       if (check) {
+
         const record = await pb
           .collection("soulbound_whitelist")
           .create(data)
           .then((record: any) => {
             console.log(record);
-            alert("Your wallet is connected successfully.");
+            //alert("Your wallet is connected successfully.");
           })
           .catch((error: any) => {
             console.log(error);

@@ -46,7 +46,7 @@ export default function Footer({ status = false }: { status?: boolean }) {
             </li>
             <li>
               <a
-                href="https://discord.gg/QJKbNrTp"
+                href="https://discord.com/invite/VCqrVYf3G5"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-orange-400 transition-colors"

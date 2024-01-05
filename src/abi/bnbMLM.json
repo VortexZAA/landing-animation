@@ -435,7 +435,7 @@
 		"inputs": [
 			{
 				"internalType": "uint32",
-				"name": "tier",
+				"name": "_tier",
 				"type": "uint32"
 			}
 		],
@@ -477,25 +477,6 @@
 				"internalType": "int256",
 				"name": "price_",
 				"type": "int256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint32",
-				"name": "_tier",
-				"type": "uint32"
-			}
-		],
-		"name": "getPriceOfTier",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -772,6 +753,19 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
+				"name": "_finalID",
+				"type": "uint256"
+			}
+		],
+		"name": "setFinalID",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
 				"name": "tokenId",
 				"type": "uint256"
 			},
@@ -876,6 +870,19 @@
 			}
 		],
 		"name": "setMultiplier",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_paymentToken",
+				"type": "address"
+			}
+		],
+		"name": "setPaymentToken",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -1023,7 +1030,7 @@
 		],
 		"name": "upgradeTier",
 		"outputs": [],
-		"stateMutability": "payable",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1035,6 +1042,19 @@
 			}
 		],
 		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "withdrawSBP",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

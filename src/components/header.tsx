@@ -153,12 +153,12 @@ const menu = [
     link: "/documents/soulbound-protocol-whitepaper.pdf",
     target: "_blank",
   },
-  /* {
+  {
     id: 2,
-    title: "Docs",
-    link: "https://soulbound-1.gitbook.io/soulbound-btc-allpaper-v2",
+    title: "Blog",
+    link: "https://medium.com/@soulboundbtc",
     target: "_blank",
-  }, */
+  },
   {
     id: 2,
     title: "Audit",

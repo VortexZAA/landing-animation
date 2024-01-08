@@ -146,6 +146,7 @@ export default function NftBuy() {
       )
         .then((res) => res.json())
         .then((data) => data.price); */
+        dispatch(setLoading(true));
       setPrice({
         vip1: 100,
         /* price *
@@ -169,8 +170,10 @@ export default function NftBuy() {
         sats2: Number(sats2),
         sats3: Number(sats3),
       });
+      dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
+      dispatch(setLoading(false));
     }
   }
   useEffect(() => {

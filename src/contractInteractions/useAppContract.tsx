@@ -31,10 +31,10 @@ export const callGetNFTPrice = async (tier: number) => {
   } catch (error) {
     console.error("Error during getPrice:", error);
     /* alert("There was an error during the getPrice process. Please try again."); */
-    ToastError.fire({
+    /* ToastError.fire({
       title:
         "There was an error during the getPrice process. Please try again.",
-    });
+    }); */
     return false;
   }
 }

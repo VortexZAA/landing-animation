@@ -65,6 +65,21 @@ export default function SideBar() {
 
   useEffect(() => {
     if (window.ethereum && typeof window !== "undefined") {
+      const getChainId = async () => {
+        const { ethereum } = Ethers();
+        const chainIdMetamask = await ethereum?.request({
+          method: "eth_chainId",
+        });
+        //dispatch(setChainId(chainId));
+        console.log("chainIdMetamask", chainIdMetamask);
+        const chainId = localStorage.getItem("chainId")
+        console.log("chainId123123", chainId);
+        
+        if (chainIdMetamask.toString() !== chainId && !modal) {
+          CheckChain(chainIdMetamask);
+        }
+      };
+      getChainId();
       try {
         //@ts-ignore
         window.ethereum?.on("accountsChanged", (accounts) => {
@@ -75,11 +90,10 @@ export default function SideBar() {
         });
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
-          checkChain(chainId);
+          CheckChain(chainId);
           //localStorage.clear();
           dispatch(setClear());
           router.push("/buy-badge");
-          //router.reload();
         });
         checkIsAdmin();
       } catch (err) {
@@ -87,59 +101,65 @@ export default function SideBar() {
       }
     }
   });
-  const [chain, setChain]: any = useState(ChainData);
-  async function checkChain(id: string) {
-    //dispatch(setChainId(chainId));
-    console.log("id", id, chainId);
+  const CheckChain = (id: string) => {
     
     if (id.toString() !== chainId) {
+      //dispatch(setClear());
+      console.log("chainId", chainId);
+      console.log("chain", chain[chainId]);
+      
+      
       const { name } = chain[id] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
       const toNetwork = chain[chainId]?.name || "Binance Smart Chain2";
 
-      await Swal.fire({
-        title: "Please Change Network",
-        text: `From ${fromNetwork} to ${toNetwork}`,
-        icon: "warning",
-        iconColor: "#fff",
-        showCancelButton: false,
-        backdrop: true,
-        background: "#191919",
-        confirmButtonColor: "#282828",
-        color: "#fff",
-        confirmButtonText: "Yes, Change It!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.ethereum?.request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: chain[chainId].chainId }],
-          }) ||
-            window.ethereum.request({
-              method: "wallet_addEthereumChain",
-              params: [
-                {
-                  chainId: chain[chainId].chainId,
-                  chainName: chain[chainId].name,
-                  nativeCurrency: {
-                    name: chain[chainId].nativeCurrency.name,
-                    symbol: chain[chainId].nativeCurrency.symbol,
-                    decimals: 18,
+      const alert = async () =>
+        await Swal.fire({
+          title: "Please Change Network",
+          text: `From ${fromNetwork} to ${toNetwork}`,
+          icon: "warning",
+          iconColor: "#fff",
+          showCancelButton: false,
+          backdrop: true,
+          background: "#191919",
+          confirmButtonColor: "#282828",
+          color: "#fff",
+          confirmButtonText: "Yes, Change It!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.ethereum?.request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: chain[chainId].chainId }],
+            }) ||
+              window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: chain[chainId].chainId,
+                    chainName: chain[chainId].name,
+                    nativeCurrency: {
+                      name: chain[chainId].nativeCurrency.name,
+                      symbol: chain[chainId].nativeCurrency.symbol,
+                      decimals: 18,
+                    },
+                    rpcUrls: chain[chainId].rpcUrls,
+                    blockExplorerUrls: chain[chainId].blockExplorerUrls,
                   },
-                  rpcUrls: chain[chainId].rpcUrls,
-                  blockExplorerUrls: chain[chainId].blockExplorerUrls,
-                },
-              ],
-            });
-        }
-      });
+                ],
+              });
+          }
+        });
+      alert();
     }
-    if (chainId.toString() === chainId) {
+    if (id.toString() === chainId) {
       ToastSuccess({}).fire({
         title: "Network Changed",
       });
       router.reload();
     }
-  }
+  };
+  const [chain, setChain]: any = useState(ChainData);
+
   async function checkIsAdmin() {
     if (address === process.env.NEXT_PUBLIC_ADMIN_ADDRESS) {
       setIsAdmin(true);
@@ -190,8 +210,8 @@ export default function SideBar() {
           id: parseIntHex(getNFTInfo[1]),
           holder: getNFTInfo[2],
           parent: parseIntHex(getNFTInfo[3]),
-          leftPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[6]),
-          rightPotentielChild: 0,//ethers.utils.formatEther(getNFTInfo[7]),
+          leftPotentielChild: 0, //ethers.utils.formatEther(getNFTInfo[6]),
+          rightPotentielChild: 0, //ethers.utils.formatEther(getNFTInfo[7]),
           referralIncome: ethers.utils.formatEther(getNFTInfo[4]),
           counter: parseIntHex(getNFTInfo[5]),
         };
@@ -228,35 +248,7 @@ export default function SideBar() {
           leftChildRevenue: 0,
           rightChildRevenue: 0,
         };
-        /* if (revenue) {
-          childData = {
-            leftChildRevenue: ethers.utils.formatEther(revenue[0]),
-            rightChildRevenue: ethers.utils.formatEther(revenue[1]),
-          };
-          //console.log("childData", childData);
 
-          const totalRevenue =
-            Number(childData.leftChildRevenue) +
-            Number(childData.rightChildRevenue);
-          localStorage.setItem("totalRevenue", JSON.stringify(totalRevenue));
-          dispatch(setTotalRevenue(totalRevenue));
-          let lowRevenue =
-            Number(childData.leftChildRevenue) / totalRevenue > 0.5
-              ? Number(childData.rightChildRevenue) * 0.1
-              : Number(childData.leftChildRevenue) * 0.1;
-
-          //console.log("lowRevenue", lowRevenue);
-
-          const withdrawableBalance = lowRevenue;
-          //console.log("withdrawableBalance", withdrawableBalance);
-
-          localStorage.setItem(
-            "withdrawableBalance",
-            JSON.stringify(withdrawableBalance)
-          );
-          dispatch(setWithdrawableBalance(withdrawableBalance));
-        } */
-        //console.log(childData);
         const datas: any = {
           id: data.id.toString(),
           name: "a",
@@ -265,7 +257,7 @@ export default function SideBar() {
           rightChildRevenue: childData?.rightChildRevenue,
           //vipLvl: data.vipLvl,
           parent: data.parent.toString(),
-          count:data.counter,
+          count: data.counter,
           children: [
             /* {
               id: data.leftChild,
@@ -330,8 +322,7 @@ export default function SideBar() {
       console.log("status", ethers.utils.formatEther(chainId));
       //dispatch(setChainId(chainId));
       if (
-        chainId.toString() !==
-        ethers.utils.formatEther(chainIdNow).toString()
+        chainId.toString() !== ethers.utils.formatEther(chainIdNow).toString()
       ) {
         ethereum?.request({
           method: "wallet_switchEthereumChain",
@@ -545,10 +536,10 @@ export default function SideBar() {
   }, [chainId]);
   useEffect(() => {
     const localChainId = localStorage.getItem("chainId") || "0x5dd";
-   // setSelectedChain(localChainId);
+    // setSelectedChain(localChainId);
     dispatch(setChainId(localChainId));
   }, []);
-console.log("chainId",chainId);
+  console.log("chainId", chainId);
 
   return (
     <>
@@ -704,8 +695,15 @@ console.log("chainId",chainId);
             }}
             className="w-fit xl:w-full p-3 -mt-3 h-12 bg-red-500 hover:bg-500/90 transition-colors text-white rounded-md xl:mx-6"
           >
-            <span className="hidden xl:block" >Disconnect</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className=" block xl:hidden h-full w-fit" viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
+            <span className="hidden xl:block">Disconnect</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              className=" block xl:hidden h-full w-fit"
+              viewBox="0 0 512 512"
+            >
+              <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
+            </svg>
           </button>
         )}
       </nav>

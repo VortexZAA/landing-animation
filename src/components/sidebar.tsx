@@ -71,9 +71,9 @@ export default function SideBar() {
           method: "eth_chainId",
         });
         //dispatch(setChainId(chainId));
-        console.log("chainIdMetamask", chainIdMetamask);
+        //console.log("chainIdMetamask", chainIdMetamask);
         const chainId = localStorage.getItem("chainId")
-        console.log("chainId123123", chainId);
+        //console.log("chainId123123", chainId);
         
         if (chainIdMetamask.toString() !== chainId && !modal) {
           CheckChain(chainIdMetamask);
@@ -111,7 +111,7 @@ export default function SideBar() {
       
       const { name } = chain[id] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
-      const toNetwork = chain[chainId]?.name || "Binance Smart Chain2";
+      const toNetwork = chain[chainId]?.name || "Binance Smart Chain 2";
 
       const alert = async () =>
         await Swal.fire({

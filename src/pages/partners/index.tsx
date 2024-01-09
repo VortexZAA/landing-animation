@@ -29,7 +29,7 @@ export default function Intro() {
                   <img
                     src={partner.logo}
                     alt={partner.name}
-                    className="w-[200px] h-fit "
+                    className="w-[180px] h-fit "
                   />
                 </a>
               </div>
@@ -84,4 +84,33 @@ const partners = [
     logo: "/images/partners/bitget.png",
     link: "https://bitget.com",
   },
+  //pyth
+  {
+    id: 7,
+    name: "Pyth",
+    logo: "/images/partners/pyth.svg",
+    link: "https://pyth.network",
+  },
+  //subquery
+  {
+    id: 8,
+    name: "SubQuery",
+    logo: "/images/partners/subquery.svg",
+    link: "https://subquery.network",
+  },
+  //aeroscrapper
+  {
+    id: 9,
+    name: "Aeroscrapper",
+    logo: "/images/partners/aeroscrapper.svg",
+    link: "https://aeroscrapper.io",
+  },
+  //nova-ratio
+  {
+    id: 10,
+    name: "Nova Ratio",
+    logo: "/images/partners/nova-ratio.svg",
+    link: "https://nova-ratio.com",
+  }
+  
 ];

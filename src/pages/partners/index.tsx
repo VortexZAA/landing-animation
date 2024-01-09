@@ -75,7 +75,7 @@ const partners = [
     id: 5,
     name: "Blockbridge Digital",
     logo: "/images/partners/blockbridge.png",
-    link: "https://blockbridgedigital.com",
+    link: "https://blockbridge.xyz/",
   },
   {
     //bitget wallet
@@ -103,14 +103,14 @@ const partners = [
     id: 9,
     name: "Aeroscrapper",
     logo: "/images/partners/aeroscrapper.svg",
-    link: "https://aeroscrapper.io",
+    link: "https://twitter.com/aeroscraper",
   },
   //nova-ratio
   {
     id: 10,
     name: "Nova Ratio",
     logo: "/images/partners/nova-ratio.svg",
-    link: "https://nova-ratio.com",
+    link: "https://www.aeroscraper.io",
   }
   
 ];

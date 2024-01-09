@@ -1,8 +1,8 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import PartnersSlider from "@/components/slider";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 
 export default function Intro() {
   const [show, setShow] = useState(false);
@@ -16,20 +16,17 @@ export default function Intro() {
   return (
     <>
       {show && <Header />}
-      <div className="text-2xl md:block md:text-5xl w-full md:w-2/3 xl:w-1/2  h-fit text-center z-20  fixed top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 text-white launch animate-fadeIn3">
+      <div className="text-2xl md:block -mt-16 md:text-5xl w-full md:w-2/3 xl:w-1/2  h-fit text-center z-20  fixed top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 text-white launch animate-fadeIn3">
         <h1 id="h1" className={` shrink-0 w-full`}>
           SoulBound Protocol
         </h1>
-        {show && (
-          <Link href={"/whitelist"}>
-            <button className="border-2 border-white hover:text-black animate-fadeIn rounded-md py-3 px-6 mt-36 text-xl hover:bg-white transition-all">
-              Join Badge Whitelist
-            </button>
-          </Link>
-        )}
       </div>
-      {show && <Footer status={true} />}
-      
+      {show && (
+        <div className="z-20 absolute bottom-0 flex flex-col pb-20 md:pb-16 left-0 max-w-[100vw]">
+          <PartnersSlider />
+          <Footer status={true} />
+        </div>
+      )}
     </>
   );
 }

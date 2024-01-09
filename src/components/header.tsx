@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
+import DropDownSelect from "./tailwind/dropDownSelect";
 
 export default function Header() {
   const router = useRouter();
@@ -46,15 +47,37 @@ export default function Header() {
               return (
                 <li
                   key={index}
-                  className="flex flex-col justify-center group items-center  shrink-0 w-fit "
+                  className="flex flex-col justify-center group items-center  shrink-0 w-fit relative"
                 >
-                  <Link
-                    href={item.link}
-                    target={item.target}
-                    className={`flex justify-center items-center py-3 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full font-bold ${item?.addClass} `}
-                  >
-                    {item.title}
-                  </Link>
+                  {item?.dropdown ? (
+                    <>
+                      <DropDownSelect textBtn={item.title}>
+                        <div className="bg-white text-black rounded-md font-medium border border-gray-600 flex flex-col w-32 divide-y-2 ">
+                          {item.children.map((child, index) => {
+                            return (
+                              <Link
+                                href={child.link}
+                                target={child.target}
+                                key={index}
+                                onClick={() => setShowMobile(!showMobile)}
+                                className={` justify-center items-center px-3 py-2 xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full text-xs ${child?.addClass} `}
+                              >
+                                {child.title}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </DropDownSelect>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.link}
+                      target={item.target}
+                      className={`flex justify-center items-center py-3 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full font-bold ${item?.addClass} `}
+                    >
+                      {item.title}
+                    </Link>
+                  )}
                   {item.comingSoon && (
                     <span className="text-xs group-hover:flex absolute -bottom-2 hidden text-orange-400 font-bold">
                       Coming soon
@@ -110,14 +133,34 @@ export default function Header() {
               key={index}
               className="flex justify-center group items-center text-white relative shrink-0 w-fit "
             >
-              <Link
-                href={item.link}
-                target={item.target}
-                onClick={() => setShowMobile(!showMobile)}
-                className={` justify-center items-center py-0 !text-white xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full ${item?.addClass} `}
-              >
-                {item.title}
-              </Link>
+              {item?.dropdown ? (
+                <>
+                  <DropDownSelect textBtn={item.title}>
+                    {item.children.map((child, index) => {
+                      return (
+                        <Link
+                          href={child.link}
+                          target={child.target}
+                          key={index}
+                          onClick={() => setShowMobile(!showMobile)}
+                          className={` justify-center items-center py-0 !text-white xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full ${child?.addClass} `}
+                        >
+                          {child.title}
+                        </Link>
+                      );
+                    })}
+                  </DropDownSelect>
+                </>
+              ) : (
+                <Link
+                  href={item.link}
+                  target={item.target}
+                  onClick={() => setShowMobile(!showMobile)}
+                  className={` justify-center items-center py-0 !text-white xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full ${item?.addClass} `}
+                >
+                  {item.title}
+                </Link>
+              )}
               {item.comingSoon && (
                 <span className="text-xs group-hover:flex absolute -bottom-3 md:-bottom-2  md:hidden text-orange-400 font-bold">
                   Coming soon
@@ -130,7 +173,9 @@ export default function Header() {
           <button className=" justify-center items-center peer  xl:border-0 xl:hover:text-orange-400  cursor-pointer text-center w-fullborder-2 border-white rounded-full px-6 py-2 bg-white text-black md:text-white md:bg-transparent hover:bg-white hover:text-black transition-colors font-semi-bold flex">
             Launch App
           </button>
-          <span className="hidden peer-hover:block text-xs group-hover:flex absolute -bottom-5 md:-bottom-2  md:hidden text-orange-400 font-bold">Mobile is not supported.</span>
+          <span className="hidden peer-hover:block text-xs group-hover:flex absolute -bottom-5 md:-bottom-2  md:hidden text-orange-400 font-bold">
+            Mobile is not supported.
+          </span>
         </li>
       </ul>
     </>
@@ -149,12 +194,12 @@ const menu = [
     link: "/documents/soulbound-protocol-whitepaper.pdf",
     target: "_blank",
   },
-  {
+  /* {
     id: 1,
     title: "Partners",
     link: "/partners",
     target: "_self",
-  },
+  }, */
   {
     id: 2,
     title: "Blog",
@@ -169,25 +214,50 @@ const menu = [
   },
   {
     id: 3,
-    title: "Mint BRC-20",
-    link: "/brc20",
+    title: "Minting Tool",
+    link: "#",
+    dropdown: true,
+    children: [
+      {
+        id: 1,
+        title: "Mint BRC-20",
+        link: "/brc20",
+        target: "_self",
+        addClass: "",
+      },
+      {
+        id: 2,
+        title: "Mint RGB-20",
+        link: "#",
+        target: "_self",
+        addClass: "",
+        comingSoon: true,
+      },
+      {
+        id: 5,
+        title: "Create Taproot Assets",
+        link: "#",
+        target: "_self",
+        comingSoon: true,
+      },
+    ],
     target: "_self",
     comingSoon: false,
   },
-  {
+  /* {
     id: 4,
     title: "Mint RGB-20",
     link: "#",
     target: "_self",
     comingSoon: true,
-  },
-  {
+  }, */
+  /* {
     id: 5,
     title: "Create Taproot Assets",
     link: "#",
     target: "_self",
     comingSoon: true,
-  },
+  }, */
   {
     id: 6,
     title: "Claim Badge Airdrop",
@@ -197,6 +267,14 @@ const menu = [
   },
   {
     id: 7,
+    title: "Join Badge Whitelist",
+    link: "/whitelist",
+    target: "_self",
+    addClass:
+      "border-2 border-white rounded-full px-6 py-2 bg-white text-black md:text-white md:bg-transparent hover:bg-white hover:text-black transition-colors font-semi-bold hidden md:flex ",
+  },
+  {
+    id: 8,
     title: "Launch App",
     link: "/buy-badge",
     target: "_self",

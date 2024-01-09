@@ -110,6 +110,6 @@ const partners = [
     id: 10,
     name: "Nova Ratio",
     logo: "/images/partners/nova-ratio.svg",
-    link: "https://www.aeroscraper.io",
+    link: "https://novaratio.io/",
   },
 ];

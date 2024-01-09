@@ -57,7 +57,7 @@ export default function PartnersSlider() {
               <img
                 src={item.logo}
                 alt={item.name}
-                className="w-fit h-4/5 object-contain "
+                className="w-fit h-3/4 object-contain "
               />
             </Link>
           </SwiperSlide>

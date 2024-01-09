@@ -26,11 +26,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`w-full backdrop-blur-sm text-white bg-white/5 fixed left-0 top-0 flex items-center h-16 xl:h-20 py-2 xl:py-3 gap-6 justify-center   z-50 transition-colors animate-fadeIn   ${
-          scroll && !showMobile
-            ? "  animate__animated animate__fadeInDown animate__faster xl:shadow-sm"
-            : ""
-        }`}
+        className={`w-full backdrop-blur-sm text-white bg-white/5 fixed left-0 top-0 flex items-center h-16 xl:h-20 py-2 xl:py-3 gap-6 justify-center   z-50 transition-colors animate-fadeIn`}
       >
         <div className="flex justify-between px-3 xl:px-6 2xl:px-12 w-full h-full  items-center">
           <Link

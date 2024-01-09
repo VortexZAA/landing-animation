@@ -7,7 +7,7 @@ export default function Footer({ status = false }: { status?: boolean }) {
       <footer
         className={` ${
           status ? "px-3 lg:px-6 " : "pr-6"
-        } w-full md:h-16  absolute bottom-3 left-0 z-30  flex items-center justify-between   text-white text-sm font-normal`}
+        } w-full md:h-16  absolute bottom-3 left-0 z-30  flex items-center justify-between   text-white text-sm font-normal animate-fadeIn`}
       >
         <div
           className={` ${

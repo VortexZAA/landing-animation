@@ -16,7 +16,7 @@ export default function Intro() {
   const [msg, setMsg] = useState("");
   const [selectNetwork, setSelectedNetwork] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [userId, setUserId] = useState({ id: "", claimed: false });
+  const [userId, setUserId] = useState({ id: "", claimed: false, network: "" });
   useEffect(() => {
     setTimeout(() => {
       setShow(true);
@@ -85,7 +85,7 @@ export default function Intro() {
           });
         }
       } else {
-        setMsg(`You have already ${network} network claimed your badge`);
+        setMsg(`You have already ${userId.network} network claimed your badge`);
       }
       setIsOpen(false);
     } catch (error) {

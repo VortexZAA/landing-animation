@@ -389,35 +389,6 @@ export default function SideBar() {
   }
   const menu = [
     {
-      id: 1,
-      name: "Bevm Odessys",
-      path: "#",
-      icon: (
-        <svg
-          width="16"
-          height="20"
-          viewBox="0 0 16 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M5 12C2.23858 12 0 14.2386 0 17C0 18.6569 1.34315 20 3 20H13C14.6569 20 16 18.6569 16 17C16 14.2386 13.7614 12 11 12H5Z"
-            fill="currentColor"
-          />
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M8 0C5.23858 0 3 2.23858 3 5C3 7.76142 5.23858 10 8 10C10.7614 10 13 7.76142 13 5C13 2.23858 10.7614 0 8 0Z"
-            fill="currentColor"
-          />
-        </svg>
-      ),
-      status: address && chainId === "0x5dd",
-      onclick: () => joinOdyssey(),
-    },
-    {
       id: 2,
       name: "My Account",
       path: "/my-account",
@@ -581,6 +552,22 @@ export default function SideBar() {
       status: true,
       comingSoon: true,
     },
+    {
+      id: 10,
+      name: "Bevm Odessys",
+      path: "#",
+      icon: (
+        <Image
+          src={"/bevmicon.svg"}
+          className="-mx-2"
+          width={30}
+          height={20}
+          alt=""
+        />
+      ),
+      status: address && chainId === "0x5dd",
+      onclick: () => joinOdyssey(),
+    },
   ];
   async function BigetConnect() {
     try {
@@ -630,6 +617,7 @@ export default function SideBar() {
                   }`}
                 >
                   <Link
+                    onClick={item?.onclick}
                     target={item.target || "_self"}
                     className="flex justify-center items-center xl:justify-start gap-3 h-full w-full p-3"
                     href={item.path}

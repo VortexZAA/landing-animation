@@ -14,7 +14,7 @@ export default function Footer({ status = false }: { status?: boolean }) {
             status ? "" : "ml-[86px] xl:ml-[280px]"
           }  px-3 lg:px-6 py-2 backdrop-blur-sm flex flex-wrap items-center justify-center gap-3 sm:justify-between bg-white/10 rounded-md h-full w-full`}
         >
-          <Link className="justify-center items-center py-0 text-white lg:border-0 lg:hover:text-orange-400 transition-colors cursor-pointer text-center w-auto font-semibold " href={"/claim"}>Claim Badge Airdrop</Link>
+          <Link className="hidden justify-center items-center py-0 text-white lg:border-0 lg:hover:text-orange-400 transition-colors cursor-pointer text-center w-auto font-semibold " href={"/claim"}>Claim Badge Airdrop</Link>
           <p className="text-center">
             &copy; {new Date().getFullYear()} All rights reserved.
           </p>

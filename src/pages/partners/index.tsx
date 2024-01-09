@@ -21,20 +21,20 @@ export default function Intro() {
     <>
       {show && <Header />}
       <div className="text-2xl  md:text-5xl w-full md:w-2/3 xl:w-1/2  h-fit text-center z-20  fixed top-1/2 left-1/2  flex flex-col transform -translate-x-1/2 -translate-y-1/2 gap-10 text-white launch animate-fadeIn3">
-          <h2 className="text-4xl">Partners</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 xl:gap-6 px-3">
-            {partners.map((partner) => (
-              <div className="flex justify-center items-center backdrop-blur-md bg-white/20 rounded-lg p-3">
-                <a href={partner.link} target="_blank" rel="noreferrer">
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="w-[180px] h-fit "
-                  />
-                </a>
-              </div>
-            ))}
-          </div>
+        <h2 className="text-4xl">Partners</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 xl:gap-6 px-3">
+          {partners.map((partner) => (
+            <div className="flex justify-center items-center backdrop-blur-md bg-white/20 rounded-lg p-3">
+              <a href={partner.link} target="_blank" rel="noreferrer">
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="w-[180px] h-fit "
+                />
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
       {show && <Footer status={true} />}
     </>
@@ -50,25 +50,25 @@ const partners = [
     link: "https://binance.com",
   },
   {
-    //delta labs
-    id: 2,
-    name: "Delta Labs",
-    logo: "/images/partners/delta.png",
-    link: "https://delta-labs.io",
-  },
-  {
     //Bevm
-    id: 3,
+    id: 2,
     name: "Bevm",
     logo: "/images/partners/bevm.svg",
     link: "https://bevm.io",
+  },
+  {
+    //delta labs
+    id: 3,
+    name: "Delta Labs",
+    logo: "/images/partners/delta.png",
+    link: "https://deltalabs.pro",
   },
   {
     //Ave
     id: 4,
     name: "Ave",
     logo: "/images/partners/ave.png",
-    link: "https://ave.io",
+    link: "https://twitter.com/aveaiofficial",
   },
   {
     //blockbridge digital
@@ -111,6 +111,5 @@ const partners = [
     name: "Nova Ratio",
     logo: "/images/partners/nova-ratio.svg",
     link: "https://www.aeroscraper.io",
-  }
-  
+  },
 ];

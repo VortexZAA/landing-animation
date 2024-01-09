@@ -63,7 +63,7 @@ export default function Footer({ status = false }: { status?: boolean }) {
                 </svg>
               </a>
             </li>
-            <li className="inline-block mx-1 h-5 md:h-8"> 
+            <li className="inline-block mx-1 h-5 "> 
               <a
                 href="https://t.me/soulboundprotocol"
                 target="_blank"

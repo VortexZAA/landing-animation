@@ -1,13 +1,9 @@
-import Modal from "@/components/Modal";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const FluidAnimation = dynamic(() => import("@/components/FluidAnimation"), {
-  ssr: false,
-});
+
 export default function Intro() {
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);

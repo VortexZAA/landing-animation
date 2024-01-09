@@ -1,16 +1,11 @@
-import Modal from "@/components/Modal";
 import { ToastError } from "@/components/alert/SweatAlert";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import pb from "@/lib/pocketbase";
 import { ethers } from "ethers";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const FluidAnimation = dynamic(() => import("@/components/FluidAnimation"), {
-  ssr: false,
-});
 export default function Intro() {
   const [show, setShow] = useState(false);
   const [msg, setMsg] = useState("");

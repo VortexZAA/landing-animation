@@ -4,7 +4,7 @@ export default function GitBook() {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 32 30"
-      className="h-8 w-fit "
+      className="h-full w-fit "
       preserveAspectRatio="xMidYMid meet"
     >
       <path

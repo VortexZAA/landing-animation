@@ -32,6 +32,7 @@ import { bigetConnect, bigetSwitch } from "@/lib/biget";
 import Modal from "./Modal";
 import ChainData from "@/data/chain.json";
 import Swal from "sweetalert2";
+import pb from "@/lib/pocketbase";
 
 export default function SideBar() {
   const [selected, setSelected]: any = useState(1);
@@ -72,9 +73,9 @@ export default function SideBar() {
         });
         //dispatch(setChainId(chainId));
         //console.log("chainIdMetamask", chainIdMetamask);
-        const chainId = localStorage.getItem("chainId")
+        const chainId = localStorage.getItem("chainId");
         //console.log("chainId123123", chainId);
-        
+
         if (chainIdMetamask.toString() !== chainId && !modal) {
           CheckChain(chainIdMetamask);
         }
@@ -102,13 +103,11 @@ export default function SideBar() {
     }
   });
   const CheckChain = (id: string) => {
-    
     if (id.toString() !== chainId) {
       //dispatch(setClear());
       console.log("chainId", chainId);
       console.log("chain", chain[chainId]);
-      
-      
+
       const { name } = chain[id] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
       const toNetwork = chain[chainId]?.name || "Binance Smart Chain 2";
@@ -352,7 +351,72 @@ export default function SideBar() {
       console.log(error);
     }
   }
+  async function joinOdyssey() {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const sing = await signer.signMessage("Bevm Odessys Join");
+      if (sing) {
+        const check: any = await pb
+          .collection("odyssey")
+          .getFirstListItem(`address="${address}"`)
+          .then((res) => {
+            console.log(res);
+            return res;
+          })
+          .catch((err) => {
+            console.log(err);
+            return false;
+          });
+        console.log("check", check);
+        if (check) {
+          ToastError.fire({
+            title: "You have already joined the Odyssey.",
+          });
+        } else {
+          const create = await pb.collection("odyssey").create({
+            address: address,
+          });
+          create &&
+            ToastSuccess({}).fire({
+              title: "You have joined the Odyssey.",
+            });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const menu = [
+    {
+      id: 1,
+      name: "Bevm Odessys",
+      path: "#",
+      icon: (
+        <svg
+          width="16"
+          height="20"
+          viewBox="0 0 16 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M5 12C2.23858 12 0 14.2386 0 17C0 18.6569 1.34315 20 3 20H13C14.6569 20 16 18.6569 16 17C16 14.2386 13.7614 12 11 12H5Z"
+            fill="currentColor"
+          />
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M8 0C5.23858 0 3 2.23858 3 5C3 7.76142 5.23858 10 8 10C10.7614 10 13 7.76142 13 5C13 2.23858 10.7614 0 8 0Z"
+            fill="currentColor"
+          />
+        </svg>
+      ),
+      status: address && chainId === "0x5dd",
+      onclick: () => joinOdyssey(),
+    },
     {
       id: 2,
       name: "My Account",

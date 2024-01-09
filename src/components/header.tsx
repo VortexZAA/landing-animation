@@ -65,7 +65,7 @@ export default function Header() {
                                 >
                                   {child.title}
                                   {child.comingSoon && (
-                                    <div className="text-xs flex w-full justify-center text-orange-400 font-bold">
+                                    <div className="text-xs flex w-full justify-center text-orange-400 font-semibold">
                                       Coming soon
                                     </div>
                                   )}
@@ -156,7 +156,7 @@ export default function Header() {
                             >
                               {child.title}
                               {child.comingSoon && (
-                                <div className="text-xs flex w-full justify-center text-orange-400 font-bold">
+                                <div className="text-xs flex w-full justify-center text-orange-400 font-semibold">
                                   Coming soon
                                 </div>
                               )}

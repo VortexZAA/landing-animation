@@ -54,7 +54,7 @@ export default function PartnersSlider() {
             key={item.id}
             className="flex justify-center items-center  w-full h-16  px-2 md:px-6 mb-1 md:mb-0 md:p-3 "
           >
-            <Link href={item.link} className="flex justify-center bg-white/10 rounded-lg py-2 backdrop-blur-md items-center w-full h-12 md:h-16" target="_blank" rel="noreferrer">
+            <Link href={item.link} className="flex justify-center bg-white/10 backdrop-blur-md rounded-lg py-2 items-center w-full h-12 md:h-16" target="_blank" rel="noreferrer">
               <img
                 src={item.logo}
                 alt={item.name}

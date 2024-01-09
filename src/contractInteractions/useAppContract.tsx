@@ -103,11 +103,11 @@ export const callRegisterForBNB = async (
     // Generic error message for other cases
     else {
       /* alert(
-        "There was an error during the registering process. Please check your accounts balance and try again." 
+        "There was an error during the registering process." 
       ); */
       ToastError.fire({
         title:
-          "There was an error during the registering process. Please check your accounts balance and try again.",
+          "There was an error during the registering process."
       });
       console.log(err);
     }
@@ -190,7 +190,7 @@ export const callRegister = async (
       ); */
       ToastError.fire({
         title:
-          "There was an error during the registering process. Please check your accounts balance and try again.",
+          "There was an error during the registering process.",
       });
       console.log(err);
     }

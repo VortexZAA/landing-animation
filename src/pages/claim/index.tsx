@@ -16,7 +16,7 @@ export default function Intro() {
   const [msg, setMsg] = useState("");
   const [selectNetwork, setSelectedNetwork] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState({ id: "", claimed: false });
   useEffect(() => {
     setTimeout(() => {
       setShow(true);
@@ -47,7 +47,7 @@ export default function Intro() {
         if (check) {
           setMsg("You are whitelisted");
           setIsOpen(true);
-          setUserId(check.id);
+          setUserId(check);
         } else {
           setMsg("You are not eligible 😦");
         }
@@ -59,27 +59,33 @@ export default function Intro() {
   async function claim(network: string) {
     console.log("claiming");
     try {
-      const claim = await pb
-        .collection("soulbound_whitelist")
-        .update(userId, {
-          claimed: true,
-          network: network,
-        })
-        .then((res) => {
-          console.log(res);
-          return true;
-        })
-        .catch((err) => {
-          console.log(err);
-          return false;
-        });
-      console.log("claim", claim);
-      if (claim) {
-        setMsg(`Your badge will be sent to your wallet on the ${network} network`);
+      if (!userId.claimed) {
+        const claim = await pb
+          .collection("soulbound_whitelist")
+          .update(userId.id, {
+            claimed: true,
+            network: network,
+          })
+          .then((res) => {
+            console.log(res);
+            return true;
+          })
+          .catch((err) => {
+            console.log(err);
+            return false;
+          });
+        console.log("claim", claim);
+        if (claim) {
+          setMsg(
+            `Your badge will be sent to your wallet on the ${network} network`
+          );
+        } else {
+          ToastError.fire({
+            title: "Something went wrong please try again later",
+          });
+        }
       } else {
-        ToastError.fire({
-          title: "Something went wrong please try again later",
-        });
+        setMsg(`You have already ${network} network claimed your badge`);
       }
       setIsOpen(false);
     } catch (error) {
@@ -104,7 +110,7 @@ export default function Intro() {
         {isOpen && (
           <div className=" text-white flex flex-col -mt-3 font-bold text-base gap-2 ">
             <h4 className="font-semibold">Select Network</h4>
-            <div className="grid grid-cols-3 gap-3 md:gap-6 mt-3 px-6 text-white">
+            <div className="grid md:grid-cols-3 gap-3 md:gap-6 mt-3 px-6 text-white">
               <button
                 onClick={() => {
                   //setSelectedChain("0x38");

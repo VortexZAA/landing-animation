@@ -41,11 +41,12 @@ export default function PartnersSlider() {
             slidesPerView: 6,
           },
         }}
-        speed={700}
+        speed={2500}
         autoplay={{
-          delay: 2500,
+          delay: 0,
           disableOnInteraction: true,
         }}
+        loop={true}
         modules={[Autoplay]}
       >
         {partners.map((item) => (

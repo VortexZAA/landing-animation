@@ -22,7 +22,7 @@ export default function Intro() {
         </h1>
       </div>
       {show && (
-        <div className="z-20 absolute bottom-0 flex flex-col pb-20 md:pb-16 left-0 max-w-[100vw]">
+        <div className="z-20 absolute bottom-0 flex flex-col pb-20 md:pb-16 left-0 max-w-[100vw] animate-fadeIn">
           <PartnersSlider />
           <Footer status={true} />
         </div>

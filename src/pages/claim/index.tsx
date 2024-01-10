@@ -91,7 +91,7 @@ export default function Intro() {
     <>
       {show && <Header />}
       <div className="text-xl  md:text-2xl w-full md:w-2/3 xl:w-1/2  h-fit text-center z-20  fixed top-1/2 left-1/2  flex items-center flex-col transform -translate-x-1/2 -translate-y-1/2 gap-6 text-white launch animate-fadeIn3">
-        <h2 className="text-4xl">Claim Badge Airdrop</h2>
+        {/* <h2 className="text-4xl">Claim Badge Airdrop</h2> */}
         {msg ? (
           msg
         ) : (

@@ -140,7 +140,7 @@ export default function Intro() {
                 <div id="shadow"></div>
               </div>
             </div>
-            <div className="w-full px-3 xl:px-0 md:w-2/3 flex flex-col text-left gap-3 text-base">
+            <div className="w-full px-3 xl:px-0 md:w-2/3 flex flex-col text-left gap-3 text-sm">
               <h2 className="text-2xl font-semibold">
                 <span className="text-green-700">SoulBound Badge</span> is the
                 community pass for the SoulBound Protocol
@@ -161,7 +161,7 @@ export default function Intro() {
                   }
                   className="text-green-700"
                 >
-                  Click here for the Airdrop Rules
+                  About SoulBound Badge
                 </Link>
               </div>
               <div className="flex flex-col gap-2">
@@ -273,18 +273,18 @@ export default function Intro() {
                         }}
                       ></Player>
                     </div>
-                    <h2 className="mb-4 text-lg xl:text-xl font-semibold text-white">
+                    <h2 className="mb-1 text-lg xl:text-xl font-semibold text-white">
                       Get Started
                     </h2>
-                    <p className="mb-4 text-sm font-medium text-g-6">
+                    <p className="mb-1 text-sm font-medium text-g-6">
                       Get started by connecting your wallet to verify your
                       eligibility for the SoulBound Badge Airdrop. Simply
                       connect your wallet to proceed.
                     </p>
-                    <p className="mb-2 text-sm font-medium text-g-6">
+                    <p className="mb-1 text-sm font-medium text-g-6">
                       Your currently connected address:
                     </p>
-                    <p className="mb-6 text-sm font-medium text-white break-words">
+                    <p className="mb-3 text-sm font-medium text-white break-words">
                       {address}
                     </p>
                     <button
@@ -374,7 +374,7 @@ export default function Intro() {
                           src="/sad.json"
                           style={{
                             height: "auto",
-                            width: "200px",
+                            width: "150px",
                             marginTop: "-50px",
                           }}
                         ></Player>
@@ -384,7 +384,7 @@ export default function Intro() {
                       ""
                     ) : (
                       <>
-                        <h2 className="my-4 text-base md:text-xl font-semibold text-g-1">
+                        <h2 className="my-3 text-sm md:text-base font-semibold text-g-1">
                           Oops! It seems you're not on the whitelist.
                         </h2>
                         <Link target="_blank"

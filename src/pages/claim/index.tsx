@@ -4,29 +4,49 @@ import Header from "@/components/header";
 import pb from "@/lib/pocketbase";
 import { ethers } from "ethers";
 import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import { Player, Controls } from "@lottiefiles/react-lottie-player";
+import Ethers from "@/lib/ethers";
 export default function Intro() {
   const [show, setShow] = useState(false);
   const [msg, setMsg] = useState("");
   const [selectNetwork, setSelectedNetwork] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [userId, setUserId] = useState({ id: "", claimed: false, network: "" });
+  const [success, setSuccess] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setShow(true);
     }, 700);
     //reload
   }, []);
+
+  const [address, setAddress] = useState("");
   async function connect() {
+    try {
+      const { provider, ethereum } = Ethers();
+      await ethereum.send("eth_requestAccounts");
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
+      console.log(address);
+      setAddress(address);
+      return address;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  async function Check() {
     try {
       await window.ethereum.enable();
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      const sing = await signer.signMessage("claim check");
+      const sign = await signer.signMessage("claim check");
       const address = await signer.getAddress();
       console.log(address);
-      if (sing) {
+      if (sign) {
         const check: any = await pb
           .collection("claim_badge")
           .getFirstListItem(`address="${address}"`)
@@ -43,8 +63,10 @@ export default function Intro() {
           setMsg("You are whitelisted");
           setIsOpen(true);
           setUserId(check);
+          setSelectedTabs(1);
         } else {
           setMsg("You are not eligible 😦");
+          setSelectedTabs(2);
         }
       }
     } catch (error) {
@@ -74,12 +96,16 @@ export default function Intro() {
           setMsg(
             `Your badge will be sent to your wallet on the ${network} network`
           );
+          setSelectedTabs(2);
+          setSuccess(true);
         } else {
           ToastError.fire({
             title: "Something went wrong please try again later",
           });
         }
       } else {
+        setSelectedTabs(2);
+        setSuccess(true);
         setMsg(`You have already ${userId.network} network claimed your badge`);
       }
       setIsOpen(false);
@@ -87,12 +113,303 @@ export default function Intro() {
       console.log(error);
     }
   }
+  const [selectedTabs, setSelectedTabs] = useState(0);
+  const [claimSelected, setClaimSelected] = useState(false);
   return (
     <>
       {show && <Header />}
-      <div className="text-xl  md:text-2xl w-full md:w-2/3 xl:w-1/2  h-fit text-center z-20  fixed top-1/2 left-1/2  flex items-center flex-col transform -translate-x-1/2 -translate-y-1/2 gap-6 text-white launch animate-fadeIn3">
-        <h2 className="text-4xl">Claim Badge Airdrop</h2>
-        {msg ? (
+      <div className="text-xl  md:text-2xl w-full xl:w-2/3  h-[80vh] text-center z-20  fixed top-1/2 left-1/2  flex items-center flex-col transform -translate-x-1/2 -translate-y-1/2 gap-6 text-white launch animate-fadeIn3 overflow-y-auto overflow-x-hidden px-3 xl:px-0">
+        {!claimSelected && (
+          <div className="flex flex-col xl:flex-row gap-3 w-full h-full items-center">
+            <div className="w-2/3 md:w-1/3">
+              <img src="/logo.png" alt="" className="w-5/6" />
+            </div>
+            <div className="w-full px-3 xl:px-0 md:w-2/3 flex flex-col text-left gap-3 text-xl">
+              <h2 className="text-4xl font-semibold">
+                <span className="text-green-700">Mint Soulbound NFT</span> is
+                the community pass for the Mint Blockchain
+              </h2>
+              <p>
+                Mint Soulbound is a unique Soulbound NFT of the Mint Blockchain,
+                designed to collectively document the origin of a blockchain
+                network dedicated to the NFT track. Users who have actively
+                engaged in the NFT ecosystem and transactions in recent years
+                will be eligible to receive an airdrop reward of the Mint
+                Soulbound NFT. Each wallet address is eligible to receive a
+                maximum of one Mint Soulbound NFT
+              </p>
+              <div>
+                <h3>Airdrop Rules</h3>
+                <Link href={"#"} className="text-green-700">
+                  Click here for the Airdrop Rules
+                </Link>
+              </div>
+              <div>
+                <h3>Benefits</h3>
+                <p>
+                  Benefits of Mint Genesis NFT includes the privilege of
+                  becoming an early community user of Mint blockchain. Holders
+                  will have priority access to participate in the Mint Testnet,
+                  the chance to receive the airdrop rewards, and other benefits
+                  from high-quality projects within the Mint ecosystem.
+                </p>
+              </div>
+              {/* <button className="flex gap-3 items-center  border border-green-700 hover:bg-green-700 transition-colors font-semibold w-64">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="w-16 h-12 shrink-0 bg-green-700 px-4"
+              >
+                <path
+                  fill="currentColor"
+                  d="M3 11H2v2h1zm18.707 1.707a1 1 0 0 0 0-1.414l-6.364-6.364a1 1 0 1 0-1.414 1.414L19.586 12l-5.657 5.657a1 1 0 0 0 1.414 1.414l6.364-6.364M3 13h18v-2H3z"
+                ></path>
+              </svg>
+              <div className="w-full text-center">Claim</div>
+            </button> */}
+              <div className="flex items-center gap-16 mobile:block">
+                <button
+                  onClick={async () => {
+                    (await connect()) && setClaimSelected(true);
+                  }}
+                  className="w-[320px] flex border mobile:w-full mobile:mb-8 cursor-pointer border-green-700 group"
+                >
+                  <div className="flex items-center justify-center w-16 h-16 bg-green-700 text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      className="w-12 h-12"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M3 11H2v2h1zm18.707 1.707a1 1 0 0 0 0-1.414l-6.364-6.364a1 1 0 1 0-1.414 1.414L19.586 12l-5.657 5.657a1 1 0 0 0 1.414 1.414l6.364-6.364M3 13h18v-2H3z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div className="flex-1 text-center relative">
+                    <div className="relative flex  h-16 flex-col justify-center gap-2">
+                      <div className="absolute top-0 left-0 h-full bg-green-700 w-0 transition-all group-hover:w-full"></div>
+                      <p className="relative text-subtitle leading-none text-green-700 group-hover:text-white font-semibold">
+                        Claim
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {claimSelected && (
+          <div className="hidden lg:block w-full">
+            <div className="flex w-full mb-3 gap-3 text-sm">
+              {tabs.map((tab, index) => (
+                <Tab
+                  key={tab.id}
+                  activeId={selectedTabs}
+                  text={tab.text}
+                  id={tab.id}
+                  index={index}
+                />
+              ))}
+            </div>
+            <div
+              className="relative flex w-full h-[1px] translate-x-6"
+              /* style="background: linear-gradient(90deg, rgb(24, 209, 70) 0%, rgb(220, 246, 144) 100%);" */
+              style={{
+                background:
+                  "linear-gradient(90deg, rgb(24, 209, 70) 0%, rgb(220, 246, 144) 100%)",
+              }}
+            >
+              {tabs.map((tab, index) => (
+                <div
+                  className={` relative flex-1 h-[1px] ${
+                    selectedTabs >= index
+                      ? "bg-transparent group active"
+                      : "bg-[#2B2B2B]"
+                  } `}
+                >
+                  <div
+                    key={tab.id}
+                    className={`absolute -top-[4px] -left-[4px] h-3 w-3 rounded-full  ${
+                      selectedTabs >= index ? "bg-green-700" : "bg-[#69706B]"
+                    }`}
+                  ></div>
+                </div>
+              ))}
+            </div>
+            <div>
+              <div className="pt-12 h-full">
+                {selectedTabs === 0 && (
+                  <div className="xl:w-[600px] mx-auto px-10 py-10 flex flex-col gap-2 bg-[#262626] rounded-3xl h-fit w-full  text-left">
+                    <div className=" border border-[#393939] rounded-2xl  px-6 pt-3 overflow-hidden ">
+                      <h3 className="text-[28px] leading-[39px] text-white font-light">
+                        Sign Your Message
+                      </h3>
+                      <p className="text-[28px] leading-[39px] font-extrabold ">
+                        Wallet
+                      </p>
+                      <Player
+                        autoplay
+                        loop
+                        src="/ghost.json"
+                        style={{
+                          height: "auto",
+                          width: "150px",
+                          marginTop: "-20px",
+                        }}
+                      ></Player>
+                    </div>
+                    <h2 className="mb-4 text-lg xl:text-2xl font-semibold text-white">
+                      Get Started
+                    </h2>
+                    <p className="mb-4 text-base font-medium text-g-6">
+                      Get started by connecting your wallet to verify your
+                      eligibility for the Mint Genesis NFT whitelist. Simply
+                      connect your wallet to proceed.
+                    </p>
+                    <p className="mb-2 text-base font-medium text-g-6">
+                      Your currently connected address:
+                    </p>
+                    <p className="mb-6 text-base font-medium text-white break-words">
+                      {address}
+                    </p>
+                    <button
+                      onClick={Check}
+                      className="w-full flex items-center justify-center rounded-xl text-md font-semibold text-black bg-white h-16 transition-all hover:bg-[#D4DDD6]"
+                    >
+                      Sign Message
+                    </button>
+                  </div>
+                )}
+                {selectedTabs === 1 && (
+                  <div className="xl:w-[600px] mx-auto px-10 py-10 flex flex-col gap-2 bg-[#262626] rounded-3xl h-fit w-full  text-left">
+                    {isOpen && (
+                      <div className=" text-white flex flex-col -mt-3 font-bold text-base gap-2 w-full ">
+                        <h3 className="text-[28px] leading-[39px] text-white font-light">
+                          Select Network
+                        </h3>
+
+                        <h4 className="font-semibold w-full text-left">
+                          Congratulations you are eligible, now please select
+                          the network to claim
+                        </h4>
+                        <div className="grid md:grid-cols-3 w-full gap-3 md:gap-6 mt-3 px-0 text-white">
+                          <button
+                            onClick={() => {
+                              //setSelectedChain("0x38");
+                              claim("BSC");
+                            }}
+                            className="w-full flex h-14 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
+                          >
+                            <img src="/bnb.svg" alt="" className="h-full" />
+                            BNB Chain
+                          </button>
+                          <button
+                            onClick={() => {
+                              //setSelectedChain("0x5dd");
+                              claim("BEVM");
+                            }}
+                            className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+                          >
+                            <img
+                              src="/bevmicon.svg"
+                              alt=""
+                              className="h-8 -mx-2"
+                            />
+                            BEVM Chain
+                          </button>
+                          <button
+                            onClick={() => {
+                              //setSelectedChain("0x58f8");
+                              claim("MAP");
+                            }}
+                            className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+                          >
+                            <img src="/mapo.png" alt="" className="h-full" />
+                            Map Chain
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {selectedTabs === 2 && (
+                  <div className="xl:w-[600px] mx-auto px-10 py-10 flex flex-col gap-2 bg-[#262626] rounded-3xl h-fit w-full  text-left">
+                    <div className="border border-[#393939] rounded-2xl pt-6 px-6 mb-0 ">
+                      <h3 className="text-[28px] leading-[39px] text-g-1 font-light">
+                        Check Airdrop
+                      </h3>
+                      <p className="text-xl leading-[39px] font-bold mb-6">
+                        {success ? msg : "You are not eligible."}
+                      </p>
+                      {success ? (
+                        <Player
+                          autoplay
+                          loop
+                          src="/smile.json"
+                          style={{
+                            height: "auto",
+                            width: "200px",
+                            marginTop: "-30px",
+                          }}
+                        ></Player>
+                      ) : (
+                        <Player
+                          autoplay
+                          loop
+                          src="/sad.json"
+                          style={{
+                            height: "auto",
+                            width: "200px",
+                            marginTop: "-50px",
+                          }}
+                        ></Player>
+                      )}
+                    </div>
+                    {success ? (
+                      ""
+                    ) : (
+                      <>
+                        <h2 className="my-4 text-base md:text-xl font-semibold text-g-1">
+                          Oops! It seems you're not on the whitelist.
+                        </h2>
+                        <p className="mb-6 text-sm  font-medium text-g-6">
+                          <span>
+                            If your query result is "NO", don't worry. You can
+                            still participate in the{" "}
+                            <a className="text-green-700" href="#">
+                              MintID minting event
+                            </a>{" "}
+                            on January 17th to enjoy exclusive airdrops and
+                            privileges within the Mint Blockchain ecosystem.{" "}
+                          </span>
+                          <a
+                            className="text-green-700"
+                            target="_blank"
+                            href="#"
+                          >
+                            More Details
+                          </a>
+                        </p>
+                        <button className="w-full rounded-xl text-md font-semibold text-black bg-white py-3 transition-all hover:bg-[#D4DDD6]">
+                          Join the Mint Community!
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+        {/* <h2 className="text-4xl">Claim Badge Airdrop</h2> */}
+        {/* {msg ? (
           msg
         ) : (
           <button
@@ -138,9 +455,41 @@ export default function Intro() {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
       {show && <Footer status={true} />}
     </>
   );
 }
+
+function Tab({ activeId, text, id, index }: any) {
+  return (
+    <div
+      className={`flex items-center gap-2 flex-1 group w-full ${
+        activeId >= index && "active"
+      } `}
+    >
+      <div className="flex items-center justify-center text-[12px] xl:text-sm font-medium bg-gray-400 text-disabled-text w-10 h-10 rounded-full group-[.active]:text-white group-[.active]:bg-green-700">
+        {id}
+      </div>
+      <span className="text-md text-disabled group-[.active]:text-white">
+        {text}
+      </span>
+    </div>
+  );
+}
+
+const tabs = [
+  {
+    id: "01",
+    text: "Sign Your Message",
+  },
+  {
+    id: "02",
+    text: "Select Network",
+  },
+  {
+    id: "03",
+    text: "Check Airdrop Eligibility",
+  },
+];

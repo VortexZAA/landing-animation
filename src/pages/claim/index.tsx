@@ -141,7 +141,7 @@ export default function Intro() {
                 <div id="shadow" className="!w-1/2"></div>
               </div>
             </div>
-            <div className="w-full px-3 xl:px-0 xl:w-2/3 flex flex-col text-left gap-3 text-sm pb-12">
+            <div className="w-full px-3 xl:px-0 xl:w-2/3 flex flex-col text-left gap-3 text-sm pt-3 pb-12">
               <h2 className="text-xl md:text-2xl font-semibold">
                 <span className="text-green-700">SoulBound Badge</span> is the
                 community pass for the SoulBound Protocol

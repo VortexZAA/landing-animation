@@ -121,28 +121,28 @@ export default function Intro() {
     <>
       {show && <Header />}
 
-      <div className="text-sm  md:text-xl w-full xl:w-2/3  h-[80vh] text-center z-20  fixed top-1/2 left-1/2  flex items-center flex-col transform -translate-x-1/2 -translate-y-1/2 gap-6 text-white launch animate-fadeIn3 overflow-y-auto overflow-x-hidden px-3 xl:px-0">
+      <div className="text-sm  md:text-xl w-full xl:w-2/3  h-[75vh] xl:h-[80vh] text-center z-20  fixed top-1/2 left-1/2  flex items-center flex-col transform -translate-x-1/2 -translate-y-1/2 gap-6 text-white launch animate-fadeIn3 overflow-y-auto overflow-x-hidden px-3 xl:px-0">
         {!claimSelected && (
-          <div className="flex flex-col xl:flex-row gap-3 w-full h-full items-start py-6">
-            <div className="w-2/3 md:w-1/3 flex h-full items-center">
+          <div className="flex flex-col xl:flex-row gap-3 w-full h-full items-start pt-4 pb-16 xl:py-6 ">
+            <div className="w-full sm:w-2/3 md:w-1/3 flex h-full items-center justify-center">
               {/* <img src="/logo.png" alt="" className="w-5/6" /> */}
-              <div id="container">
+              <div id="container" className="w-full flex flex-col items-center">
                 <div id="spooky">
-                  <div id="body">
-                    <div id="eyes"></div>
-                    <div id="mouth"></div>
-                    <div id="feet">
+                  <div id="body" className="!w-2/3 !mt-0 h-40 sm:!h-52">
+                    <div id="eyes" className="!w-2/3 "></div>
+                    <div id="mouth" className=""></div>
+                    <div id="feet" className="!w-full max-w-full">
                       <div></div>
                       <div></div>
                       <div></div>
                     </div>
                   </div>
                 </div>
-                <div id="shadow"></div>
+                <div id="shadow" className="!w-1/2"></div>
               </div>
             </div>
-            <div className="w-full px-3 xl:px-0 md:w-2/3 flex flex-col text-left gap-3 text-sm">
-              <h2 className="text-2xl font-semibold">
+            <div className="w-full px-3 xl:px-0 xl:w-2/3 flex flex-col text-left gap-3 text-sm pb-12">
+              <h2 className="text-xl md:text-2xl font-semibold">
                 <span className="text-green-700">SoulBound Badge</span> is the
                 community pass for the SoulBound Protocol
               </h2>
@@ -403,54 +403,7 @@ export default function Intro() {
             </div>
           </div>
         )}
-        {/* <h2 className="text-4xl">Claim Badge Airdrop</h2> */}
-        {/* {msg ? (
-          msg
-        ) : (
-          <button
-            onClick={connect}
-            className="border-2 border-white hover:text-black animate-fadeIn rounded-md py-2 px-8 w-fit text-xl hover:bg-white transition-all"
-          >
-            Connect
-          </button>
-        )}
-        {isOpen && (
-          <div className=" text-white flex flex-col -mt-3 font-bold text-base gap-2 ">
-            <h4 className="font-semibold">Select Network</h4>
-            <div className="grid md:grid-cols-3 gap-3 md:gap-6 mt-3 px-6 text-white">
-              <button
-                onClick={() => {
-                  //setSelectedChain("0x38");
-                  claim("BSC");
-                }}
-                className="w-full flex h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
-              >
-                <img src="/bnb.svg" alt="" className="h-full" />
-                BNB Chain
-              </button>
-              <button
-                onClick={() => {
-                  //setSelectedChain("0x5dd");
-                  claim("BEVM");
-                }}
-                className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
-              >
-                <img src="/bevmicon.svg" alt="" className="h-8 -mx-2" />
-                BEVM Chain
-              </button>
-              <button
-                onClick={() => {
-                  //setSelectedChain("0x58f8");
-                  claim("MAP");
-                }}
-                className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
-              >
-                <img src="/mapo.png" alt="" className="h-full" />
-                Map Chain
-              </button>
-            </div>
-          </div>
-        )} */}
+        
       </div>
       {show && <Footer status={true} />}
     </>
@@ -477,14 +430,14 @@ function Tab({ activeId, text, id, index }: any) {
 const tabs = [
   {
     id: "01",
-    text: "",
+    text: "Your Connect Wallet",
   },
   {
     id: "02",
-    text: "",
+    text: "Choose Your Chain",
   },
   {
     id: "03",
-    text: "",
+    text: "Check Your Eligibility?",
   },
 ];

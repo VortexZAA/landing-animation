@@ -7,12 +7,12 @@ export default function Footer({ status = false }: { status?: boolean }) {
       <footer
         className={` ${
           status ? "px-3 lg:px-6 " : "pr-6"
-        } w-full md:h-16  absolute bottom-3 left-0 z-30  flex items-center justify-between   text-white text-sm font-normal animate-fadeIn`}
+        } w-full h-fit xl:h-16  absolute bottom-3 left-0 z-30  flex items-center justify-between   text-white text-sm font-normal animate-fadeIn`}
       >
         <div
           className={` ${
             status ? "" : "ml-[86px] xl:ml-[280px]"
-          }  px-3 lg:px-6 py-2 backdrop-blur-sm flex flex-wrap items-center justify-center gap-3 sm:justify-between bg-white/10 rounded-md h-full w-full`}
+          }  px-3 lg:px-6 py-3 xl:py-2 backdrop-blur-sm flex flex-wrap items-center justify-center gap-3 sm:justify-between bg-white/10 rounded-md h-full w-full`}
         >
           {/* <Link className="hidden justify-center items-center py-0 text-white lg:border-0 lg:hover:text-orange-400 transition-colors cursor-pointer text-center w-auto font-semibold " href={"/claim"}>Claim Badge Airdrop</Link> */}
           <p className="text-center">

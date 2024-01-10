@@ -63,7 +63,7 @@ export default function Intro() {
           setMsg("You are whitelisted");
           setIsOpen(true);
           setUserId(check);
-          setSelectedTabs(1);
+          check.claimed ? await claim(check.network) : setSelectedTabs(1);
         } else {
           setMsg("You are not eligible 😦");
           setSelectedTabs(2);
@@ -106,7 +106,9 @@ export default function Intro() {
       } else {
         setSelectedTabs(2);
         setSuccess(true);
-        setMsg(`You have already ${userId.network} network claimed your badge`);
+        setMsg(
+          `You have already claimed your badge at ${userId.network} network `
+        );
       }
       setIsOpen(false);
     } catch (error) {
@@ -118,36 +120,62 @@ export default function Intro() {
   return (
     <>
       {show && <Header />}
-      <div className="text-xl  md:text-2xl w-full xl:w-2/3  h-[80vh] text-center z-20  fixed top-1/2 left-1/2  flex items-center flex-col transform -translate-x-1/2 -translate-y-1/2 gap-6 text-white launch animate-fadeIn3 overflow-y-auto overflow-x-hidden px-3 xl:px-0">
+      <div className="text-sm  md:text-xl w-full xl:w-2/3  h-[80vh] text-center z-20  fixed top-1/2 left-1/2  flex items-center flex-col transform -translate-x-1/2 -translate-y-1/2 gap-6 text-white launch animate-fadeIn3 overflow-y-auto overflow-x-hidden px-3 xl:px-0">
         {!claimSelected && (
-          <div className="flex flex-col xl:flex-row gap-3 w-full h-full items-center">
-            <div className="w-2/3 md:w-1/3">
-              <img src="/logo.png" alt="" className="w-5/6" />
+          <div className="flex flex-col xl:flex-row gap-3 w-full h-full items-start py-6">
+            <div className="w-2/3 md:w-1/3 flex h-full items-center">
+              {/* <img src="/logo.png" alt="" className="w-5/6" /> */}
+              <div id="container">
+                <div id="spooky">
+                  <div id="body">
+                    <div id="eyes"></div>
+                    <div id="mouth"></div>
+                    <div id="feet">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+                </div>
+                <div id="shadow"></div>
+              </div>
             </div>
-            <div className="w-full px-3 xl:px-0 md:w-2/3 flex flex-col text-left gap-3 text-xl">
-              <h2 className="text-4xl font-semibold">
-                <span className="text-green-700">Mint Soulbound NFT</span> is
-                the community pass for the Mint Blockchain
+            <div className="w-full px-3 xl:px-0 md:w-2/3 flex flex-col text-left gap-3 text-base">
+              <h2 className="text-2xl font-semibold">
+                <span className="text-green-700">SoulBound Badge</span> is the
+                community pass for the SoulBound Protocol
               </h2>
               <p>
-              SOULBOUND Badges are not ordinary NFTs; they are your Entry Tickets to the SOULBOUND ecosystem. Holding a Badge is a prerequisite for engaging in and benefiting from various activities within the SOULBOUND ecosystem. Having a Badge means that the user has a whitelist. <a className="text-green-700" target="_blank" href="https://medium.com/@soulboundbtc/embrace-the-power-of-badges-your-key-to-unlocking-the-soulbound-ecosystem-part-i-734cea7d27d3">View more</a> 
+                SOULBOUND Badges are not ordinary NFTs; they are your Entry
+                Tickets to the SOULBOUND ecosystem. Holding a Badge is a
+                prerequisite for engaging in and benefiting from various
+                activities within the SOULBOUND ecosystem. Having a Badge means
+                that the user has a whitelist.
               </p>
               <div>
                 <h3>Airdrop Rules</h3>
-                <Link target="_blank" href={"https://medium.com/@soulboundbtc/embrace-the-power-of-badges-your-key-to-unlocking-the-soulbound-ecosystem-part-i-734cea7d27d3"} className="text-green-700">
+                <Link
+                  target="_blank"
+                  href={
+                    "https://medium.com/@soulboundbtc/embrace-the-power-of-badges-your-key-to-unlocking-the-soulbound-ecosystem-part-i-734cea7d27d3"
+                  }
+                  className="text-green-700"
+                >
                   Click here for the Airdrop Rules
                 </Link>
               </div>
               <div className="flex flex-col gap-2">
                 <h3>Benefits</h3>
                 <p>
-                  1, Badge Value: Common (equivalent 100$), Epic (equivalent 500$),
-                  Legendary (equivalent 1000$) <br />2, Branching Rewards: means that
-                  you receive a percentage of the reward (depending on your
-                  SoulBound BADGE tier) whenever a new user uses your referral
-                  code to buy the BADGE (10-14% in BTC or BNB). <br />3, Will be your
-                  ticket to participate in BTC launchpad IDO projects. <br />4, More
-                  future airdrop anticipation
+                  1, Badge Value: Common (equivalent 100$), Epic (equivalent
+                  500$), Legendary (equivalent 1000$) <br />
+                  2, Branching Rewards: means that you receive a percentage of
+                  the reward (depending on your SoulBound BADGE tier) whenever a
+                  new user uses your referral code to buy the BADGE (10-14% in
+                  BTC or BNB). <br />
+                  3, Will be your ticket to participate in BTC launchpad IDO
+                  projects. <br />
+                  4, More future airdrop anticipation
                 </p>
               </div>
               <div className="flex items-center gap-16 mobile:block">
@@ -157,14 +185,14 @@ export default function Intro() {
                   }}
                   className="w-[320px] flex border mobile:w-full mobile:mb-8 cursor-pointer border-green-700 group"
                 >
-                  <div className="flex items-center justify-center w-16 h-16 bg-green-700 text-white">
+                  <div className="flex items-center justify-center w-12 h-12 bg-green-700 text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
                       fill="none"
                       viewBox="0 0 24 24"
-                      className="w-12 h-12"
+                      className="w-14 h-10 px-1"
                     >
                       <path
                         fill="currentColor"
@@ -173,7 +201,7 @@ export default function Intro() {
                     </svg>
                   </div>
                   <div className="flex-1 text-center relative">
-                    <div className="relative flex  h-16 flex-col justify-center gap-2">
+                    <div className="relative flex  h-12 flex-col justify-center gap-2">
                       <div className="absolute top-0 left-0 h-full bg-green-700 w-0 transition-all group-hover:w-full"></div>
                       <p className="relative text-subtitle leading-none text-green-700 group-hover:text-white font-semibold">
                         Claim
@@ -224,14 +252,14 @@ export default function Intro() {
               ))}
             </div>
             <div>
-              <div className="pt-12 h-full">
+              <div className="pt-8 h-full">
                 {selectedTabs === 0 && (
-                  <div className="xl:w-[600px] mx-auto px-10 py-10 flex flex-col gap-2 bg-[#262626] rounded-3xl h-fit w-full  text-left">
+                  <div className="xl:w-[600px] mx-auto px-6 py-6 flex flex-col gap-2 bg-[#262626] rounded-3xl h-fit w-full  text-left">
                     <div className=" border border-[#393939] rounded-2xl  px-6 pt-3 overflow-hidden ">
-                      <h3 className="text-[28px] leading-[39px] text-white font-light">
+                      <h3 className="text-2xl leading-[39px] text-white font-light">
                         Sign Your Message
                       </h3>
-                      <p className="text-[28px] leading-[39px] font-extrabold ">
+                      <p className="text-xl leading-[39px] font-extrabold ">
                         Wallet
                       </p>
                       <Player
@@ -245,23 +273,23 @@ export default function Intro() {
                         }}
                       ></Player>
                     </div>
-                    <h2 className="mb-4 text-lg xl:text-2xl font-semibold text-white">
+                    <h2 className="mb-4 text-lg xl:text-xl font-semibold text-white">
                       Get Started
                     </h2>
-                    <p className="mb-4 text-base font-medium text-g-6">
+                    <p className="mb-4 text-sm font-medium text-g-6">
                       Get started by connecting your wallet to verify your
-                      eligibility for the Mint Genesis NFT whitelist. Simply
+                      eligibility for the SoulBound Badge Airdrop. Simply
                       connect your wallet to proceed.
                     </p>
-                    <p className="mb-2 text-base font-medium text-g-6">
+                    <p className="mb-2 text-sm font-medium text-g-6">
                       Your currently connected address:
                     </p>
-                    <p className="mb-6 text-base font-medium text-white break-words">
+                    <p className="mb-6 text-sm font-medium text-white break-words">
                       {address}
                     </p>
                     <button
                       onClick={Check}
-                      className="w-full flex items-center justify-center rounded-xl text-md font-semibold text-black bg-white h-16 transition-all hover:bg-[#D4DDD6]"
+                      className="w-full flex items-center justify-center rounded-xl text-xl font-semibold text-black bg-white h-12 transition-all hover:bg-[#D4DDD6]"
                     >
                       Sign Message
                     </button>
@@ -320,12 +348,12 @@ export default function Intro() {
                   </div>
                 )}
                 {selectedTabs === 2 && (
-                  <div className="xl:w-[600px] mx-auto px-10 py-10 flex flex-col gap-2 bg-[#262626] rounded-3xl h-fit w-full  text-left">
+                  <div className="xl:w-[600px] mx-auto px-6 py-6 flex flex-col gap-2 bg-[#262626] rounded-3xl h-fit w-full  text-left">
                     <div className="border border-[#393939] rounded-2xl pt-6 px-6 mb-0 ">
-                      <h3 className="text-[28px] leading-[39px] text-g-1 font-light">
+                      <h3 className="text-2xl leading-[39px]  font-light">
                         Check Airdrop
                       </h3>
-                      <p className="text-xl leading-[39px] font-bold mb-6">
+                      <p className="text-base leading-[39px] font-bold mb-6">
                         {success ? msg : "You are not eligible."}
                       </p>
                       {success ? (
@@ -335,7 +363,7 @@ export default function Intro() {
                           src="/smile.json"
                           style={{
                             height: "auto",
-                            width: "200px",
+                            width: "150px",
                             marginTop: "-30px",
                           }}
                         ></Player>
@@ -359,27 +387,13 @@ export default function Intro() {
                         <h2 className="my-4 text-base md:text-xl font-semibold text-g-1">
                           Oops! It seems you're not on the whitelist.
                         </h2>
-                        <p className="mb-6 text-sm  font-medium text-g-6">
-                          <span>
-                            If your query result is "NO", don't worry. You can
-                            still participate in the{" "}
-                            <a className="text-green-700" href="#">
-                              MintID minting event
-                            </a>{" "}
-                            on January 17th to enjoy exclusive airdrops and
-                            privileges within the Mint Blockchain ecosystem.{" "}
-                          </span>
-                          <a
-                            className="text-green-700"
-                            target="_blank"
-                            href="#"
-                          >
-                            More Details
-                          </a>
-                        </p>
-                        <button className="w-full rounded-xl text-md font-semibold text-black bg-white py-3 transition-all hover:bg-[#D4DDD6]">
-                          Join the Mint Community!
-                        </button>
+                        <Link target="_blank"
+                          href={"https://discord.com/invite/soulboundprotocol"}
+                        >
+                          <button className="w-full rounded-xl text-md font-semibold text-black bg-white py-2.5 text-xl transition-all hover:bg-[#D4DDD6]">
+                            Join the Community!
+                          </button>
+                        </Link>
                       </>
                     )}
                   </div>
@@ -462,14 +476,14 @@ function Tab({ activeId, text, id, index }: any) {
 const tabs = [
   {
     id: "01",
-    text: "Sign Your Message",
+    text: "",
   },
   {
     id: "02",
-    text: "Select Network",
+    text: "",
   },
   {
     id: "03",
-    text: "Check Airdrop Eligibility",
+    text: "",
   },
 ];

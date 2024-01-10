@@ -130,46 +130,26 @@ export default function Intro() {
                 the community pass for the Mint Blockchain
               </h2>
               <p>
-                Mint Soulbound is a unique Soulbound NFT of the Mint Blockchain,
-                designed to collectively document the origin of a blockchain
-                network dedicated to the NFT track. Users who have actively
-                engaged in the NFT ecosystem and transactions in recent years
-                will be eligible to receive an airdrop reward of the Mint
-                Soulbound NFT. Each wallet address is eligible to receive a
-                maximum of one Mint Soulbound NFT
+              SOULBOUND Badges are not ordinary NFTs; they are your Entry Tickets to the SOULBOUND ecosystem. Holding a Badge is a prerequisite for engaging in and benefiting from various activities within the SOULBOUND ecosystem. Having a Badge means that the user has a whitelist. <a className="text-green-700" target="_blank" href="https://medium.com/@soulboundbtc/embrace-the-power-of-badges-your-key-to-unlocking-the-soulbound-ecosystem-part-i-734cea7d27d3">View more</a> 
               </p>
               <div>
                 <h3>Airdrop Rules</h3>
-                <Link href={"#"} className="text-green-700">
+                <Link target="_blank" href={"https://medium.com/@soulboundbtc/embrace-the-power-of-badges-your-key-to-unlocking-the-soulbound-ecosystem-part-i-734cea7d27d3"} className="text-green-700">
                   Click here for the Airdrop Rules
                 </Link>
               </div>
-              <div>
+              <div className="flex flex-col gap-2">
                 <h3>Benefits</h3>
                 <p>
-                  Benefits of Mint Genesis NFT includes the privilege of
-                  becoming an early community user of Mint blockchain. Holders
-                  will have priority access to participate in the Mint Testnet,
-                  the chance to receive the airdrop rewards, and other benefits
-                  from high-quality projects within the Mint ecosystem.
+                  1, Badge Value: Common (equivalent 100$), Epic (equivalent 500$),
+                  Legendary (equivalent 1000$) <br />2, Branching Rewards: means that
+                  you receive a percentage of the reward (depending on your
+                  SoulBound BADGE tier) whenever a new user uses your referral
+                  code to buy the BADGE (10-14% in BTC or BNB). <br />3, Will be your
+                  ticket to participate in BTC launchpad IDO projects. <br />4, More
+                  future airdrop anticipation
                 </p>
               </div>
-              {/* <button className="flex gap-3 items-center  border border-green-700 hover:bg-green-700 transition-colors font-semibold w-64">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="w-16 h-12 shrink-0 bg-green-700 px-4"
-              >
-                <path
-                  fill="currentColor"
-                  d="M3 11H2v2h1zm18.707 1.707a1 1 0 0 0 0-1.414l-6.364-6.364a1 1 0 1 0-1.414 1.414L19.586 12l-5.657 5.657a1 1 0 0 0 1.414 1.414l6.364-6.364M3 13h18v-2H3z"
-                ></path>
-              </svg>
-              <div className="w-full text-center">Claim</div>
-            </button> */}
               <div className="flex items-center gap-16 mobile:block">
                 <button
                   onClick={async () => {

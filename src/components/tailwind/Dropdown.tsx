@@ -46,7 +46,7 @@ const Dropdown = (props: any, forwardedRef: any) => {
                 {props.button}
             </button>
 
-            <div ref={popperRef} style={styles.popper} {...attributes.popper} className="z-50 w-full" onClick={() => !props.infinity ? setVisibility(!visibility) : setVisibility(true)}>
+            <div ref={popperRef} style={styles.popper} {...attributes.popper} className="z-50 w-fit" onClick={() => !props.infinity ? setVisibility(!visibility) : setVisibility(true)}>
                 {visibility && props.children}
             </div>
         </>

@@ -13,7 +13,7 @@ import Image from "next/image";
 
 export default function PartnersSlider() {
   return (
-    <div className="flex flex-col text-white gap-0 items-center justify-center w-full h-fit  pb-3 ">
+    <div className="flex flex-col text-white gap-2 md:gap-0 items-center justify-center w-full h-fit  pb-3 ">
       <h3 className="text-base md:text-2xl">Partners</h3>
       <Swiper
         slidesPerView={1}

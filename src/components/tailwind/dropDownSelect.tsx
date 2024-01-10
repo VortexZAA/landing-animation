@@ -18,8 +18,8 @@ export default function DropDownSelect({
     <>
       <Dropdown
         offset={[0, 0]}
-        placement={`${"bottom-start"}`}
-        btnClassName="flex gap-2 text-xs md:text-sm py-2 px-2.5 items-center justify-between shrink-0 w-full h-full xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full font-bold text-white  border-white rounded-lg z-30 realtive "
+        placement={`${"bottom-end"}`}
+        btnClassName="flex gap-2  py-2 px-2.5 items-center justify-between shrink-0 w-full h-full xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full font-normal xl:font-bold text-white  border-white rounded-lg z-30 realtive "
         infinity={true}
         button={
           <>

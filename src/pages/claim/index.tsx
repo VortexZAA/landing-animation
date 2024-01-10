@@ -28,7 +28,7 @@ export default function Intro() {
       console.log(address);
       if (sing) {
         const check: any = await pb
-          .collection("soulbound_whitelist")
+          .collection("claim_badge")
           .getFirstListItem(`address="${address}"`)
           .then((res) => {
             console.log(res);
@@ -56,7 +56,7 @@ export default function Intro() {
     try {
       if (!userId.claimed) {
         const claim = await pb
-          .collection("soulbound_whitelist")
+          .collection("claim_badge")
           .update(userId.id, {
             claimed: true,
             network: network,

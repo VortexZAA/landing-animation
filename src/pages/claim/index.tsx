@@ -430,14 +430,14 @@ function Tab({ activeId, text, id, index }: any) {
 const tabs = [
   {
     id: "01",
-    text: "Your Connect Wallet",
+    text: "",
   },
   {
     id: "02",
-    text: "Choose Your Chain",
+    text: "",
   },
   {
     id: "03",
-    text: "Check Your Eligibility?",
+    text: "",
   },
 ];

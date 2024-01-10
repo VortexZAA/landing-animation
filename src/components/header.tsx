@@ -52,18 +52,25 @@ export default function Header() {
                   {item?.dropdown ? (
                     <>
                       <DropDownSelect textBtn={item.title}>
-                        <div className="bg-white text-black rounded-md font-medium border border-gray-600 flex flex-col w-32 divide-y-2 ">
+                        <div className="bg-white/10 backdrop-blur-md text-white rounded-md font-medium border-2 border-white/50 flex flex-col w-32 divide-y-2  ">
                           {item.children.map((child, index) => {
                             return (
-                              <Link
-                                href={child.link}
-                                target={child.target}
-                                key={index}
-                                onClick={() => setShowMobile(!showMobile)}
-                                className={` justify-center items-center px-3 py-2 xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full text-xs ${child?.addClass} `}
-                              >
-                                {child.title}
-                              </Link>
+                              <>
+                                <Link
+                                  href={child.link}
+                                  target={child.target}
+                                  key={index}
+                                  onClick={() => setShowMobile(!showMobile)}
+                                  className={` justify-center items-center px-3 py-2 xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full text-xs ${child?.addClass} `}
+                                >
+                                  {child.title}
+                                  {child.comingSoon && (
+                                    <div className="text-xs flex w-full justify-center text-orange-400 font-semibold">
+                                      Coming soon
+                                    </div>
+                                  )}
+                                </Link>
+                              </>
                             );
                           })}
                         </div>
@@ -136,19 +143,28 @@ export default function Header() {
               {item?.dropdown ? (
                 <>
                   <DropDownSelect textBtn={item.title}>
-                    {item.children.map((child, index) => {
-                      return (
-                        <Link
-                          href={child.link}
-                          target={child.target}
-                          key={index}
-                          onClick={() => setShowMobile(!showMobile)}
-                          className={` justify-center items-center py-0 !text-white xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full ${child?.addClass} `}
-                        >
-                          {child.title}
-                        </Link>
-                      );
-                    })}
+                    <div className="bg-white/10 backdrop-blur-md text-white rounded-md font-medium border-2 border-white/50 flex flex-col w-32 divide-y-2  ">
+                      {item.children.map((child, index) => {
+                        return (
+                          <>
+                            <Link
+                              href={child.link}
+                              target={child.target}
+                              key={index}
+                              onClick={() => setShowMobile(!showMobile)}
+                              className={` justify-center items-center px-3 py-2 xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full text-xs ${child?.addClass} `}
+                            >
+                              {child.title}
+                              {child.comingSoon && (
+                                <div className="text-xs flex w-full justify-center text-orange-400 font-semibold">
+                                  Coming soon
+                                </div>
+                              )}
+                            </Link>
+                          </>
+                        );
+                      })}
+                    </div>
                   </DropDownSelect>
                 </>
               ) : (

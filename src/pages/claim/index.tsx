@@ -120,6 +120,7 @@ export default function Intro() {
   return (
     <>
       {show && <Header />}
+
       <div className="text-sm  md:text-xl w-full xl:w-2/3  h-[80vh] text-center z-20  fixed top-1/2 left-1/2  flex items-center flex-col transform -translate-x-1/2 -translate-y-1/2 gap-6 text-white launch animate-fadeIn3 overflow-y-auto overflow-x-hidden px-3 xl:px-0">
         {!claimSelected && (
           <div className="flex flex-col xl:flex-row gap-3 w-full h-full items-start py-6">

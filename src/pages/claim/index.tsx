@@ -153,7 +153,7 @@ export default function Intro() {
                 activities within the SOULBOUND ecosystem. Having a Badge means
                 that the user has a whitelist.
               </p>
-              <div>
+              <div className="my-2">
                 <h3>Airdrop Rules</h3>
                 <Link
                   target="_blank"

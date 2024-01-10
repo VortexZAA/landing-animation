@@ -1,7 +1,7 @@
 export const faqs2 = [
   
   {
-    id: 6,
+    id: 14,
     question:
       "1. What distinguishes the SOULBOUND Launchpad from traditional launchpads?",
     answer: (
@@ -16,7 +16,7 @@ export const faqs2 = [
     ),
   },
   {
-    id: 7,
+    id: 15,
     question:
       "2. Elaboration on the EVM compatibility and multi-wallet support within the SOULBOUND Protocol?",
     answer: (
@@ -30,7 +30,7 @@ export const faqs2 = [
     ),
   },
   {
-    id: 8,
+    id: 16,
     question:
       "5. What is BRC-20 and RGB-20 minting, tool Taproot Asset Creation tool?",
     answer: (

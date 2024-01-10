@@ -1,6 +1,6 @@
 export const faqs3 = [
   {
-    id: 9,
+    id: 17,
     question: "1. What is the $SBB token within the SOULBOUND Protocol?",
     answer: (
       <>
@@ -38,7 +38,7 @@ export const faqs3 = [
     img: "",
   },
   {
-    id: 10,
+    id: 18,
     question: "2. SOULBOUND STAKING Introduction:",
     answer: (
       <>
@@ -84,7 +84,7 @@ export const faqs3 = [
     ),
   },
   {
-    id: 11,
+    id: 19,
     question: "3. SOULBOUND Bitcoin Ecosystem Grants",
     answer: (
       <p>

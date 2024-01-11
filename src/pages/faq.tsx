@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <>
       <Layout title="FAQ">
-        <div className="flex flex-col gap-12  h-[80vh] w-full justify-start items-center backdrop-blur-sm bg-white/10 rounded-xl shadow-md overflow-auto py-6">
+        <div className="flex flex-col gap-12  h-[76vh] w-full justify-start items-center backdrop-blur-sm bg-white/10 rounded-xl shadow-md overflow-auto py-6">
           <div
             id="faq"
             className="flex flex-col gap-6 xl:gap-10 items-center  w-full"

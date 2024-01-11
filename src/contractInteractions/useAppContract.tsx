@@ -1,9 +1,8 @@
 import { ethers } from "ethers";
-import {
-  callNFTContract,
-} from "./etherumContracts";
-import { ToastError } from "@/components/alert/SweatAlert";
+import { callNFTContract, callNFTContractGhost } from "./etherumContracts";
+import { ToastError, ToastSuccess } from "@/components/alert/SweatAlert";
 import Ethers from "@/lib/ethers";
+import pb from "@/lib/pocketbase";
 
 //**************************************************************
 /*
@@ -16,7 +15,99 @@ Networke göre doğru contractWithSigner seçildiğinden emin olunmalı.
 const marketContract = process.env.NEXT_PUBLIC_MARKETPLACE as string;
 const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 //NFT Functions
+export const callMint = async (address:string) => {
+  try {
+    const { contractWithSigner } = await callNFTContractGhost();
+    let tx = await contractWithSigner.mint();
+    let receipt = await tx.wait();
+    const txHash = tx.hash;
+    ToastSuccess({
+      tHashLink: txHash,
+    }).fire({
+      title: "Mint Successful",
+    });
+    const create = await pb.collection("odyssey").create({
+      address: address,
+    });
+    return receipt.events[0].args[2].toNumber();
+  } catch (error) {
+    const err = error as any; // Type assertion
 
+    console.error("Error during minting:", err);
+
+    // Check for user rejection
+    if (err.code === "ACTION_REJECTED") {
+      alert("Transaction was rejected by the user.");
+    }
+    // Check for revert reason: "You have already minted an artwork."
+    else if (
+      err.message &&
+      err.message.includes("You have already minted an artwork")
+    ) {
+      alert("You have already minted a scroll.");
+    }
+    // Check for insufficient funds
+    else if (err.message && err.message.includes("insufficient funds")) {
+      alert("You do not have enough ETH in your account to mint.");
+    }
+    // Generic error message for other cases
+    else {
+      alert(
+        "There was an error during the minting process. Please check your eth balance and try again."
+      );
+    }
+
+    throw err;
+  }
+};
+export async function importToMetamask(id: number, image: string) {
+  const ethereum = window.ethereum as any;
+  try {
+    // Check if MetaMask is installed and Ethereum provider is injected
+    if (typeof window.ethereum !== "undefined" && ethereum.isMetaMask) {
+      // Use MetaMask's provider
+      //const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+      // Suggest adding the NFT to the user's MetaMask assets
+      const added = ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC721",
+          options: {
+            address: process.env.NEXT_PUBLIC_GHOST_MINT, // Replace with your NFT smart contract address
+            symbol: "BTC", // Replace with a short string to represent your asset, like 'MYNFT'
+            decimals: 0, // ERC721 assets are non-fungible, so decimals is always 0
+            image: image, // Use the nftImage state to provide the image URL
+            tokenId: id.toString(), // Convert the tokenId to a string
+          },
+        },
+      });
+
+      // If successfully added, the result will be true
+      if (added) {
+        console.log("Successfully added NFT to MetaMask");
+      } else {
+        console.error("Something went wrong adding the NFT to MetaMask");
+      }
+    } else {
+      console.error("Please install MetaMask");
+    }
+  } catch (error) {
+    console.error("Error importing NFT to MetaMask:", error);
+  }
+}
+
+export const callTokenURI = async (id: number) => {
+  try {
+    const { contractWithSigner } = await callNFTContractGhost();
+    let uri = await contractWithSigner.tokenURI(id);
+    return uri;
+  } catch (error) {
+    console.error("Error during tokenURI:", error);
+    alert("There was an error during the tokenURI process. Please try again.");
+    throw error;
+  }
+};
 // NFT satın almak için kullanılan fonksiyon
 //BNB NFT
 export const callGetNFTPrice = async (tier: number) => {
@@ -25,8 +116,7 @@ export const callGetNFTPrice = async (tier: number) => {
     let price = await contractWithSigner.getNFTPrice(tier);
     console.log("price", price);
     console.log();
-    
-    
+
     return price;
   } catch (error) {
     console.error("Error during getPrice:", error);
@@ -37,7 +127,7 @@ export const callGetNFTPrice = async (tier: number) => {
     }); */
     return false;
   }
-}
+};
 export const callRegisterForBNB = async (
   refferal: number,
   vipTier: number,
@@ -106,8 +196,7 @@ export const callRegisterForBNB = async (
         "There was an error during the registering process." 
       ); */
       ToastError.fire({
-        title:
-          "There was an error during the registering process."
+        title: "There was an error during the registering process.",
       });
       console.log(err);
     }
@@ -127,7 +216,7 @@ export const callRegister = async (
     const { contractWithSigner } = await callNFTContract();
     const chainId = localStorage.getItem("chainId");
     let priceOfTier1, priceOfTier2, priceOfTier3;
-    
+
     priceOfTier1 = await contractWithSigner.getNFTPrice(1);
     priceOfTier2 = await contractWithSigner.getNFTPrice(2);
     priceOfTier3 = await contractWithSigner.getNFTPrice(3);
@@ -189,8 +278,7 @@ export const callRegister = async (
         "There was an error during the registering process. Please check your accounts balance and try again." 
       ); */
       ToastError.fire({
-        title:
-          "There was an error during the registering process.",
+        title: "There was an error during the registering process.",
       });
       console.log(err);
     }
@@ -455,9 +543,7 @@ function parseTo18Decimals(number: number) {
   }
 }
 
-
 export function parseIntHex(hexString: string) {
   let res = parseInt(ethers.utils.hexlify(hexString), 16);
   return res;
 }
-

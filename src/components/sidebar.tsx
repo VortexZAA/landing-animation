@@ -7,6 +7,9 @@ import CopyBtn from "./button/copyBtn";
 import {
   callGetNFT,
   callGetNFTInfo,
+  callMint,
+  callTokenURI,
+  importToMetamask,
   parseIntHex,
 } from "@/contractInteractions/useAppContract";
 import { ToastError, ToastSuccess } from "./alert/SweatAlert";
@@ -351,13 +354,10 @@ export default function SideBar() {
       console.log(error);
     }
   }
+  const [modalHelsinki, setModalHelsinki] = useState(false);
   async function joinOdyssey() {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const sing = await signer.signMessage("Bevm Odessys Join");
-      if (sing) {
-        const check: any = await pb
+      const check: any = await pb
           .collection("odyssey")
           .getFirstListItem(`address="${address}"`)
           .then((res) => {
@@ -374,18 +374,13 @@ export default function SideBar() {
             title: "You have already joined the Odyssey.",
           });
         } else {
-          const create = await pb.collection("odyssey").create({
-            address: address,
-          });
-          create &&
-            ToastSuccess({}).fire({
-              title: "You have joined the Odyssey.",
-            });
+          setModalHelsinki(true);
         }
-      }
-    } catch (error) {
+    }
+    catch(error){
       console.log(error);
     }
+    
   }
   const menu = [
     {
@@ -591,9 +586,111 @@ export default function SideBar() {
     dispatch(setChainId(localChainId));
   }, []);
   console.log("chainId", chainId);
-
+  const [isconneted, setIsConnected] = useState(false);
+  const [nftImage, setNftImage] = useState(false);
+  const [random, setRandom] = useState({
+    top: 0,
+    right: 0,
+  });
+  const [nftdata, setNftdata] = useState({
+    name: "",
+    description: "",
+    image: "",
+    attributes: [],
+  });
+  const incrementRandom = () => {
+    //random coordinat number between 1 and 100
+    const random = Math.floor(Math.random() * 80) + 1;
+    //random coordinat number between 1 and 100
+    const random2 = Math.floor(Math.random() * 70) + 1;
+    setRandom({
+      top: random,
+      right: random2,
+    });
+  };
+  useEffect(() => {
+    const timer = setTimeout(incrementRandom, 700);
+    return () => clearTimeout(timer);
+  }, [random]);
+  async function success() {
+    setLoading(true);
+    try {
+      let id = await callMint(address);
+      let uri = await callTokenURI(id);
+      let res = await fetch(uri.replace("ipfs://", "https://ipfs.io/ipfs/"));
+      let data = await res.json();
+      setNftImage(data.image.replace("ipfs://", "https://ipfs.io/ipfs/"));
+      setNftdata(data);
+      importToMetamask(
+        id,
+        data.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+      );
+      //alert("You found the wizard, so your prize is " + id);
+      setModalHelsinki(false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error("Error minting:", error);
+      ToastError.fire({
+        title: "Something went wrong.",
+      });
+    }
+  }
   return (
     <>
+      {modalHelsinki && (
+        <div className=" w-full h-full left-0 top-0 z-[9999] absolute text-white p-10 backdrop-blur-sm bg-black/20 flex justify-center items-center">
+          <h1 className="shadow hidden">
+            Catch me to mint your BEVM Helsinki 🔥 POAP
+          </h1>
+          <div className="w-full flex justify-end absolute top-6 right-6">
+            <button
+              onClick={() => {
+                setModalHelsinki(false);
+                setIsConnected(false);
+              }}
+              className="w-7 h-7 flex justify-center items-center bg-black border-2 border-white/80 hover:border-white transition-colors rounded-full"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 cursor-pointer"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                  className="text-white"
+                />
+              </svg>
+            </button>
+          </div>
+          {!isconneted && (
+            <div className="relative h-32 w-80 ml-[500px] rounded-lg bg-gray-800/80 border shadow-lg">
+              <div className="absolute left-0 bottom-2/3 h-4 w-4 -translate-x-1/2 translate-y-1/2 rotate-45 transform border-b border-l bg-gray-800"></div>
+              <div className="px-8">
+                <h1 className="mt-6 mb-2 text-base font-bold text-orange-600">
+                  Catch me to mint your BEVM Helsinki 🔥 POAP
+                </h1>
+                <p className="text-gray-200">Click on me to start👻</p>
+              </div>
+            </div>
+          )}
+          {!nftImage && (
+            <button
+              className="absolute w-28 bg-[url('/giphy.gif')] h-28 bg-contain bg-no-repeat z-[99999] "
+              onClick={() => (isconneted ? success() : setIsConnected(true))}
+              style={{
+                right: `${isconneted ? random.top : 45}%`,
+                top: `${isconneted ? random.right : 45}%`,
+              }}
+            ></button>
+          )}
+        </div>
+      )}
       <nav className=" flex flex-col backdrop-blur-sm bg-white/10 w-fit xl:w-64 shrink-0 border-solid h-screen top-0  justify-between items-center text-white px-3 md:px-4 pb-6 md:pb-10 pt-3 md:pt-6 gap-3 md:gap-6 transition-  text-sm fixed z-50">
         <Link href={"/"} className="w-full md:-ml-0">
           <Image

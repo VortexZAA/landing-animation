@@ -37,24 +37,37 @@ export const callMint = async (address:string) => {
 
     // Check for user rejection
     if (err.code === "ACTION_REJECTED") {
-      alert("Transaction was rejected by the user.");
+      /* alert("Transaction was rejected by the user."); */
+      ToastError.fire({
+        title: "Transaction was rejected by the user.",
+      });
     }
     // Check for revert reason: "You have already minted an artwork."
     else if (
       err.message &&
       err.message.includes("You have already minted an artwork")
     ) {
-      alert("You have already minted a scroll.");
+      /* alert("You have already minted a scroll."); */
+      ToastError.fire({
+        title: "You have already minted a scroll.",
+      });
     }
     // Check for insufficient funds
     else if (err.message && err.message.includes("insufficient funds")) {
-      alert("You do not have enough ETH in your account to mint.");
+      /* alert("You do not have enough btc in your account to mint."); */
+      ToastError.fire({
+        title: "You do not have enough btc in your account to mint.",
+      });
     }
     // Generic error message for other cases
     else {
-      alert(
-        "There was an error during the minting process. Please check your eth balance and try again."
-      );
+      /* alert(
+        "There was an error during the minting process. Please check your btc balance and try again."
+      ); */
+      ToastError.fire({
+        title:
+          "There was an error during the minting process. Please check your btc balance and try again.",
+      });
     }
 
     throw err;
@@ -104,7 +117,10 @@ export const callTokenURI = async (id: number) => {
     return uri;
   } catch (error) {
     console.error("Error during tokenURI:", error);
-    alert("There was an error during the tokenURI process. Please try again.");
+    //alert("There was an error during the tokenURI process. Please try again.");
+    ToastError.fire({
+      title: "There was an error during the tokenURI process. Please try again.",
+    });
     throw error;
   }
 };

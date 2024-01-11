@@ -355,10 +355,10 @@ export default function SideBar() {
     }
   }
   const [modalHelsinki, setModalHelsinki] = useState(false);
-  async function joinOdyssey() {
+  async function joinHelsinki() {
     try {
       const check: any = await pb
-          .collection("odyssey")
+          .collection("helsinki")
           .getFirstListItem(`address="${address}"`)
           .then((res) => {
             console.log(res);
@@ -371,7 +371,7 @@ export default function SideBar() {
         console.log("check", check);
         if (check) {
           ToastError.fire({
-            title: "You have already joined the Odyssey.",
+            title: "You have already joined the Helsinki.",
           });
         } else {
           setModalHelsinki(true);
@@ -561,7 +561,7 @@ export default function SideBar() {
         />
       ),
       status: address && chainId === "0x5dd",
-      onclick: () => joinOdyssey(),
+      onclick: () => joinHelsinki(),
     },
   ];
   async function BigetConnect() {

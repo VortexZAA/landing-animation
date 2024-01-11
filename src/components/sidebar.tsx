@@ -358,29 +358,27 @@ export default function SideBar() {
   async function joinHelsinki() {
     try {
       const check: any = await pb
-          .collection("helsinki")
-          .getFirstListItem(`address="${address}"`)
-          .then((res) => {
-            console.log(res);
-            return res;
-          })
-          .catch((err) => {
-            console.log(err);
-            return false;
-          });
-        console.log("check", check);
-        if (check) {
-          ToastError.fire({
-            title: "You have already joined the Helsinki.",
-          });
-        } else {
-          setModalHelsinki(true);
-        }
-    }
-    catch(error){
+        .collection("helsinki")
+        .getFirstListItem(`address="${address}"`)
+        .then((res) => {
+          console.log(res);
+          return res;
+        })
+        .catch((err) => {
+          console.log(err);
+          return false;
+        });
+      console.log("check", check);
+      if (check) {
+        ToastError.fire({
+          title: "You have already joined the Helsinki.",
+        });
+      } else {
+        setModalHelsinki(true);
+      }
+    } catch (error) {
       console.log(error);
     }
-    
   }
   const menu = [
     {
@@ -608,10 +606,13 @@ export default function SideBar() {
       right: random2,
     });
   };
-  useEffect(() => {
-    const timer = setTimeout(incrementRandom, 700);
-    return () => clearTimeout(timer);
-  }, [random]);
+  /* useEffect(() => {
+    if (isconneted) {
+      const timer = setTimeout(incrementRandom, 700);
+
+      return () => clearTimeout(timer);
+    }
+  }, [random]); */
   async function success() {
     setLoading(true);
     try {

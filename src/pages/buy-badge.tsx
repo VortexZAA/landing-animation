@@ -1,3 +1,4 @@
+"use client";
 import Vip from "@/components/vip";
 import React, { useState } from "react";
 import Layout from "@/layout/layout";
@@ -47,7 +48,7 @@ export default function NftBuy() {
       console.log([uInput1, 1]);
       // random number 1-2
       const rndNumber = Math.floor(Math.random() * 2);
-      const tempInput1 = uInput1||  childRef[rndNumber];
+      const tempInput1 = uInput1 || childRef[rndNumber];
       const tx: any = await callRegister(tempInput1, 1, address);
       tx &&
         ToastSuccess({
@@ -72,17 +73,16 @@ export default function NftBuy() {
   const childRef = [
     process.env.NEXT_PUBLIC_LEFT_NODE as string,
     process.env.NEXT_PUBLIC_RIGHT_NODE as string,
-  ]
+  ];
   async function buyVip2() {
     try {
       dispatch(setLoading(true));
       console.log([uInput2, 2]);
       // random number 1-2
       const rndNumber = Math.floor(Math.random() * 2);
-      const tempInput2 = uInput2 ||  childRef[rndNumber];
-      console.log("tempInput2",tempInput2);
-      
-      
+      const tempInput2 = uInput2 || childRef[rndNumber];
+      console.log("tempInput2", tempInput2);
+
       const tx: any = await callRegister(tempInput2, 2, address);
       tx &&
         ToastSuccess({
@@ -146,7 +146,7 @@ export default function NftBuy() {
       )
         .then((res) => res.json())
         .then((data) => data.price); */
-        dispatch(setLoading(true));
+      dispatch(setLoading(true));
       setPrice({
         vip1: 100,
         /* price *
@@ -162,11 +162,11 @@ export default function NftBuy() {
             ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
           ) */
       });
-      const sats1 = ethers.utils.formatEther(await callGetNFTPrice(1)); 
-      const sats2 = ethers.utils.formatEther(await callGetNFTPrice(2)); 
-      const sats3 = ethers.utils.formatEther(await callGetNFTPrice(3)); 
+      const sats1 = ethers.utils.formatEther(await callGetNFTPrice(1));
+      const sats2 = ethers.utils.formatEther(await callGetNFTPrice(2));
+      const sats3 = ethers.utils.formatEther(await callGetNFTPrice(3));
       setSats({
-        sats1:Number(sats1), 
+        sats1: Number(sats1),
         sats2: Number(sats2),
         sats3: Number(sats3),
       });
@@ -179,8 +179,8 @@ export default function NftBuy() {
   useEffect(() => {
     getPrice();
   }, [chainId]);
-  console.log("sats", sats,"chainId",chainId);
-  
+  console.log("sats", sats, "chainId", chainId);
+
   return (
     <>
       <Layout title="Buy Badge">
@@ -189,7 +189,9 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-10 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 1" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip1 rounded-md">
-                {/* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon/>}
+                {
+                  /* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon />
+                }
                 {sats.sats1.toFixed(4)}
                 {""} = {price?.vip1.toFixed(0)}$
               </div>
@@ -197,7 +199,7 @@ export default function NftBuy() {
                 <input
                   type="text"
                   onChange={refVip1}
-                  placeholder={"Main Referral Code: "+childRef[0]}
+                  placeholder={"Main Referral Code: " + childRef[0]}
                   className="outline-none border-2 rounded-lg border-gray-200 p-3 text-black"
                 />
                 <button
@@ -213,7 +215,9 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 2" />
               <div className="flex  justify-center items-center gap-3 border-2 p-6 border-vip2 rounded-md">
-                {/* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon/>}
+                {
+                  /* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon />
+                }
                 {sats.sats2.toFixed(4)}
                 {""} = {price?.vip2?.toFixed(0)}$
               </div>
@@ -221,7 +225,7 @@ export default function NftBuy() {
                 <input
                   type="text"
                   onChange={refVip2}
-                  placeholder={"Main Referral Code: "+childRef[0]}
+                  placeholder={"Main Referral Code: " + childRef[0]}
                   className="outline-none border-2 rounded-lg border-gray-200 p-3 text-black"
                 />
                 <button
@@ -237,7 +241,9 @@ export default function NftBuy() {
             <div className="backdrop-blur-sm bg-white/10 border-2 border-white/30 rounded-xl shadow-md w-full gap-6 h-full p-6 flex flex-col justify-between">
               <Vip text="Seed 3" />
               <div className="flex justify-center items-center  gap-3 border-2 p-6 border-vip3 rounded-md">
-                {/* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon/>}
+                {
+                  /* chainId === "0x38" ? <BnbIcon /> : <BtcIcon /> */ <BtcIcon />
+                }
                 {sats.sats3.toFixed(4)}
                 {""} = {price?.vip3?.toFixed(0)}$
               </div>
@@ -245,7 +251,7 @@ export default function NftBuy() {
                 <input
                   type="text"
                   onChange={refVip3}
-                  placeholder={"Main Referral Code: "+childRef[0]}
+                  placeholder={"Main Referral Code: " + childRef[0]}
                   className="outline-none border-2 rounded-lg border-gray-200 p-3 text-black"
                 />
                 <button

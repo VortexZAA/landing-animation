@@ -554,7 +554,7 @@ export default function SideBar() {
     },
     {
       id: 10,
-      name: "Bevm Odessys",
+      name: "BEVM Helsinki 🔥",
       path: "#",
       icon: (
         <Image

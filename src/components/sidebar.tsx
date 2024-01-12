@@ -606,13 +606,13 @@ export default function SideBar() {
       right: random2,
     });
   };
-  /* useEffect(() => {
+  useEffect(() => {
     if (isconneted) {
       const timer = setTimeout(incrementRandom, 700);
 
       return () => clearTimeout(timer);
     }
-  }, [random]); */
+  }, [random,isconneted]);
   async function success() {
     setLoading(true);
     try {

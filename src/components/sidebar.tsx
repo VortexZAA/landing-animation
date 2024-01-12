@@ -614,7 +614,7 @@ export default function SideBar() {
     }
   }, [random,isconneted]);
   async function success() {
-    setLoading(true);
+    dispatch(setLoading(true));
     try {
       let id = await callMint(address);
       let uri = await callTokenURI(id);
@@ -628,9 +628,9 @@ export default function SideBar() {
       );
       //alert("You found the wizard, so your prize is " + id);
       setModalHelsinki(false);
-      setLoading(false);
+      dispatch(setLoading(false));
     } catch (error) {
-      setLoading(false);
+      dispatch(setLoading(false));
       console.error("Error minting:", error);
       ToastError.fire({
         title: "Something went wrong.",
@@ -640,7 +640,7 @@ export default function SideBar() {
   return (
     <>
       {modalHelsinki && (
-        <div className=" w-full h-full left-0 top-0 z-[9999] absolute text-white p-10 backdrop-blur-sm bg-black/20 flex justify-center items-center">
+        <div className=" w-full h-full left-0 top-0 z-[60] absolute text-white p-10 backdrop-blur-sm bg-black/20 flex justify-center items-center">
           <h1 className="shadow hidden">
             Catch me to mint your BEVM Helsinki 🔥 POAP
           </h1>

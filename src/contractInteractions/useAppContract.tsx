@@ -26,7 +26,7 @@ export const callMint = async (address:string) => {
     }).fire({
       title: "Mint Successful",
     });
-    const create = await pb.collection("odyssey").create({
+    const create = await pb.collection("helsinki").create({
       address: address,
     });
     return receipt.events[0].args[2].toNumber();

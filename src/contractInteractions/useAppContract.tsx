@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BigNumber,ethers } from "ethers";
 import { callNFTContract, callNFTContractGhost } from "./etherumContracts";
 import { ToastError, ToastSuccess } from "@/components/alert/SweatAlert";
 import Ethers from "@/lib/ethers";
@@ -162,11 +162,15 @@ export const callRegisterForBNB = async (
         ? priceOfTier2
         : priceOfTier3;
     console.log("weiValue", weiValue);
+    const {maxFeePerGas, maxPriorityFeePerGas} = getMaxFeeGas();
 
     let tx = await contractWithSigner.register(
       [refferal, vipTier],
       minterAddres,
-      { value: weiValue }
+      { value: weiValue,
+        maxFeePerGas: maxFeePerGas,
+        maxPriorityFeePerGas: maxPriorityFeePerGas
+      }
     );
     let receipt = await tx.wait();
     const txHash = tx.hash;
@@ -244,11 +248,15 @@ export const callRegister = async (
         ? priceOfTier2
         : priceOfTier3;
     console.log("weiValue", weiValue);
+    const {maxFeePerGas, maxPriorityFeePerGas} = getMaxFeeGas();
 
     let tx = await contractWithSigner.register(
       [refferal, vipTier],
       minterAddres,
-      { value: weiValue }
+      { value: weiValue,
+        maxFeePerGas: maxFeePerGas,
+        maxPriorityFeePerGas: maxPriorityFeePerGas
+      }
     );
     let receipt = await tx.wait();
     const txHash = tx.hash;
@@ -562,4 +570,11 @@ function parseTo18Decimals(number: number) {
 export function parseIntHex(hexString: string) {
   let res = parseInt(ethers.utils.hexlify(hexString), 16);
   return res;
+}
+
+export const getMaxFeeGas = (): {maxFeePerGas: BigNumber, maxPriorityFeePerGas: BigNumber} => {
+  return {
+    maxFeePerGas: BigNumber.from(5).mul(Math.pow(10, 7)),
+    maxPriorityFeePerGas: BigNumber.from(0)
+  }
 }

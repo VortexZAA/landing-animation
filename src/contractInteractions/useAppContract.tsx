@@ -18,7 +18,11 @@ const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 export const callMint = async (address:string) => {
   try {
     const { contractWithSigner } = await callNFTContractGhost();
-    let tx = await contractWithSigner.mint();
+    const { maxFeePerGas, maxPriorityFeePerGas } = getMaxFeeGas();
+    let tx = await contractWithSigner.mint({
+      maxFeePerGas: maxFeePerGas,
+      maxPriorityFeePerGas: maxPriorityFeePerGas
+    });
     let receipt = await tx.wait();
     const txHash = tx.hash;
     ToastSuccess({
@@ -26,7 +30,7 @@ export const callMint = async (address:string) => {
     }).fire({
       title: "Mint Successful",
     });
-    const create = await pb.collection("odyssey").create({
+    const create = await pb.collection("helsinki").create({
       address: address,
     });
     return receipt.events[0].args[2].toNumber();
@@ -73,6 +77,7 @@ export const callMint = async (address:string) => {
     throw err;
   }
 };
+
 export async function importToMetamask(id: number, image: string) {
   const ethereum = window.ethereum as any;
   try {

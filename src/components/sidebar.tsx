@@ -608,7 +608,7 @@ export default function SideBar() {
   };
   useEffect(() => {
     if (isconneted) {
-      const timer = setTimeout(incrementRandom, 700);
+      const timer = setTimeout(incrementRandom, 850);
 
       return () => clearTimeout(timer);
     }

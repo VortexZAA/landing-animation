@@ -8,6 +8,7 @@ export const runtime = "edge";
 export default async function handler(req: NextRequest) {
   // HTTP istek metodunu kontrol edin
   const address =  req.nextUrl.searchParams.get("address") || ""
+  let message = "Success"
   if (req.method !== "GET") {
     // POST olmayan istekler için 405 Method Not Allowed yanıtı döndür
     return new Response(JSON.stringify({ message: "Method not allowed" }), {
@@ -27,14 +28,18 @@ export default async function handler(req: NextRequest) {
         filter: address && `address="${address}"`
     }).then((res) => {
         data = res;
+        message = res.length ? "Success" : "Failed No data"
     }
-    )
+    ).catch((err) => {
+        message = "Error"
+    });
 
     return new Response(
       JSON.stringify({
-        message: "Success",
+        message: message,
         data: data,
-        address: address
+        address: address,
+
       }),
       {
         status: 200, // Başarılı işlem

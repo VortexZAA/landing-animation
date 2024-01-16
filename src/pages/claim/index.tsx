@@ -94,7 +94,7 @@ export default function Intro() {
         console.log("claim", claim);
         if (claim) {
           setMsg(
-            `Your badge will be sent to your wallet on the ${network} network`
+            `Your badge will be sent to your wallet on the ${network} network, Your badge will be sent to your wallet in 24h`
           );
           setSelectedTabs(2);
           setSuccess(true);

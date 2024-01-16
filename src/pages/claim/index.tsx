@@ -63,7 +63,7 @@ export default function Intro() {
           setMsg("You are whitelisted");
           setIsOpen(true);
           setUserId(check);
-          check.claimed ? await claim(check.network) : setSelectedTabs(1);
+          check.claimed ? await claim(check.network,check) : setSelectedTabs(1);
         } else {
           setMsg("You are not eligible 😦");
           setSelectedTabs(2);
@@ -73,10 +73,10 @@ export default function Intro() {
       console.log(error);
     }
   }
-  async function claim(network: string) {
+  async function claim(network: string,userData:any) {
     console.log("claiming");
     try {
-      if (!userId.claimed) {
+      if (!userData.claimed) {
         const claim = await pb
           .collection("claim_badge_new")
           .update(userId.id, {
@@ -94,7 +94,7 @@ export default function Intro() {
         console.log("claim", claim);
         if (claim) {
           setMsg(
-            `Your badge will be sent to your wallet on the ${network} network, Your badge will be sent to your wallet in 24h`
+            `Your badge will be sent to your wallet on the ${network} network in 24h`
           );
           setSelectedTabs(2);
           setSuccess(true);
@@ -107,7 +107,7 @@ export default function Intro() {
         setSelectedTabs(2);
         setSuccess(true);
         setMsg(
-          `You have already claimed your badge at ${userId.network} network `
+          `You have already claimed your badge at ${userData?.network} network `
         );
       }
       setIsOpen(false);
@@ -215,7 +215,7 @@ export default function Intro() {
           </div>
         )}
         {claimSelected && (
-          <div className="hidden lg:block w-full">
+          <div className="hidden lg:block w-full pt-6">
             <div className="flex w-full mb-3 gap-3 text-sm">
               {tabs.map((tab, index) => (
                 <Tab
@@ -312,7 +312,7 @@ export default function Intro() {
                           <button
                             onClick={() => {
                               //setSelectedChain("0x38");
-                              claim("BSC");
+                              claim("BSC",userId);
                             }}
                             className="w-full flex h-14 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
                           >
@@ -322,7 +322,7 @@ export default function Intro() {
                           <button
                             onClick={() => {
                               //setSelectedChain("0x5dd");
-                              claim("BEVM");
+                              claim("BEVM",userId);
                             }}
                             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
                           >
@@ -336,7 +336,7 @@ export default function Intro() {
                           <button
                             onClick={() => {
                               //setSelectedChain("0x58f8");
-                              claim("MAP");
+                              claim("MAP",userId);
                             }}
                             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
                           >

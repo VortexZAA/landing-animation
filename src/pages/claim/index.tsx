@@ -48,7 +48,7 @@ export default function Intro() {
       console.log(address);
       if (sign) {
         const check: any = await pb
-          .collection("claim_badge")
+          .collection("claim_badge_new")
           .getFirstListItem(`address="${address}"`)
           .then((res) => {
             console.log(res);
@@ -78,7 +78,7 @@ export default function Intro() {
     try {
       if (!userId.claimed) {
         const claim = await pb
-          .collection("claim_badge")
+          .collection("claim_badge_new")
           .update(userId.id, {
             claimed: true,
             network: network,

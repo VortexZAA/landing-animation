@@ -277,9 +277,9 @@ const menu = [
   {
     id: 6,
     title: "Claim Badge Airdrop",
-    link: "#",
+    link: "/claim",
     target: "_self",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 7,

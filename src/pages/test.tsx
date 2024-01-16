@@ -1,19 +1,53 @@
 //npm install @splinetool/react-spline @splinetool/runtime bu komutları çalıştırıyoruz
 import Spline from "@splinetool/react-spline"; // bunu ekleyeceğiz
-
+import AddresData from "@/data/calimBadge/1.json"; // bunu ekleyeceğiz
+import AddresData2 from "@/data/calimBadge/2.json"; // bunu ekleyeceğiz
+import AddresData3 from "@/data/calimBadge/3.json"; // bunu ekleyeceğiz
+import AddresData4 from "@/data/calimBadge/4.json"; // bunu ekleyeceğiz
+import pb from "@/lib/pocketbase";
+import { useEffect, useState } from "react";
 export default function TEST() {
+  const [totalCreate, setTotalCreate] = useState(0);
+  const addresData = AddresData3;
+  async function createCalimBadge() {
+    let totalCreate = 0;
+    console.log("Address sayısı", addresData.length);
+    
+    await addresData.forEach(async (element) => {
+      try {
+        const checkAddress = await pb
+          .collection("claim_badge_new")
+          .getFirstListItem(`address="${element.address}"`)
+          .then((res) => {
+            return true;
+          })
+          .catch((err) => {
+            console.log(err);
+            return false;
+          });
+        if (!checkAddress) {
+          const result = await pb
+            .collection("claim_badge_new")
+            .create({ address: element.address });
+          console.log(result);
+          totalCreate = totalCreate + 1;
+        } else {
+          console.log(element.address, " zaten var");
+        }
+      } catch (error) {
+        console.log(error);
+        alert("hata");
+      }
+    });
+    setTotalCreate(totalCreate);
+  }
+  useEffect(() => {
+    createCalimBadge();
+  }, []);
   return (
-    <>
-    {/* <img
-                  alt="sun"
-                  src="sun.svg"
-                  className={`max-h-[90vh]  ${finished ?  'animate-spin-slow' : 'animated-sun' }  object-contain`}
-                /> 
-      Bunun yerine spline kullanıyoruz.
-                */}
-      <div className="w-[50vw] h-[50vh] absolute  right-0  ">
-        <Spline className="scale-125" scene="https://prod.spline.design/xjRDYfv6dsE8jW5M/scene.splinecode" />
-      </div>
-    </>
+    <div className="mx-auto z-20 absolute ">
+      <h2 className="text-white text-7xl z-20">Total Create: {totalCreate}</h2>
+      <h3 className="text-white text-6xl z-20">Address sayısı: {addresData.length}</h3>
+    </div>
   );
 }

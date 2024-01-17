@@ -131,7 +131,7 @@ export default function Intro() {
         filter: `claimed=true`,
       });
       console.log(res);
-      setClaimedCount(res.length);
+      setClaimedCount(res.length+50);
       return res.length;
     } catch (error) {
       console.log(error);
@@ -239,7 +239,7 @@ export default function Intro() {
                 </button>
               </div>
               {/* progress bar  */}
-              <div className="mt-5 space-y-2 flex flex-col items-center w-fit">
+              {claimedCount > 0 && <div className="mt-5 space-y-2 flex flex-col items-center w-fit">
                 <div className="w-[320px] h-6 bg-[#ebedf2] dark:bg-dark/40 rounded-full relative">
                   <div
                     className=" bg-gradient-to-r from-green-500 to-green-200 h-6 rounded-full text-center text-black font-bold flex justify-between items-center px-2 text-xs"
@@ -247,11 +247,11 @@ export default function Intro() {
                       width: `${
                         claimedCount / totalClaimList >= 1
                           ? 100
-                          : (claimedCount+50) / 1000 *100
+                          : (claimedCount) / 1000 *100
                       }%`,
                     }}
                   >
-                    <span>{claimedCount + 50}/1000</span>
+                    <span>{claimedCount}/1000</span>
                     {/* <span>
                       {claimedCount / totalClaimList >= 1
                         ? 100
@@ -261,7 +261,7 @@ export default function Intro() {
                   </div>
                 </div>
                 <h4>Claim Progress</h4>
-              </div>
+              </div>}
             </div>
           </div>
         )}

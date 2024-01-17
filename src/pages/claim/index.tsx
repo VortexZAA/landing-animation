@@ -239,7 +239,7 @@ export default function Intro() {
                 </button>
               </div>
               {/* progress bar  */}
-              <div className="mb-5 space-y-5">
+              <div className="mt-5 space-y-5">
                 <div className="w-[320px] h-6 bg-[#ebedf2] dark:bg-dark/40 rounded-full">
                   <div
                     className="bg-green-500 h-6 rounded-full text-center text-black font-bold flex justify-between items-center px-2 text-xs"

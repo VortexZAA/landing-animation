@@ -21,6 +21,7 @@ export default function Intro() {
       setShow(true);
     }, 700);
     //reload
+    getClaimedCount();
   }, []);
 
   const [address, setAddress] = useState("");
@@ -63,7 +64,9 @@ export default function Intro() {
           setMsg("You are whitelisted");
           setIsOpen(true);
           setUserId(check);
-          check.claimed ? await claim(check.network,check) : setSelectedTabs(1);
+          check.claimed
+            ? await claim(check.network, check)
+            : setSelectedTabs(1);
         } else {
           setMsg("You are not eligible 😦");
           setSelectedTabs(2);
@@ -73,7 +76,7 @@ export default function Intro() {
       console.log(error);
     }
   }
-  async function claim(network: string,userData:any) {
+  async function claim(network: string, userData: any) {
     console.log("claiming");
     try {
       if (!userData.claimed) {
@@ -117,6 +120,30 @@ export default function Intro() {
   }
   const [selectedTabs, setSelectedTabs] = useState(0);
   const [claimSelected, setClaimSelected] = useState(false);
+  const [claimedCount, setClaimedCount] = useState(0);
+  const [totalClaimList, setTotalClaimList] = useState(0);
+  async function getClaimedCount() {
+    try {
+      let res1 = await pb.collection("claim_badge_new").getFullList();
+      console.log(res1);
+      setTotalClaimList(res1.length);
+      let res = await pb.collection("claim_badge_new").getFullList({
+        filter: `claimed=true`,
+      });
+      console.log(res);
+      setClaimedCount(res.length);
+      return res.length;
+    } catch (error) {
+      console.log(error);
+      ToastError.fire({
+        title: "Something went wrong please try again later",
+      });
+      setClaimedCount(0);
+      setTotalClaimList(0);
+      return false;
+    }
+  }
+
   return (
     <>
       {show && <Header />}
@@ -210,6 +237,30 @@ export default function Intro() {
                     </div>
                   </div>
                 </button>
+              </div>
+              {/* progress bar  */}
+              <div className="mt-5 space-y-2 flex flex-col items-center w-fit">
+                <div className="w-[320px] h-6 bg-[#ebedf2] dark:bg-dark/40 rounded-full relative">
+                  <div
+                    className=" bg-gradient-to-r from-green-500 to-green-200 h-6 rounded-full text-center text-black font-bold flex justify-between items-center px-2 text-xs"
+                    style={{
+                      width: `${
+                        claimedCount / totalClaimList >= 1
+                          ? 100
+                          : (claimedCount+50) / 1000 *100
+                      }%`,
+                    }}
+                  >
+                    <span>{claimedCount + 50}/1000</span>
+                    {/* <span>
+                      {claimedCount / totalClaimList >= 1
+                        ? 100
+                        : claimedCount / totalClaimList}
+                      %
+                    </span> */}
+                  </div>
+                </div>
+                <h4>Claim Progress</h4>
               </div>
             </div>
           </div>
@@ -312,7 +363,7 @@ export default function Intro() {
                           <button
                             onClick={() => {
                               //setSelectedChain("0x38");
-                              claim("BSC",userId);
+                              claim("BSC", userId);
                             }}
                             className="w-full flex h-14 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
                           >
@@ -322,7 +373,7 @@ export default function Intro() {
                           <button
                             onClick={() => {
                               //setSelectedChain("0x5dd");
-                              claim("BEVM",userId);
+                              claim("BEVM", userId);
                             }}
                             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
                           >
@@ -336,7 +387,7 @@ export default function Intro() {
                           <button
                             onClick={() => {
                               //setSelectedChain("0x58f8");
-                              claim("MAP",userId);
+                              claim("MAP", userId);
                             }}
                             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
                           >
@@ -388,7 +439,8 @@ export default function Intro() {
                         <h2 className="my-3 text-sm md:text-base font-semibold text-g-1">
                           Oops! It seems you're not on the whitelist.
                         </h2>
-                        <Link target="_blank"
+                        <Link
+                          target="_blank"
                           href={"https://discord.com/invite/soulboundprotocol"}
                         >
                           <button className="w-full rounded-xl text-md font-semibold text-black bg-white py-2.5 text-xl transition-all hover:bg-[#D4DDD6]">
@@ -403,7 +455,6 @@ export default function Intro() {
             </div>
           </div>
         )}
-        
       </div>
       {show && <Footer status={true} />}
     </>

@@ -127,11 +127,9 @@ export default function Intro() {
       let res1 = await pb.collection("claim_badge_new").getFullList();
       console.log(res1);
       setTotalClaimList(res1.length);
-      let res = await pb.collection("claim_badge_new").getFullList({
-        filter: `claimed=true`,
-      });
+      let res = res1.filter((item: any) => item.claimed);
       console.log(res);
-      setClaimedCount(res.length+50);
+      setClaimedCount(res.length + 50);
       return res.length;
     } catch (error) {
       console.log(error);
@@ -151,8 +149,29 @@ export default function Intro() {
       <div className="text-sm  md:text-xl w-full xl:w-2/3  h-[75vh] xl:h-[80vh] text-center z-20  fixed top-1/2 left-1/2  flex items-center flex-col transform -translate-x-1/2 -translate-y-1/2 gap-6 text-white launch animate-fadeIn3 overflow-y-auto overflow-x-hidden px-3 xl:px-0">
         {!claimSelected && (
           <div className="flex flex-col xl:flex-row gap-3 w-full h-full items-start pt-4 pb-16 xl:py-6 ">
-            <div className="w-full sm:w-2/3 md:w-1/3 flex h-full items-center justify-center">
+            <div className="w-full sm:w-2/3 md:w-1/3 flex flex-col h-full items-center justify-center">
               {/* <img src="/logo.png" alt="" className="w-5/6" /> */}
+              {claimedCount > 0 && (
+                <div className="mt-0 space-y-2 flex flex-col items-center w-fit">
+                  <div className="w-[320px] h-6 flex items-center font-bold text-black bg-[#ebedf2] dark:bg-dark/40 rounded-full relative">
+                    <div
+                      className=" bg-gradient-to-r from-green-500 to-green-200 h-6 rounded-full text-center   flex justify-between items-center px-2 text-xs"
+                      style={{
+                        width: `${
+                          claimedCount / totalClaimList >= 1
+                            ? 100
+                            : (claimedCount / 1000) * 100
+                        }%`,
+                      }}
+                    >
+                      <span>{claimedCount}/1000</span>
+                      
+                      
+                    </div>
+                    <span className="absolute right-3 text-sm">Claim Progress</span>
+                  </div>
+                </div>
+              )}
               <div id="container" className="w-full flex flex-col items-center">
                 <div id="spooky">
                   <div id="body" className="!w-2/3 !mt-0 h-40 sm:!h-52">
@@ -239,29 +258,6 @@ export default function Intro() {
                 </button>
               </div>
               {/* progress bar  */}
-              {claimedCount > 0 && <div className="mt-5 space-y-2 flex flex-col items-center w-fit">
-                <div className="w-[320px] h-6 bg-[#ebedf2] dark:bg-dark/40 rounded-full relative">
-                  <div
-                    className=" bg-gradient-to-r from-green-500 to-green-200 h-6 rounded-full text-center text-black font-bold flex justify-between items-center px-2 text-xs"
-                    style={{
-                      width: `${
-                        claimedCount / totalClaimList >= 1
-                          ? 100
-                          : (claimedCount) / 1000 *100
-                      }%`,
-                    }}
-                  >
-                    <span>{claimedCount}/1000</span>
-                    {/* <span>
-                      {claimedCount / totalClaimList >= 1
-                        ? 100
-                        : claimedCount / totalClaimList}
-                      %
-                    </span> */}
-                  </div>
-                </div>
-                <h4>Claim Progress</h4>
-              </div>}
             </div>
           </div>
         )}

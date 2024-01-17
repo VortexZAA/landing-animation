@@ -239,8 +239,8 @@ export default function Intro() {
                 </button>
               </div>
               {/* progress bar  */}
-              <div className="mt-5 space-y-5">
-                <div className="w-[320px] h-6 bg-[#ebedf2] dark:bg-dark/40 rounded-full">
+              <div className="mt-5 space-y-2 flex flex-col items-center w-fit">
+                <div className="w-[320px] h-6 bg-[#ebedf2] dark:bg-dark/40 rounded-full relative">
                   <div
                     className="bg-green-500 h-6 rounded-full text-center text-black font-bold flex justify-between items-center px-2 text-xs"
                     style={{
@@ -260,6 +260,7 @@ export default function Intro() {
                     </span> */}
                   </div>
                 </div>
+                <h4>Claim Progress</h4>
               </div>
             </div>
           </div>

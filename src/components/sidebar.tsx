@@ -95,8 +95,12 @@ export default function SideBar() {
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
           CheckChain(chainId);
-          //localStorage.clear();
-          dispatch(setClear());
+          if (!address) {
+            dispatch(setChainId(chainId));
+          } else {
+            dispatch(setClear());
+            //localStorage.clear();
+          }
           router.push("/buy-badge");
         });
         checkIsAdmin();
@@ -106,7 +110,10 @@ export default function SideBar() {
     }
   });
   const CheckChain = (id: string) => {
-    if (id.toString() !== chainId) {
+    if (
+      (id.toString() !== chainId && address) ||
+      (id.toString() !== chainId && !["0x38", "0x5dd", "0x58f8"].includes(id))
+    ) {
       //dispatch(setClear());
       console.log("chainId", chainId);
       console.log("chain", chain[chainId]);
@@ -612,7 +619,7 @@ export default function SideBar() {
 
       return () => clearTimeout(timer);
     }
-  }, [random,isconneted]);
+  }, [random, isconneted]);
   async function success() {
     dispatch(setLoading(true));
     try {

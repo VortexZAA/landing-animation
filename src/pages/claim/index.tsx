@@ -127,9 +127,7 @@ export default function Intro() {
       let res1 = await pb.collection("claim_badge_new").getFullList();
       console.log(res1);
       setTotalClaimList(res1.length);
-      let res = await pb.collection("claim_badge_new").getFullList({
-        filter: `claimed=true`,
-      });
+      let res = res1.filter((item: any) => item.claimed);
       console.log(res);
       setClaimedCount(res.length+50);
       return res.length;

@@ -247,7 +247,7 @@ export default function Intro() {
                       width: `${
                         claimedCount / totalClaimList >= 1
                           ? 100
-                          : claimedCount / totalClaimList
+                          : (claimedCount+50) / 1000 *100
                       }%`,
                     }}
                   >

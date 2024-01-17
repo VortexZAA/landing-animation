@@ -153,9 +153,9 @@ export default function Intro() {
               {/* <img src="/logo.png" alt="" className="w-5/6" /> */}
               {claimedCount > 0 && (
                 <div className="mt-0 space-y-2 flex flex-col items-center w-fit">
-                  <div className="w-[320px] h-6 bg-[#ebedf2] dark:bg-dark/40 rounded-full relative">
+                  <div className="w-[320px] h-6 flex items-center font-bold text-black bg-[#ebedf2] dark:bg-dark/40 rounded-full relative">
                     <div
-                      className=" bg-gradient-to-r from-green-500 to-green-200 h-6 rounded-full text-center text-black font-bold flex justify-between items-center px-2 text-xs"
+                      className=" bg-gradient-to-r from-green-500 to-green-200 h-6 rounded-full text-center   flex justify-between items-center px-2 text-xs"
                       style={{
                         width: `${
                           claimedCount / totalClaimList >= 1
@@ -165,15 +165,11 @@ export default function Intro() {
                       }}
                     >
                       <span>{claimedCount}/1000</span>
-                      {/* <span>
-                      {claimedCount / totalClaimList >= 1
-                        ? 100
-                        : claimedCount / totalClaimList}
-                      %
-                    </span> */}
+                      
+                      
                     </div>
+                    <span className="absolute right-3 text-sm">Claim Progress</span>
                   </div>
-                  <h4>Claim Progress</h4>
                 </div>
               )}
               <div id="container" className="w-full flex flex-col items-center">

@@ -218,6 +218,29 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address[]",
+				"name": "_holders",
+				"type": "address[]"
+			},
+			{
+				"internalType": "uint32[]",
+				"name": "_tiers",
+				"type": "uint32[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_parents",
+				"type": "uint256[]"
+			}
+		],
+		"name": "batchInitialRegister",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "claimReferralReward",
 		"outputs": [],
@@ -477,6 +500,34 @@
 				"internalType": "int256",
 				"name": "price_",
 				"type": "int256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getStats",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "totalMinted",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "mintedTier1",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "mintedTier2",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "mintedTier3",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -752,12 +803,12 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_finalID",
-				"type": "uint256"
+				"internalType": "bool",
+				"name": "_hasFlag",
+				"type": "bool"
 			}
 		],
-		"name": "setFinalID",
+		"name": "setHasFlag",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -795,6 +846,58 @@
 			}
 		],
 		"name": "setIsBounded",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "_isMintable",
+				"type": "bool"
+			}
+		],
+		"name": "setIsMintable",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "_isTier1Mintable",
+				"type": "bool"
+			}
+		],
+		"name": "setIsTier1Mintable",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "_isTier2Mintable",
+				"type": "bool"
+			}
+		],
+		"name": "setIsTier2Mintable",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "_isTier3Mintable",
+				"type": "bool"
+			}
+		],
+		"name": "setIsTier3Mintable",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -870,19 +973,6 @@
 			}
 		],
 		"name": "setMultiplier",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_paymentToken",
-				"type": "address"
-			}
-		],
-		"name": "setPaymentToken",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -1023,38 +1113,12 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint32",
-				"name": "_tier",
-				"type": "uint32"
-			}
-		],
-		"name": "upgradeTier",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "_amount",
 				"type": "uint256"
 			}
 		],
 		"name": "withdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "withdrawSBP",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

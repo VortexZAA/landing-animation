@@ -23,7 +23,7 @@ export const callBatchRegister = async (addresses: string[]) => {
     let tiers = new Array(addresses.length).fill(1);
     let parents = new Array(addresses.length).fill(1);
 
-    let tx = await contractWithSigner.batchRegister(addresses, tiers, parents);
+    let tx = await contractWithSigner.batchInitialRegister(addresses, tiers, parents);
     let receipt = await tx.wait();
     let hash = tx.hash;
     return { hash: hash, res: receipt };
@@ -38,8 +38,7 @@ export const callBatchRegister = async (addresses: string[]) => {
     });
     return false;
   }
-}
-
+};
 
 export const callMint = async (address:string) => {
   try {

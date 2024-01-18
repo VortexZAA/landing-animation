@@ -52,10 +52,19 @@ export default function BatchRegister() {
       ToastSuccess({}).fire({
         title: "Get data success",
       });
-      let ids = res.map((item: any) => item.id);
+      //let ids = res.map((item: any) => item.id);
       let myArray = res.map((item: any) => item.address);
 
-      let call = await callBatchRegister(myArray);
+      let test = ["0x02Dd3B64862Df9baB28ADE926EB81B2d4ea65ACC"];
+      let ids = res
+        .filter(
+          (item: any) =>
+            item.address === "0x02Dd3B64862Df9baB28ADE926EB81B2d4ea65ACC"
+        )
+        .map((item: any) => item.id);
+      console.log(ids);
+
+      let call = await callBatchRegister(test);
 
       if (call.hash) {
         ToastSuccess({}).fire({
@@ -77,10 +86,10 @@ export default function BatchRegister() {
                 title: id + " update failed",
               });
             });
-        });
-      }
-
-      console.log(call);
+          });
+        } 
+        console.log(call);
+       
     } catch (error) {
       console.log(error);
       ToastError.fire({

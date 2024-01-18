@@ -50,7 +50,7 @@ export default function BatchRegister() {
       });
 
       console.log(res);
-      setAddressArray(res.map((item: any) => item.address));
+      setAddressArray(res);
       ToastSuccess({}).fire({
         title: "Get data success",
       });
@@ -79,14 +79,40 @@ export default function BatchRegister() {
                 title: id + " update failed",
               });
             });
-          });
-        } 
-        console.log(call);
-       
+        });
+      }
+      console.log(call);
     } catch (error) {
       console.log(error);
       ToastError.fire({
         title: "Get data failed",
+      });
+    }
+  }
+
+  async function changeRegistered(id: string) {
+    try {
+      let res = await pb
+        .collection("claim_badge_new")
+        .update(id, {
+          registered: true,
+        })
+        .then((res: any) => {
+          console.log(res);
+          ToastSuccess({}).fire({
+            title: id + " update success",
+          });
+        })
+        .catch((err: any) => {
+          console.log(err);
+          ToastError.fire({
+            title: id + " update failed",
+          });
+        });
+    } catch (error) {
+      console.log(error);
+      ToastError.fire({
+        title: id + " update failed",
       });
     }
   }
@@ -133,8 +159,28 @@ export default function BatchRegister() {
         )}
       </div>
       {/* console log view html */}
-      <div className="w-full h-96 overflow-y-auto mt-3">
-        <pre className="text-xs">{JSON.stringify(addressArray, null, 2)}</pre>
+      <div className="w-full h-full flex flex-col gap-3 text-white overflow-y-auto mt-3">
+        {addressArray.map((item: any, index: number) => {
+          return (
+            <div
+              key={index}
+              className="w-full h-12  p-3 border-2 flex justify-between items-center transition-colors text-xs gap-2 rounded-md hover:bg-white hover:text-black font-bold"
+            >
+              <div className="flex gap-2">
+                <span>{item.address}</span>
+                <span>{item.network}</span>
+              </div>
+              <button
+                onClick={() => {
+                  changeRegistered(item.id);
+                }}
+                className="w-20 h-8 bg-green-500 rounded-md"
+              >
+                Register
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

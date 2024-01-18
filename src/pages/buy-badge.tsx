@@ -45,7 +45,9 @@ export default function NftBuy() {
   async function buyVip1() {
     try {
       dispatch(setLoading(true));
-      console.log([uInput1, 1]);
+      //console.log([uInput1, 1]);
+      console.log("uInput1", uInput1);
+      
       // random number 1-2
       const rndNumber = Math.floor(Math.random() * 2);
       const tempInput1 = uInput1 || childRef[rndNumber];

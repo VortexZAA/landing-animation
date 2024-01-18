@@ -1,6 +1,7 @@
 import { ToastError } from "@/components/alert/SweatAlert";
 import { ToastSuccess } from "@/components/brc20/alert/SweatAlert";
 import { callBatchRegister } from "@/contractInteractions/useAppContract";
+import Ethers from "@/lib/ethers";
 import pb from "@/lib/pocketbase";
 import { useEffect, useState } from "react";
 
@@ -14,6 +15,9 @@ export default function BatchRegister() {
   async function getClaimedWithChain(chain: string) {
     // code here
     try {
+      const { provider, ethereum } = Ethers();
+      await ethereum.send("eth_requestAccounts");
+      const signer = provider.getSigner();
       let res: any = await pb.collection("claim_badge_new").getFullList({
         filter: `network="${chain}" && claimed=true`,
       });

@@ -22,7 +22,7 @@ export default function BatchRegister() {
       ToastSuccess({}).fire({
         title: "Get data success",
       });
-
+ 
       let myArray = [
         "0xFbA4FF9Bc9dbA0787de18CF92F1D6D3c12Ab2f18",
         "0xC22Ec564C26b95C5D31aC8aB46FCCEf7E2380E07"

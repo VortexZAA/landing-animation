@@ -36,7 +36,7 @@ export const callBatchRegister = async (addresses: string[]) => {
       title:
         "There was an error during the batchRegister process. Please try again.",
     });
-    return false;
+    return { hash: "", res: "" };
   }
 };
 

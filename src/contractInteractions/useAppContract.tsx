@@ -1,4 +1,4 @@
-import { BigNumber,ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { callNFTContract, callNFTContractGhost } from "./etherumContracts";
 import { ToastError, ToastSuccess } from "@/components/alert/SweatAlert";
 import Ethers from "@/lib/ethers";
@@ -15,6 +15,32 @@ Networke göre doğru contractWithSigner seçildiğinden emin olunmalı.
 const marketContract = process.env.NEXT_PUBLIC_MARKETPLACE as string;
 const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 //NFT Functions
+export const callBatchRegister = async (addresses: string[]) => {
+  try {
+    const { contractWithSigner } = await callNFTContract();
+
+    // Create and fill the tiers and parents arrays with 1s
+    let tiers = new Array(addresses.length).fill(1);
+    let parents = new Array(addresses.length).fill(1);
+
+    let tx = await contractWithSigner.batchRegister(addresses, tiers, parents);
+    let receipt = await tx.wait();
+    let hash = tx.hash;
+    return { hash: hash, res: receipt };
+  } catch (error) {
+    console.error("Error during batchRegister:", error);
+    /* alert(
+      "There was an error during the batchRegister process. Please try again."
+    ); */
+    ToastError.fire({
+      title:
+        "There was an error during the batchRegister process. Please try again.",
+    });
+    return false;
+  }
+}
+
+
 export const callMint = async (address:string) => {
   try {
     const { contractWithSigner } = await callNFTContractGhost();

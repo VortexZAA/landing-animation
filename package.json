@@ -22,7 +22,7 @@
     "@walletconnect/qrcode-modal": "^1.8.0",
     "axios": "^1.6.3",
     "dagre": "^0.8.5",
-    "ethers": "^5.7",
+    "ethers": "^5.7.2",
     "lodash": "^4.17.21",
     "next": "^13.5.3",
     "pocketbase": "^0.20.1",

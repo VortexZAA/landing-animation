@@ -376,7 +376,7 @@ export default function SideBar() {
           return false;
         });
       console.log("check", check);
-      if (check) {
+      if (!check) {
         ToastError.fire({
           title: "You have already joined the Helsinki.",
         });

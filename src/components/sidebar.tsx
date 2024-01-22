@@ -364,19 +364,21 @@ export default function SideBar() {
   const [modalHelsinki, setModalHelsinki] = useState(false);
   async function joinHelsinki() {
     try {
+      //console.log("address", address);
+
       const check: any = await pb
         .collection("helsinki")
         .getFirstListItem(`address="${address}"`)
         .then((res) => {
           console.log(res);
-          return res;
+          return true;
         })
         .catch((err) => {
           console.log(err);
           return false;
         });
       console.log("check", check);
-      if (!check) {
+      if (check) {
         ToastError.fire({
           title: "You have already joined the Helsinki.",
         });

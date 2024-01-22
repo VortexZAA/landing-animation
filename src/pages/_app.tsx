@@ -1,4 +1,6 @@
 import "@/styles/globals.css";
+/* import "@/styles/data.css";
+import "@/styles/starlight.scss"; */
 import "reactflow/dist/style.css";
 import type { AppProps } from "next/app";
 import { store } from "@/redux/store";

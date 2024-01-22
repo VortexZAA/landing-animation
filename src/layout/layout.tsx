@@ -24,8 +24,16 @@ export default function Layout({
       <Head>
         <title>SoulBound Protocol | {title}</title>
       </Head>
+      {/* <div className="absolute z-10 w-full h-screen left-0 top-0 opacity-30 overflow-hidden">
+        <div className="wrap flex justify-between w-[70vw]">
+          <div className="c"></div>
+          {new Array(140).fill(0).map((_, i) => (
+            <div key={i} className="c"></div>
+          ))}
+        </div> */}
+
       <main
-        className={`flex min-h-screen w-screen max-w-[100vw] overflow-x-hidden gap-6  items-center justify-between z-20 relative`}
+        className={`flex min-h-screen w-screen max-w-[100vw] overflow-x-hidden gap-6  items-center justify-between z-20 relative wrap`}
       >
         <MatrixBackground />
         <SideBar />

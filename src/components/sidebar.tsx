@@ -7,6 +7,7 @@ import CopyBtn from "./button/copyBtn";
 import {
   callGetNFT,
   callGetNFTInfo,
+  callHasMinted,
   callMint,
   callTokenURI,
   importToMetamask,
@@ -383,7 +384,20 @@ export default function SideBar() {
           title: "You have already joined the Helsinki.",
         });
       } else {
-        setModalHelsinki(true);
+        let checkWeb3 = await callHasMinted(address);
+        if (checkWeb3) {
+          let create = await pb.collection("helsinki").create({
+            address: address,
+          });
+          console.log("create", create);
+          if (create) {
+            ToastSuccess({}).fire({
+              title: "You have already joined the Helsinki.",
+            });
+          }
+        }else {
+          setModalHelsinki(true);
+        }
       }
     } catch (error) {
       console.log(error);

@@ -78,6 +78,38 @@ export const callMint = async (address:string) => {
   }
 };
 
+
+export const callHasMinted = async (address: string) => {
+  try {
+    const { contractWithSigner } = await callNFTContractGhost();
+    let hasMinted = await contractWithSigner.hasMinted(address);
+    return hasMinted;
+  } catch (error) {
+    console.error("Error during hasMinted:", error);
+    /* alert("There was an error during the hasMinted process. Please try again."); */
+    ToastError.fire({
+      title:
+        "There was an error during the hasMinted process. Please try again.",
+    });
+    return false;
+  }
+};
+
+export const callOwnerOf = async (id: number) => {
+  try {
+    const { contractWithSigner } = await callNFTContractGhost();
+    let owner = await contractWithSigner.ownerOf(id);
+    return owner;
+  } catch (error) {
+    console.error("Error during ownerOf:", error);
+    /* alert("There was an error during the ownerOf process. Please try again."); */
+    ToastError.fire({
+      title: "There was an error during the ownerOf process. Please try again.",
+    });
+    return false;
+  }
+};
+
 export async function importToMetamask(id: number, image: string) {
   const ethereum = window.ethereum as any;
   try {

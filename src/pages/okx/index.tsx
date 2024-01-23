@@ -1,3 +1,9 @@
+import { ToastError } from "@/components/alert/SweatAlert";
+import {
+  callMint,
+  callTokenURI,
+  importToMetamask,
+} from "@/contractInteractions/useAppContract";
 import { useEffect, useState } from "react";
 
 export default function OKX() {
@@ -68,12 +74,40 @@ export default function OKX() {
     });
   });
 
+  const [nftImage, setNftImage] = useState("");
+  const [nftdata, setNftdata] = useState("");
+  const [modalHelsinki, setModalHelsinki] = useState(false);
+
+  async function ghostMint() {
+    try {
+      let id = await callMint(address);
+      let uri = await callTokenURI(id);
+      let res = await fetch(uri.replace("ipfs://", "https://ipfs.io/ipfs/"));
+      let data = await res.json();
+      setNftImage(data.image.replace("ipfs://", "https://ipfs.io/ipfs/"));
+      setNftdata(data);
+      importToMetamask(
+        id,
+        data.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+      );
+      //alert("You found the wizard, so your prize is " + id);
+      setModalHelsinki(false);
+      //dispatch(setLoading(false));
+    } catch (error) {
+      //dispatch(setLoading(false));
+      console.error("Error minting:", error);
+      ToastError.fire({
+        title: "Something went wrong.",
+      });
+    }
+  }
+
   return (
     <main
       className={`flex min-h-[100dvh] w-screen max-w-[100vw] overflow-x-hidden gap-6  items-start p-6 justify-between z-20 relative wrap`}
     >
       <div className=" text-white flex flex-col gap-3 w-full">
-        <div className="flex justify-between  container mx-auto w-full">
+        <div className="flex flex-col md:flex-row md:justify-between gap-3  container mx-auto w-full">
           <h2 className="text-white text-3xl z-20">OKX</h2>
           <div className="flex flex-col gap-2">
             <button
@@ -84,6 +118,9 @@ export default function OKX() {
             </button>
             address: {address}
           </div>
+          {address && <button onClick={ghostMint} className="bg-red-500 text-white px-4 py-2 rounded-md">
+            Ghost Mint
+          </button>}
         </div>
       </div>
     </main>

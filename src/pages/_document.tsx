@@ -10,7 +10,7 @@ export default function Document() {
         <script src="/script.js"></script>
       </Head>
       <title>SoulBound Protocol</title>
-      <body className="max-w-[100vw] overflow-x-hidden bg-black ">
+      <body className="max-w-[100vw] overflow-x-hidden bg-black min-h-[100dvh]">
         <canvas id="canvas" className="fixed z-10 bg-white"></canvas>
         
         <Main />

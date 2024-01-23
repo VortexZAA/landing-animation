@@ -70,7 +70,7 @@ export default function useOkx({
     }
   }); */
 
-  const CheckChain = (id: string) => {
+  const CheckChainOkx = (id: string) => {
     if (
       (id.toString() !== chainId && address) ||
       (id.toString() !== chainId && !["0x38", "0x5dd"].includes(id))
@@ -153,7 +153,7 @@ export default function useOkx({
   };
   //console.log("chainId", chainId);
 
-  async function connecWallet() {
+  async function connecWalletOkx() {
     try {
       const okxwallet = (window as any).okxwallet;
       console.log("wallet connect");
@@ -222,7 +222,7 @@ export default function useOkx({
     }
   }
 
-  return { CheckChain, connecWallet };
+  return { CheckChainOkx, connecWalletOkx };
 }
 
 async function singMsg(setSignature?: Function) {

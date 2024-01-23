@@ -65,19 +65,20 @@ export default function SideBar() {
   useEffect(() => {
     const localChainId = localStorage.getItem("chainId") || "0x5dd";
     dispatch(setChainId(localChainId));
-    //setIsMobile(window.innerWidth < 768)
+    setIsMobile(window.innerWidth < 768)
   }, []);
   function Close() {
     setIsOpen(false);
   }
-  const { CheckChain, connecWallet } = isMobile
-    ? useOkx({
-        modal,
-        Close,
-        address,
-        chainId,
-      })
-    : useMetamask({ modal, Close, address, chainId });
+
+  const { CheckChain, connecWallet } = useMetamask({ modal, Close, address, chainId });
+
+  const { CheckChainOkx, connecWalletOkx } = useOkx({
+    modal,
+    Close,
+    address,
+    chainId,
+  });
 
   useEffect(() => {
     const local = localStorage.getItem("address");
@@ -220,7 +221,7 @@ export default function SideBar() {
                   //setSelectedChain("0x5dd");
                   dispatch(setChainId("0x5dd"));
 
-                  connecWallet();
+                  connecWalletOkx();
                 }}
                 className="w-full h-12 p-3 border-2 flex md:hidden justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >

@@ -27,7 +27,7 @@ export default function useMetamask({
   const dispatch = useDispatch();
   const router = useRouter();
   const [chain, setChain]: any = useState(ChainData);
-  useEffect(() => {
+  /* useEffect(() => {
     if (window.ethereum && typeof window !== "undefined") {
       const getChainId = async () => {
         const { ethereum } = Ethers();
@@ -68,7 +68,7 @@ export default function useMetamask({
       }
     }
   });
-
+ */
   const CheckChain = (id: string) => {
     if (
       (id.toString() !== chainId && address) ||

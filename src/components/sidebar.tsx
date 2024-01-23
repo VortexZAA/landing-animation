@@ -109,7 +109,9 @@ export default function SideBar() {
     }
   }
 
+
   //console.log("chainId", chainId);
+
 
   const seletWallets = [
     {

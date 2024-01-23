@@ -56,7 +56,7 @@ export default function NftBuy() {
         }).fire({
           title: "Transaction Successful",
         });
-      router.push("/dashboard");
+      router.push("/my-account");
 
       dispatch(setLoading(false));
     } catch (error) {
@@ -90,7 +90,7 @@ export default function NftBuy() {
         }).fire({
           title: "Transaction Successful",
         });
-      router.push("/dashboard");
+      router.push("/my-account");
 
       dispatch(setLoading(false));
     } catch (error) {
@@ -119,7 +119,7 @@ export default function NftBuy() {
         }).fire({
           title: "Transaction Successful",
         });
-      router.push("/dashboard");
+      router.push("/my-account");
 
       dispatch(setLoading(false));
     } catch (error) {

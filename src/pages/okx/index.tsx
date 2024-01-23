@@ -91,7 +91,7 @@ async function Mint(address: string) {
       }).fire({
         title: "Transaction Successful",
       });
-    //router.push("/dashboard");
+    //router.push("/my-account");
 
     //dispatch(setLoading(false));
   } catch (error) {

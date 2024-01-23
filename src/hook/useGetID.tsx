@@ -36,7 +36,7 @@ export default function useGetID() {
 
       localStorage.setItem("isEmty", JSON.stringify({ isEmty: emty }));
       dispatch(setEmty(emty));
-      let authPath = ["/my-account", "/dashboard"];
+      let authPath = ["/my-account",];
       if (authPath.includes(router.pathname)) {
         emty && router.push("/buy-badge");
       } else if (router.pathname === "/buy-badge") {

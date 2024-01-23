@@ -8,7 +8,7 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 
 export default function OKX() {
-  const ChainID = "0x5de";
+  const ChainID :string = "0x5dd";
   const [address, setAddress] = useState("");
   //okx wallet connect function
   const walletConnect = async () => {

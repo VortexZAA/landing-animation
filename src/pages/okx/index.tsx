@@ -8,7 +8,7 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 
 export default function OKX() {
-    const ChainID = "0x5de";
+  const ChainID = "0x5de";
   const [address, setAddress] = useState("");
   //okx wallet connect function
   const walletConnect = async () => {
@@ -26,11 +26,11 @@ export default function OKX() {
       //@ts-ignore
       (await ethereum?.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x5de" }],
+        params: [{ chainId: ChainID }],
       })) ||
         (await okxwallet.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x5de" }],
+          params: [{ chainId: ChainID }],
         }));
     } catch (switchError: any) {
       console.log(switchError.code);
@@ -41,17 +41,32 @@ export default function OKX() {
           await okxwallet.request({
             method: "wallet_addEthereumChain",
             params: [
-              {
-                chainId: "0x5de",
-                chainName: "BEVM Canary TestNet",
-                nativeCurrency: {
-                  name: "Bitcoin",
-                  symbol: "BTC",
-                  decimals: 18,
-                },
-                rpcUrls: ["https://canary-testnet.bevm.io/"],
-                blockExplorerUrls: ["https://scan-canary-testnet.bevm.io/"],
-              },
+              ChainID === "0x5de"
+                ? {
+                    chainId: "0x5de",
+                    chainName: "BEVM Canary TestNet",
+                    nativeCurrency: {
+                      name: "Bitcoin",
+                      symbol: "BTC",
+                      decimals: 18,
+                    },
+                    rpcUrls: ["https://canary-testnet.bevm.io/"],
+                    blockExplorerUrls: ["https://scan-canary-testnet.bevm.io/"],
+                  }
+                : {
+                    chainId: "0x5dd",
+                    chainName: "BEVM Canary",
+                    nativeCurrency: {
+                      name: "Bitcoin",
+                      symbol: "BTC",
+                      decimals: 18,
+                    },
+                    rpcUrls: [
+                      "https://rpc-canary-1.bevm.io",
+                      "/https://rpc-canary-2.bevm.io/",
+                    ],
+                    blockExplorerUrls: ["hhttps://scan-canary.bevm.io/"],
+                  },
             ],
           });
         } catch (error) {

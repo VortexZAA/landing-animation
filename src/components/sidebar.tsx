@@ -187,14 +187,14 @@ export default function SideBar() {
                 <CloseBtn />
               </button>
             </div>
-            <div className="hidden md:flex flex-col gap-3 mt-3 px-6 text-black ">
+            <div className="flex flex-col gap-3 mt-3 px-6 text-black ">
               <button
                 onClick={() => {
                   setModal(true);
                   //setSelectedChain("0x38");
                   dispatch(setChainId("0x38"));
                 }}
-                className="w-full flex h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
+                className="w-full hidden md:flex h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
                 <img src="/bnb.svg" alt="" className="h-full" />
                 BNB Chain

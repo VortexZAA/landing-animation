@@ -368,7 +368,7 @@ export default function Intro() {
                           </button>
                           <button
                             onClick={() => {
-                              //setSelectedChain("0x5dd");
+                              //setSelectedChain("0x5de");
                               claim("BEVM", userId);
                             }}
                             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"

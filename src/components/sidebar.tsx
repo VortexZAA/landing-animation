@@ -113,7 +113,7 @@ export default function SideBar() {
   const CheckChain = (id: string) => {
     if (
       (id.toString() !== chainId && address) ||
-      (id.toString() !== chainId && !["0x38", "0x5dd", "0x58f8"].includes(id))
+      (id.toString() !== chainId && !["0x38", "0x5de", "0x58f8"].includes(id))
     ) {
       //dispatch(setClear());
       console.log("chainId", chainId);
@@ -559,7 +559,7 @@ export default function SideBar() {
           <path d="M32 32C14.3 32 0 46.3 0 64S14.3 96 32 96H72v64H0V288c53 0 96 43 96 96v64c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V384c0-53 43-96 96-96s96 43 96 96v64c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V384c0-53 43-96 96-96V160H504V96h40c17.7 0 32-14.3 32-32s-14.3-32-32-32H32zM456 96v64H376V96h80zM328 96v64H248V96h80zM200 96v64H120V96h80z" />
         </svg>
       ),
-      status: chainId === "0x5dd",
+      status: chainId === "0x5de",
     },
     {
       id: 9,
@@ -592,7 +592,7 @@ export default function SideBar() {
           alt=""
         />
       ),
-      status: address && chainId === "0x5dd",
+      status: address && chainId === "0x5de",
       onclick: () => joinHelsinki(),
     },
   ];
@@ -607,13 +607,13 @@ export default function SideBar() {
     }
   }
   const [modal, setModal] = useState(false);
-  //const [selectedChain, setSelectedChain] = useState<string>("0x5dd"); //<"0x5dd" | "0x38">("0x38");
+  //const [selectedChain, setSelectedChain] = useState<string>("0x5de"); //<"0x5de" | "0x38">("0x38");
   useEffect(() => {
     chainId && localStorage.setItem("chainId", chainId);
     //setSelectedChain(chainId);
   }, [chainId]);
   useEffect(() => {
-    const localChainId = localStorage.getItem("chainId") || "0x5dd";
+    const localChainId = localStorage.getItem("chainId") || "0x5de";
     // setSelectedChain(localChainId);
     dispatch(setChainId(localChainId));
   }, []);
@@ -820,8 +820,8 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  //setSelectedChain("0x5dd");
-                  dispatch(setChainId("0x5dd"));
+                  //setSelectedChain("0x5de");
+                  dispatch(setChainId("0x5de"));
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >

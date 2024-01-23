@@ -308,6 +308,8 @@ export default function SideBar() {
       //const signer = await provider?.getSigner();
 
       const signer = await provider?.getSigner();
+      let signature = await signer.signMessage("Connect To SoulBound :");
+      
       const [address, chainIdNow, networkName] = await Promise.all([
         signer.getAddress(),
         signer.provider
@@ -322,9 +324,9 @@ export default function SideBar() {
       let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       console.log("isMobile", isMobile);
       if (isMobile) {
-        let signature = await signer.signMessage(
+        /* let signature = await signer.signMessage(
           "Connect To SoulBound :" + address
-        );
+        ); */
       }
       // mobilde çalıştır
 

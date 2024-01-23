@@ -27,8 +27,9 @@ export default function useMetamask({
   const dispatch = useDispatch();
   const router = useRouter();
   const [chain, setChain]: any = useState(ChainData);
-  /* useEffect(() => {
-    if (window.ethereum && typeof window !== "undefined") {
+  useEffect(() => {
+    // ismobil not working
+    if (window.ethereum && typeof window !== "undefined" && !modal && window.innerWidth > 768) {
       const getChainId = async () => {
         const { ethereum } = Ethers();
         const chainIdMetamask = await ethereum?.request({
@@ -68,7 +69,7 @@ export default function useMetamask({
       }
     }
   });
- */
+
   const CheckChain = (id: string) => {
     if (
       (id.toString() !== chainId && address) ||

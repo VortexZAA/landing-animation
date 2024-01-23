@@ -4,6 +4,7 @@ import {
   callTokenURI,
   importToMetamask,
 } from "@/contractInteractions/useAppContract";
+import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 
 export default function OKX() {
@@ -16,6 +17,8 @@ export default function OKX() {
     let accounts = await okxwallet.request({ method: "eth_requestAccounts" });
     console.log("accounts1", accounts);
     setAddress(accounts[0]);
+    await singMsg();
+
     try {
       const chainId = await window.ethereum.request({ method: "eth_chainId" });
       console.log("chainId1", chainId);
@@ -101,6 +104,19 @@ export default function OKX() {
       });
     }
   }
+  const [signature, setSignature] = useState("");
+  async function singMsg() {
+    try {
+      const { ethereum } = window as any;
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = await provider?.getSigner();
+      let signature = await signer.signMessage("Connect To SoulBound :");
+      console.log(signature);
+      setSignature(signature);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <main
@@ -118,9 +134,15 @@ export default function OKX() {
             </button>
             address: {address}
           </div>
-          {address && <button onClick={ghostMint} className="bg-red-500 text-white px-4 py-2 rounded-md">
-            Ghost Mint
-          </button>}
+          {address && (
+            <button
+              onClick={ghostMint}
+              className="bg-red-500 text-white px-4 py-2 rounded-md"
+            >
+              Ghost Mint
+            </button>
+          )}
+          <div className="w-full text-xs">signature: {signature}</div>
         </div>
       </div>
     </main>

@@ -201,9 +201,13 @@ export default function SideBar() {
               </button>
               <button
                 onClick={() => {
-                  setModal(true);
                   //setSelectedChain("0x5dd");
                   dispatch(setChainId("0x5dd"));
+                  if (isMobile) {
+                    connecWallet();
+                  } else {
+                    setModal(true);
+                  }
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >

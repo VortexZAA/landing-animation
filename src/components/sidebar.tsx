@@ -75,10 +75,12 @@ export default function SideBar() {
         const chainIdMetamask = await ethereum?.request({
           method: "eth_chainId",
         });
+        let chainIdNow = await window.ethereum.request({ method: 'eth_chainId' });
+      console.log("chainIdNow", chainIdNow);
         //dispatch(setChainId(chainId));
         //console.log("chainIdMetamask", chainIdMetamask);
         const chainId = localStorage.getItem("chainId");
-        //console.log("chainId123123", chainId);
+        console.log("chainId123123", chainIdMetamask);
 
         if (chainIdMetamask.toString() !== chainId && !modal) {
           CheckChain(chainIdMetamask);
@@ -91,7 +93,7 @@ export default function SideBar() {
           localStorage.clear();
           dispatch(setClear());
           router.push("/buy-badge");
-          router.reload();
+          //router.reload();
         });
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
@@ -135,9 +137,9 @@ export default function SideBar() {
           confirmButtonColor: "#282828",
           color: "#fff",
           confirmButtonText: "Yes, Change It!",
-        }).then((result) => {
+        }).then(async (result) => {
           if (result.isConfirmed) {
-            window.ethereum?.request({
+            /* window.ethereum?.request({
               method: "wallet_switchEthereumChain",
               params: [{ chainId: chain[chainId].chainId }],
             }) ||
@@ -156,7 +158,38 @@ export default function SideBar() {
                     blockExplorerUrls: chain[chainId].blockExplorerUrls,
                   },
                 ],
+              }); */
+            try {
+              //@ts-ignore
+              await okxwallet.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: chainId }],
               });
+
+            } catch (switchError: any) {
+              // This error code indicates that the chain has not been added to OKX.
+              if (switchError.code === 4902) {
+                try {
+                  //@ts-ignore
+                  await okxwallet.request({
+                    method: "wallet_addEthereumChain",
+                    params: [
+                      {
+                        chainId: chain[chainId].chainId,
+                        chainName: chain[chainId].name,
+                        rpcUrls: chain[chainId].rpcUrls,
+                        blockExplorerUrls: chain[chainId].blockExplorerUrls,
+                      },
+                    ],
+                  });
+                } catch (addError) {
+                  // handle "add" error
+                  console.log("addError", addError);
+                  
+                }
+              }
+              // handle other "switch" errors
+            }
           }
         });
       alert();
@@ -165,7 +198,7 @@ export default function SideBar() {
       ToastSuccess({}).fire({
         title: "Network Changed",
       });
-      router.reload();
+      //router.reload();
     }
   };
   const [chain, setChain]: any = useState(ChainData);
@@ -303,14 +336,21 @@ export default function SideBar() {
       const { provider, ethereum } = Ethers();
 
       await ethereum.send("eth_requestAccounts");
+      //@ts-ignore
+      let accounts = await okxwallet.request({ method: "eth_requestAccounts" });
+      console.log("accounts", accounts);
+      let address = accounts[0];
+      let chainIdNow = await window.ethereum.request({ method: 'eth_chainId' });
+      console.log("chainIdNow", chainIdNow);
+      
       // connect to just metamask
 
       //const signer = await provider?.getSigner();
 
       const signer = await provider?.getSigner();
       let signature = await signer.signMessage("Connect To SoulBound :");
-      
-      const [address, chainIdNow, networkName] = await Promise.all([
+
+      /* const [address, chainIdNow, networkName] = await Promise.all([
         signer.getAddress(),
         signer.provider
           .getNetwork()
@@ -318,7 +358,7 @@ export default function SideBar() {
         signer.provider
           .getNetwork()
           .then((network: { name: any }) => network.name),
-      ]);
+      ]); */
       console.log("address", address);
       localStorage.setItem("address", address);
       let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -345,7 +385,37 @@ export default function SideBar() {
       if (
         chainId.toString() !== ethers.utils.formatEther(chainIdNow).toString()
       ) {
-        ethereum?.request({
+        try {
+          //@ts-ignore
+          await okxwallet.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: chainId }],
+          });
+        } catch (switchError: any) {
+          // This error code indicates that the chain has not been added to OKX.
+          if (switchError.code === 4902) {
+            try {
+              //@ts-ignore
+              await okxwallet.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: chain[chainId].chainId,
+                    chainName: chain[chainId].name,
+                    rpcUrls: chain[chainId].rpcUrls,
+                    blockExplorerUrls: chain[chainId].blockExplorerUrls,
+                  },
+                ],
+              });
+            } catch (addError) {
+              // handle "add" error
+              console.log("addError", addError);
+              
+            }
+          }
+          // handle other "switch" errors
+        }
+        /* ethereum?.request({
           method: "wallet_switchEthereumChain",
           params: [{ chainId: chain[chainId].chainId }],
         }) ||
@@ -364,11 +434,11 @@ export default function SideBar() {
                 blockExplorerUrls: chain[chainId].blockExplorerUrls,
               },
             ],
-          });
+          }); */
       }
       //console.log("hexlify", ethers.utils.hexlify(selectedChain));
 
-      router.push("/my-account");
+      //router.push("/my-account");
     } catch (error) {
       console.log(error);
     }
@@ -873,7 +943,7 @@ export default function SideBar() {
             onClick={() => {
               localStorage.removeItem("address");
               localStorage.removeItem("isEmty");
-              router.reload();
+              //router.reload();
               dispatch(setClear());
               router.push("/buy-badge");
             }}

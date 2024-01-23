@@ -33,7 +33,7 @@ export default function Layout({
         </div> */}
 
       <main
-        className={`flex min-h-screen w-screen max-w-[100vw] overflow-x-hidden gap-6  items-center justify-between z-20 relative wrap`}
+        className={`flex min-h-[100dvh] w-screen max-w-[100vw] overflow-x-hidden gap-6  items-center justify-between z-20 relative wrap`}
       >
         <MatrixBackground />
         <SideBar />

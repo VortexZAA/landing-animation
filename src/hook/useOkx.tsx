@@ -88,7 +88,7 @@ export default function useOkx({
 
       const alert = async () =>
         await Swal.fire({
-          title: "Please Change Network Okx",
+          title: "Please Change Network Okx Wallet",
           text: `From ${fromNetwork} to ${toNetwork}`,
           icon: "warning",
           iconColor: "#fff",

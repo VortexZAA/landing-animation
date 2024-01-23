@@ -41,20 +41,28 @@ import useGetID from "@/hook/useGetID";
 import useMetamask from "@/hook/useMetamask";
 import { Menu } from "@/data/menu";
 import useHelsinki from "@/hook/useHelsinki";
+import useOkx from "@/hook/useOkx";
 
 export default function SideBar() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const reduxData = useAppSelector(selectData);
-  const { address, isEmty, chainId, isMobile,loading } = reduxData;
+  const { address, isEmty, chainId, isMobile, loading } = reduxData;
   const dispatch = useAppDispatch();
   const { disconnect } = useDisconnect();
   const { getID } = useGetID();
-  const { CheckChain, connecWallet } = useMetamask({ modal: true, Close, address, chainId});
-
+  const [modal, setModal] = useState(false);
   function Close() {
     setIsOpen(false);
   }
+  const { CheckChain, connecWallet } = isMobile
+    ? useOkx({
+        modal,
+        Close,
+        address,
+        chainId,
+      })
+    : useMetamask({ modal, Close, address, chainId });
 
   useEffect(() => {
     const local = localStorage.getItem("address");
@@ -72,8 +80,8 @@ export default function SideBar() {
     dispatch(setLoading(false));
     getID(address);
   }, [address]);
-  console.log("loading0",loading);
-  
+  //console.log("loading0",loading);
+
   const [modalHelsinki, setModalHelsinki] = useState(false);
 
   async function BigetConnect() {
@@ -86,7 +94,6 @@ export default function SideBar() {
       console.log(error);
     }
   }
-  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     chainId && localStorage.setItem("chainId", chainId);
@@ -136,7 +143,7 @@ export default function SideBar() {
             alt="logo"
           />
         </Link>
-        <ul className="w-full h-full">
+        <ul className="w-full h-full overflow-y-auto">
           {menu.map(
             (item) =>
               item.status && (
@@ -157,7 +164,7 @@ export default function SideBar() {
 
                     {item.comingSoon ? (
                       <>
-                        <span className="animate-fadeIn text-orange-600 font-medium group-hover:flex hidden">
+                        <span className="animate-fadeIn text-orange-600 font-medium xl:group-hover:flex hidden">
                           Coming Soon
                         </span>
                         <span className="  hidden xl:block group-hover:hidden">

@@ -5,9 +5,9 @@ export default function useDisconnect() {
   const dispatch = useDispatch();
   function disconnect() {
     const okxwallet = (window as any).okxwallet;
-    /* if (okxwallet) {
+    if (okxwallet) {
       okxwallet.disconnect();
-    } */
+    }
     localStorage.removeItem("address");
     localStorage.removeItem("isEmty");
     //router.reload();

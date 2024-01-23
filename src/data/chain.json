@@ -74,15 +74,18 @@
     "blockExplorerUrls": ["https://scan-canary-testnet.bevm.io/"]
   },
   "0x5dd": {
-	"chainId": "0x5dd",
-	"name": "BEVM Canary",
-	"token": "BTC",
-	"chainName": "BEVM Canary",
-	"nativeCurrency": { "name": "Bitcoin", "symbol": "BTC", "decimals": 18 },
-	"rpcUrls": ["https://rpc-canary-1.bevm.io","/https://rpc-canary-2.bevm.io/"],
-	"blockExplorerUrls": ["hhttps://scan-canary.bevm.io/"]
+    "chainId": "0x5dd",
+    "name": "BEVM Canary",
+    "token": "BTC",
+    "chainName": "BEVM Canary",
+    "nativeCurrency": { "name": "Bitcoin", "symbol": "BTC", "decimals": 18 },
+    "rpcUrls": [
+      "https://rpc-canary-1.bevm.io",
+      "/https://rpc-canary-2.bevm.io/"
+    ],
+    "blockExplorerUrls": ["hhttps://scan-canary.bevm.io/"]
   },
-  "0x58f8":{
+  "0x58f8": {
     "chainId": "0x58f8",
     "name": "MAP Mainnet",
     "token": "MAPO",

@@ -148,7 +148,6 @@ const walletConnect = async ({
 }) => {
   const okxwallet = (window as any).okxwallet;
   console.log("wallet connect");
-  okxwallet.request({ method: "eth_requestAccounts" });
   let accounts = await okxwallet.request({ method: "eth_requestAccounts" });
   //console.log("accounts1", accounts);
   setAddress(accounts[0]);

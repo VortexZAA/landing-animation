@@ -142,7 +142,7 @@ export default function NftBuy() {
   async function getPrice() {
     try {
       dispatch(setLoading(true));
-      console.log("loadin1", loading);
+      //console.log("loadin1", loading);
       
       setPrice({
         vip1: 100,
@@ -162,7 +162,7 @@ export default function NftBuy() {
     } catch (error) {
       console.log(error);
     } finally {
-      console.log("loadin4", loading);
+      //console.log("loadin4", loading);
       dispatch(setLoading(false));
     }
   }

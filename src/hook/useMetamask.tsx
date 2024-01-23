@@ -75,8 +75,8 @@ export default function useMetamask({
       (id.toString() !== chainId && !["0x38", "0x5dd"].includes(id))
     ) {
       //dispatch(setClear());
-      console.log("chainId", chainId);
-      console.log("chain", chain[chainId]);
+      /* console.log("chainId", chainId);
+      console.log("chain", chain[chainId]); */
 
       const { name } = chain[id] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
@@ -124,10 +124,10 @@ export default function useMetamask({
       ToastSuccess({}).fire({
         title: "Network Changed",
       });
-      //router.reload();
+      router.reload();
     }
   };
-  console.log("chainId", chainId);
+  //console.log("chainId", chainId);
 
   async function connecWallet() {
     try {

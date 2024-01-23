@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import CardPlus from "../components/cards/userPlus";
 import Layout from "@/layout/layout";
 import CopyBtn from "@/components/button/copyBtn";
 import {
@@ -268,21 +267,21 @@ export default function Personel() {
                       <path
                         d="M6 11.25C8.89949 11.25 11.25 8.89949 11.25 6C11.25 3.1005 8.89949 0.75 6 0.75C3.1005 0.75 0.75 3.1005 0.75 6C0.75 8.89949 3.1005 11.25 6 11.25Z"
                         stroke="#999999"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M6 6V8.25"
                         stroke="#999999"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M6 3.75H6.005"
                         stroke="#999999"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />

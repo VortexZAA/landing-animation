@@ -11,7 +11,7 @@ import Head from "next/head";
 import Footer from "@/components/footer";
 
 export default function Layout({
-  title,
+  title="",
   children,
 }: {
   title: string;

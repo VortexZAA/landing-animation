@@ -22,9 +22,9 @@ export const callNFTContract = async () => {
   const msgSender = metamaskAddress[0];
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const abi = chainId === "0x38" ? bnbNFT : (chainId === "0x5de" ? bevmNFT : mapoNFT);
+  const abi = chainId === "0x38" ? bnbNFT : (chainId === "0x5dd" ? bevmNFT : mapoNFT);
   const NFTContractAddress =
-    chainId === "0x38" ? NFTContractBNB : (chainId === "0x5de" ? NFTContractBEVM : NFTContractMAPO);
+    chainId === "0x38" ? NFTContractBNB : (chainId === "0x5dd" ? NFTContractBEVM : NFTContractMAPO);
     console.log(chainId, NFTContractAddress);
     
   const NFTContract = new ethers.Contract(NFTContractAddress, abi, signer);

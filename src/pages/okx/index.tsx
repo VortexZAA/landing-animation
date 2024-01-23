@@ -37,8 +37,8 @@ export default function OKX() {
     <main
       className={`flex min-h-[100dvh] w-screen max-w-[100vw] overflow-x-hidden gap-6  items-start p-6 justify-between z-20 relative wrap`}
     >
-      <div className=" text-white flex flex-col gap-3 w-full">
-        <div className="flex flex-col md:flex-row md:justify-between gap-3  container mx-auto w-full">
+      <div className=" text-white flex flex-col gap-3 w-full container mx-auto">
+        <div className="flex flex-col md:flex-row md:justify-between gap-3   w-full">
           <h2 className="text-white text-3xl z-20">OKX</h2>
           <div className="flex flex-col gap-2">
             <button
@@ -56,16 +56,16 @@ export default function OKX() {
             </button>
             address: {address}
           </div>
-          {address && (
-            <button
-              onClick={async () => await ghostMint(address)}
-              className="bg-red-500 text-white px-4 py-2 rounded-md"
-            >
-              Ghost Mint
-            </button>
-          )}
-          <div className="w-full text-xs">signature: {signature}</div>
         </div>
+        {address && (
+          <button
+            onClick={async () => await ghostMint(address)}
+            className="bg-red-500 text-white px-4 py-2 rounded-md"
+          >
+            Ghost Mint
+          </button>
+        )}
+        <div className="w-full text-xs">signature: {signature}</div>
         {address && (
           <button
             onClick={() => Mint(address)}
@@ -103,7 +103,7 @@ async function Mint(address: string) {
   }
 }
 async function ghostMint(address: string) {
-  const [modalHelsinki, setModalHelsinki] = useState(false);
+  //const [modalHelsinki, setModalHelsinki] = useState(false);
   try {
     let id = await callMint(address);
     let uri = await callTokenURI(id);
@@ -114,7 +114,7 @@ async function ghostMint(address: string) {
       data.image.replace("ipfs://", "https://ipfs.io/ipfs/")
     );
     //alert("You found the wizard, so your prize is " + id);
-    setModalHelsinki(false);
+    //setModalHelsinki(false);
     //dispatch(setLoading(false));
   } catch (error) {
     //dispatch(setLoading(false));

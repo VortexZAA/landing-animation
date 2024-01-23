@@ -2,9 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Layout from "@/layout/layout";
 
-import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
-import { selectData, setLoading } from "@/redux/auth/auth";
-import Loading from "@/components/loading";
+
 import AnimateHeight from "react-animate-height";
 import { arrow } from "@/components/icons/arrow";
 import { faqs0 } from "@/data/faq/faq0";

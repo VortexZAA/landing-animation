@@ -368,7 +368,7 @@ export default function Intro() {
                           </button>
                           <button
                             onClick={() => {
-                              //setSelectedChain("0x5de");
+                              //setSelectedChain("0x5dd");
                               claim("BEVM", userId);
                             }}
                             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
@@ -380,7 +380,7 @@ export default function Intro() {
                             />
                             BEVM Chain
                           </button>
-                          <button
+                          {/* <button
                             onClick={() => {
                               //setSelectedChain("0x58f8");
                               claim("MAP", userId);
@@ -389,7 +389,7 @@ export default function Intro() {
                           >
                             <img src="/mapo.png" alt="" className="h-full" />
                             Map Chain
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     )}

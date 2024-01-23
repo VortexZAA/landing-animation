@@ -141,45 +141,36 @@ export default function NftBuy() {
   // get btc price from binance
   async function getPrice() {
     try {
-      /* const price = await fetch(
-        "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
-      )
-        .then((res) => res.json())
-        .then((data) => data.price); */
       dispatch(setLoading(true));
+      console.log("loadin1", loading);
+      
       setPrice({
         vip1: 100,
-        /* price *
-          Number(
-            ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER1 as string)
-          ) */ vip2: 500,
-        /* price *
-          Number(
-            ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER2 as string)
-          ) */ vip3: 1000,
-        /* price *
-          Number(
-            ethers.utils.formatEther(process.env.NEXT_PUBLIC_TIER3 as string)
-          ) */
+        vip2: 500,
+        vip3: 1000,
       });
       const sats1 = ethers.utils.formatEther(await callGetNFTPrice(1));
       const sats2 = ethers.utils.formatEther(await callGetNFTPrice(2));
       const sats3 = ethers.utils.formatEther(await callGetNFTPrice(3));
-      setSats({
+      let newSats= {
         sats1: Number(sats1),
         sats2: Number(sats2),
         sats3: Number(sats3),
-      });
-      dispatch(setLoading(false));
+      }
+      console.log("sats", newSats);
+      setSats(newSats);
     } catch (error) {
       console.log(error);
+    } finally {
+      console.log("loadin4", loading);
       dispatch(setLoading(false));
     }
   }
+  
   useEffect(() => {
     getPrice();
   }, [chainId]);
-  console.log("sats", sats, "chainId", chainId);
+  //console.log("sats", sats, "chainId", chainId);
 
   return (
     <>

@@ -28,7 +28,7 @@ export default function useOkx({
   const router = useRouter();
   const [chain, setChain]: any = useState(ChainData);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (window.ethereum && typeof window !== "undefined") {
       const getChainId = async () => {
         const { ethereum } = Ethers();
@@ -68,7 +68,7 @@ export default function useOkx({
         console.error(err);
       }
     }
-  });
+  }); */
 
   const CheckChain = (id: string) => {
     if (

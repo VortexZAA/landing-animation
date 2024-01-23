@@ -29,6 +29,7 @@ import {
   setLvl,
   setLowPotentiel,
   setChainId,
+  setIsMobile,
 } from "@/redux/auth/auth";
 import Image from "next/image";
 import CloseBtn from "./icons/close";
@@ -42,16 +43,30 @@ import useMetamask from "@/hook/useMetamask";
 import { Menu } from "@/data/menu";
 import useHelsinki from "@/hook/useHelsinki";
 import useOkx from "@/hook/useOkx";
+import useHelper from "@/hook/helper";
 
 export default function SideBar() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const reduxData = useAppSelector(selectData);
-  const { address, isEmty, chainId, isMobile, loading } = reduxData;
+  const { address, isEmty, chainId, loading } = reduxData;
   const dispatch = useAppDispatch();
   const { disconnect } = useDisconnect();
   const { getID } = useGetID();
   const [modal, setModal] = useState(false);
+  const { joinHelsinki, GhostModal } = useHelsinki({
+    address,
+  });
+  const menu = Menu({ joinHelsinki });
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    chainId && localStorage.setItem("chainId", chainId);
+  }, [chainId]);
+  useEffect(() => {
+    const localChainId = localStorage.getItem("chainId") || "0x5dd";
+    dispatch(setChainId(localChainId));
+    //setIsMobile(window.innerWidth < 768)
+  }, []);
   function Close() {
     setIsOpen(false);
   }
@@ -82,8 +97,6 @@ export default function SideBar() {
   }, [address]);
   //console.log("loading0",loading);
 
-  const [modalHelsinki, setModalHelsinki] = useState(false);
-
   async function BigetConnect() {
     try {
       await bigetConnect();
@@ -95,19 +108,8 @@ export default function SideBar() {
     }
   }
 
-  useEffect(() => {
-    chainId && localStorage.setItem("chainId", chainId);
-  }, [chainId]);
-  useEffect(() => {
-    const localChainId = localStorage.getItem("chainId") || "0x5dd";
-    dispatch(setChainId(localChainId));
-  }, []);
   //console.log("chainId", chainId);
 
-  const { joinHelsinki, GhostModal } = useHelsinki({
-    address,
-  });
-  const menu = Menu({ joinHelsinki });
   const seletWallets = [
     {
       name: "Metamask Wallet",
@@ -130,6 +132,9 @@ export default function SideBar() {
       onclick: BigetConnect,
     },
   ];
+
+  console.log("isMobile", isMobile);
+
   return (
     <>
       {GhostModal}
@@ -203,11 +208,19 @@ export default function SideBar() {
                 onClick={() => {
                   //setSelectedChain("0x5dd");
                   dispatch(setChainId("0x5dd"));
-                  if (isMobile) {
-                    connecWallet();
-                  } else {
-                    setModal(true);
-                  }
+                  setModal(true);
+                }}
+                className="w-full h-12 p-3 border-2 hidden md:flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+              >
+                <img src="/bevm.svg" alt="" className="h-full" />
+                Chain
+              </button>
+              <button
+                onClick={() => {
+                  //setSelectedChain("0x5dd");
+                  dispatch(setChainId("0x5dd"));
+
+                  connecWallet();
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
@@ -246,7 +259,7 @@ export default function SideBar() {
           <button
             type="button"
             onClick={disconnect}
-            className="w-fit xl:w-full p-3 -mt-3 h-12 bg-red-500 hover:bg-500/90 transition-colors text-white rounded-md xl:mx-6"
+            className="w-fit xl:w-full p-3 md:-mt-3 h-12 bg-red-500 hover:bg-500/90 transition-colors text-white rounded-md xl:mx-6"
           >
             <span className="hidden xl:block">Disconnect</span>
             <svg

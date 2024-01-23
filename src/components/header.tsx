@@ -186,12 +186,12 @@ export default function Header() {
           );
         })}
         <li className="flex flex-col md:hidden group text-white justify-center items-center py-0 -mt-2  xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full relative">
-          <button className=" justify-center items-center peer  xl:border-0 xl:hover:text-orange-400  cursor-pointer text-center w-fullborder-2 border-white rounded-full px-6 py-2 bg-white text-black md:text-white md:bg-transparent hover:bg-white hover:text-black transition-colors font-semi-bold flex">
+          <Link href={"/buy-badge"} className=" justify-center items-center peer  xl:border-0 xl:hover:text-orange-400  cursor-pointer text-center w-fullborder-2 border-white rounded-full px-6 py-2 bg-white text-black md:text-white md:bg-transparent hover:bg-white hover:text-black transition-colors font-semi-bold flex">
             Launch App
-          </button>
-          <span className="hidden peer-hover:block text-xs group-hover:flex absolute -bottom-5 md:-bottom-2  md:hidden text-orange-400 font-bold">
+          </Link>
+          {/* <span className="hidden peer-hover:block text-xs group-hover:flex absolute -bottom-5 md:-bottom-2  md:hidden text-orange-400 font-bold">
             Mobile is not supported.
-          </span>
+          </span> */}
         </li>
       </ul>
     </>

@@ -187,7 +187,7 @@ export default function SideBar() {
                 <CloseBtn />
               </button>
             </div>
-            <div className="flex flex-col gap-3 mt-3 px-6 text-black">
+            <div className="hidden md:flex flex-col gap-3 mt-3 px-6 text-black ">
               <button
                 onClick={() => {
                   setModal(true);

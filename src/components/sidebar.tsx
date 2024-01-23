@@ -222,7 +222,7 @@ export default function SideBar() {
 
                   connecWallet();
                 }}
-                className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
+                className="w-full h-12 p-3 border-2 flex md:hidden justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >
                 <img src="/bevm.svg" alt="" className="h-full" />
                 Chain

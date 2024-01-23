@@ -317,9 +317,18 @@ export default function SideBar() {
           .getNetwork()
           .then((network: { name: any }) => network.name),
       ]);
+      console.log("address", address);
+      localStorage.setItem("address", address);
+      let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      console.log("isMobile", isMobile);
+      if (isMobile) {
+        let signature = await signer.signMessage(
+          "Connect To SoulBound :" + address
+        );
+      }
+      // mobilde çalıştır
 
-      checkIsAdmin();
-
+      //checkIsAdmin();
       console.log("address", address);
       localStorage.setItem("address", address);
       console.log("chainId", chainId);
@@ -395,7 +404,7 @@ export default function SideBar() {
               title: "You have already joined the Helsinki.",
             });
           }
-        }else {
+        } else {
           setModalHelsinki(true);
         }
       }

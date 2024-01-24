@@ -63,6 +63,7 @@ export default function useMetamask({
             //localStorage.clear();
           }
           router.push("/buy-badge");
+          router.reload();
         });
       } catch (err) {
         console.error(err);
@@ -121,6 +122,8 @@ export default function useMetamask({
         });
       alert();
     }
+    console.log("id", id,chainId);
+    
     if (id.toString() === chainId) {
       ToastSuccess({}).fire({
         title: "Network Changed",
@@ -187,7 +190,7 @@ export default function useMetamask({
             ],
           });
       }
-
+      CheckChain(chainIdNow);
       //router.push("/my-account");
     } catch (error) {
       console.log(error);

@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../store';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState, AppThunk } from "../store";
 
 export interface AuthState {
-	address: string;
+  address: string;
   role: string;
   nftId: number | null;
   withdrawableBalance: number;
@@ -15,17 +15,17 @@ export interface AuthState {
   referralIncome: number;
   isEmty: boolean;
   loading: boolean;
-	hidden: boolean;
-  change: boolean
-	status: 'idle' | 'loading' | 'failed';
+  hidden: boolean;
+  change: boolean;
+  status: "idle" | "loading" | "failed";
   chainId: string;
-
+  isMobile: boolean;
 }
 
 const initialState: AuthState = {
-	address: '',
+  address: "",
   nftId: null,
-  role: '',
+  role: "",
   withdrawableBalance: 0,
   totalRevenue: 0,
   vipLvl: 1,
@@ -36,19 +36,18 @@ const initialState: AuthState = {
   downlines: 0,
   referralIncome: 0,
   loading: false,
-	hidden: true,
-	status: 'loading',
+  hidden: true,
+  status: "loading",
   change: false,
-  chainId: ''
+  chainId: "",
+  isMobile: false,
 };
 
-
 export const AuthSlice = createSlice({
-	name: 'Auth',
-	initialState,
-	// The `reducers` field lets us define reducers and generate associated actions
-	reducers: {
-		
+  name: "Auth",
+  initialState,
+  // The `reducers` field lets us define reducers and generate associated actions
+  reducers: {
     setAddress: (state, action: PayloadAction<string>) => {
       state.address = action.payload;
     },
@@ -80,8 +79,8 @@ export const AuthSlice = createSlice({
       state.vipLvl = action.payload;
     },
     setClear: (state) => {
-      state.address = '';
-      state.role = '';
+      state.address = "";
+      state.role = "";
       state.nftInfo = [];
       state.isEmty = true;
       state.loading = false;
@@ -91,7 +90,7 @@ export const AuthSlice = createSlice({
       state.totalRevenue = 0;
       state.vipLvl = 1;
     },
-    setnftId : (state, action: PayloadAction<number>) => {
+    setnftId: (state, action: PayloadAction<number>) => {
       state.nftId = action.payload;
     },
     setDownlines: (state, action: PayloadAction<number | string>) => {
@@ -108,9 +107,11 @@ export const AuthSlice = createSlice({
     },
     setChainId: (state, action: PayloadAction<string>) => {
       state.chainId = action.payload;
-    }
-	},
-	
+    },
+    setIsMobile: (state, action: PayloadAction<boolean>) => {
+      state.isMobile = action.payload;
+    },
+  },
 });
 
 export const {
@@ -128,11 +129,11 @@ export const {
   setnftId,
   setDownlines,
   setReferralIncome,
-  setLvl, 
+  setLvl,
   setLowPotentiel,
-  setChainId
+  setChainId,
+  setIsMobile,
 } = AuthSlice.actions;
-
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -151,11 +152,10 @@ export const selectData = (state: RootState) => ({
   nftId: state.Auth.nftId,
   downlines: state.Auth.downlines,
   referralIncome: state.Auth.referralIncome,
-  lvl: state.Auth.lvl, 
+  lvl: state.Auth.lvl,
   lowPotentiel: state.Auth.lowPotentiel,
-  chainId: state.Auth.chainId
+  chainId: state.Auth.chainId,
+  isMobile: state.Auth.isMobile,
 });
-
-
 
 export default AuthSlice.reducer;

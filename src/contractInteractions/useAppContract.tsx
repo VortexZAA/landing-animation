@@ -244,7 +244,7 @@ export const callRegisterForBNB = async (
     else if (err.message && err.message.includes("insufficient funds")) {
       /* alert("You do not have enough USDT in your account to mint."); */
       ToastError.fire({
-        title: "You do not have enough USDT in your account to mint.",
+        title: "You do not have enough BNB in your account to mint.",
       });
     }
     // Generic error message for other cases
@@ -330,7 +330,7 @@ export const callRegister = async (
     else if (err.message && err.message.includes("insufficient funds")) {
       /* alert("You do not have enough USDT in your account to mint."); */
       ToastError.fire({
-        title: "You do not have enough USDT in your account to mint.",
+        title: "You do not have enough Coin in your account to mint.",
       });
     }
     // Generic error message for other cases

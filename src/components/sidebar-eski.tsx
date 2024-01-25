@@ -116,7 +116,7 @@ export default function SideBar() {
   const CheckChain = (id: string) => {
     if (
       (id.toString() !== chainId && address) ||
-      (id.toString() !== chainId && !["0x38", "0x5dd", "0x58f8"].includes(id))
+      (id.toString() !== chainId && !["0x38", "0x5dd", "0x89"].includes(id))
     ) {
       //dispatch(setClear());
       console.log("chainId", chainId);
@@ -860,8 +860,8 @@ export default function SideBar() {
               <button
                 onClick={() => {
                   setModal(true);
-                  //setSelectedChain("0x58f8");
-                  dispatch(setChainId("0x58f8"));
+                  //setSelectedChain("0x89");
+                  dispatch(setChainId("0x89"));
                 }}
                 className="w-full h-12 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
               >

@@ -73,7 +73,7 @@ export default function useOkx({
   const CheckChainOkx = (id: string) => {
     if (
       (id.toString() !== chainId && address) ||
-      (id.toString() !== chainId && !["0x38", "0x5dd"].includes(id))
+      (id.toString() !== chainId && !["0x5dd"].includes(id))
     ) {
       //dispatch(setClear());
       /* console.log("chainId", chainId);

@@ -7,9 +7,9 @@ export default function BtcIcon({ addClass = "" }: { addClass?: string }) {
   const { address, isEmty, chainId } = reduxData;
   return (
     <>
-      {chainId === "0x58f8" ? (
+      {chainId === "0x89" ? (
         <>
-          <img src="/mapo.png" alt="" className="h-3/4 w-fit max-h-[40px]" />
+          <img src="/polygon.svg" alt="" className="h-3/4 w-fit max-h-[40px]" />
         </>
       ) : chainId === "0x38" ? (
         <BnbIcon/>

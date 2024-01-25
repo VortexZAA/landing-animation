@@ -74,7 +74,7 @@ export default function useMetamask({
   const CheckChain = (id: string) => {
     if (
       (id.toString() !== chainId && address) ||
-      (id.toString() !== chainId && !["0x38", "0x5dd"].includes(id))
+      (id.toString() !== chainId && !["0x38", "0x5dd", "0x89"].includes(id))
     ) {
       //dispatch(setClear());
       /* console.log("chainId", chainId);

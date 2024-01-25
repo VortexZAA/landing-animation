@@ -200,6 +200,17 @@ export default function SideBar() {
                 onClick={() => {
                   setModal(true);
                   //setSelectedChain("0x38");
+                  dispatch(setChainId("0x89"));
+                }}
+                className="w-full hidden md:flex h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
+              >
+                <img src="/polygon.svg" alt="" className="h-full" />
+                Polygon Chain
+              </button>
+              <button
+                onClick={() => {
+                  setModal(true);
+                  //setSelectedChain("0x38");
                   dispatch(setChainId("0x38"));
                 }}
                 className="w-full hidden md:flex h-12 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"

@@ -42,7 +42,7 @@
     "explorer": "https://bscscan.com/",
     "faucets": ["https://testnet.binance.org/faucet-smart"]
   },
-  "137": {
+  "0x89": {
     "chainId": "0x89",
     "name": "Polygon Mainnet",
     "token": "MATIC",

@@ -274,13 +274,13 @@ const menu = [
     target: "_self",
     comingSoon: true,
   }, */
-  {
+  /* {
     id: 6,
     title: "Claim Badge Airdrop",
     link: "#",//"/claim",
     target: "_self",
     comingSoon: true,
-  },
+  }, */
   {
     id: 7,
     title: "Join Badge Whitelist",

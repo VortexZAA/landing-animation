@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import Ethers from "@/lib/ethers";
+import { useRouter } from "next/router";
 export default function Intro() {
   const [show, setShow] = useState(false);
   const [msg, setMsg] = useState("");
@@ -16,12 +17,14 @@ export default function Intro() {
   const [isOpen, setIsOpen] = useState(false);
   const [userId, setUserId] = useState({ id: "", claimed: false, network: "" });
   const [success, setSuccess] = useState(false);
+  const router= useRouter()
   useEffect(() => {
     setTimeout(() => {
       setShow(true);
     }, 700);
     //reload
     getClaimedCount();
+    router.push("/")
   }, []);
 
   const [address, setAddress] = useState("");

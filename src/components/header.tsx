@@ -199,6 +199,7 @@ export default function Header() {
 }
 const claimStartDate = new Date("2024-01-26T14:00:00Z");
 const currentUTCDate = new Date();
+
 const menu = [
   /* {
     id: 1,

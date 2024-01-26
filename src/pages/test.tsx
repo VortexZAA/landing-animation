@@ -41,8 +41,32 @@ export default function TEST() {
     });
     setTotalCreate(totalCreate);
   }
+  async function updateClaimBadge() {
+    // all address convert lowercase
+    try {
+      let get = await pb.collection("claim_badge_new2").getFullList();
+      get.forEach(async (element) => {
+        if (element.address) {
+          try {
+            const result = await pb
+              .collection("claim_badge_new2")
+              .update(element.id, { address: element.address.toLowerCase() });
+            console.log(result);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      });
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+    
+  }
   useEffect(() => {
-    createCalimBadge();
+    //createCalimBadge();
+    updateClaimBadge();
   }, []);
   return (
     <div className="mx-auto z-20 absolute ">

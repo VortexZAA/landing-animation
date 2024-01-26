@@ -65,7 +65,7 @@ export default function Intro() {
       if (sign) {
         const check: any = await pb
           .collection("claim_badge_new2")
-          .getFirstListItem(`address="${address}"`)
+          .getFirstListItem(`address="${address.toLowerCase()}"`)
           .then((res) => {
             console.log(res);
             return res;

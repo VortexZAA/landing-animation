@@ -25,7 +25,7 @@ export default async function handler(req: NextRequest) {
     let data;
     let id;
     const records = await pb
-      .collection("claim_badge_new")
+      .collection("claim_badge_new2")
       .getFullList({
         sort: "-created",
         filter: address && `address="${address}"`,

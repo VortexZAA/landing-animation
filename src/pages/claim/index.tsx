@@ -17,14 +17,14 @@ export default function Intro() {
   const [isOpen, setIsOpen] = useState(false);
   const [userId, setUserId] = useState({ id: "", claimed: false, network: "" });
   const [success, setSuccess] = useState(false);
-  const router= useRouter()
+  const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
       setShow(true);
     }, 700);
     //reload
     getClaimedCount();
-    router.push("/")
+    //router.push("/")
   }, []);
 
   const [address, setAddress] = useState("");
@@ -52,7 +52,7 @@ export default function Intro() {
       console.log(address);
       if (sign) {
         const check: any = await pb
-          .collection("claim_badge_new")
+          .collection("claim_badge_new2")
           .getFirstListItem(`address="${address}"`)
           .then((res) => {
             console.log(res);
@@ -84,7 +84,7 @@ export default function Intro() {
     try {
       if (!userData.claimed) {
         const claim = await pb
-          .collection("claim_badge_new")
+          .collection("claim_badge_new2")
           .update(userId.id, {
             claimed: true,
             network: network,
@@ -127,7 +127,7 @@ export default function Intro() {
   const [totalClaimList, setTotalClaimList] = useState(0);
   async function getClaimedCount() {
     try {
-      let res1 = await pb.collection("claim_badge_new").getFullList();
+      let res1 = await pb.collection("claim_badge_new2").getFullList();
       console.log(res1);
       setTotalClaimList(res1.length);
       let res = res1.filter((item: any) => item.claimed);
@@ -366,7 +366,7 @@ export default function Intro() {
                             }}
                             className="w-full flex h-14 p-3 border-2  justify-start items-center transition-colors text-xs gap-2 rounded-md"
                           >
-                            <img src="/bnb.svg" alt="" className="h-full" />
+                            <img src="/bnb.svg" alt="" className="h-2/3" />
                             BNB Chain
                           </button>
                           <button
@@ -383,16 +383,16 @@ export default function Intro() {
                             />
                             BEVM Chain
                           </button>
-                          {/* <button
+                          <button
                             onClick={() => {
                               //setSelectedChain("0x89");
-                              claim("MAP", userId);
+                              claim("POLYGON", userId);
                             }}
                             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
                           >
-                            <img src="/mapo.png" alt="" className="h-full" />
-                            Map Chain
-                          </button> */}
+                           <img src="/polygon.svg" alt="" className="h-2/3" />
+                            Polygon Chain
+                          </button>
                         </div>
                       </div>
                     )}

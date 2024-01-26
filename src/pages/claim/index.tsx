@@ -18,13 +18,25 @@ export default function Intro() {
   const [userId, setUserId] = useState({ id: "", claimed: false, network: "" });
   const [success, setSuccess] = useState(false);
   const router = useRouter();
+  const claimStartDate = new Date("2024-01-26T14:00:00Z");
+
   useEffect(() => {
     setTimeout(() => {
       setShow(true);
     }, 700);
     //reload
-    getClaimedCount();
+
     //router.push("/")
+
+    // bugün utc 26.01.2024 14:00  da claim başlayacak önce giren olursa anasayfaya gönderecek fonksi yaz
+    const currentUTCDate = new Date();
+
+    // Eğer şu anki tarih belirtilen başlangıç tarihinden önceyse
+    if (currentUTCDate < claimStartDate) {
+      // Kullanıcıyı anasayfaya yönlendir
+      router.push("/");
+    }
+    getClaimedCount();
   }, []);
 
   const [address, setAddress] = useState("");
@@ -390,7 +402,7 @@ export default function Intro() {
                             }}
                             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md"
                           >
-                           <img src="/polygon.svg" alt="" className="h-2/3" />
+                            <img src="/polygon.svg" alt="" className="h-2/3" />
                             Polygon Chain
                           </button>
                         </div>

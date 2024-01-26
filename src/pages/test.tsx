@@ -66,7 +66,7 @@ export default function TEST() {
   }
   useEffect(() => {
     //createCalimBadge();
-    updateClaimBadge();
+    //updateClaimBadge();
   }, []);
   return (
     <div className="mx-auto z-20 absolute ">

@@ -45,7 +45,7 @@ export default function BatchRegister() {
       // get chain
       let chainId = await provider.getNetwork();
       const optionArray = ["", "epic", "legendary"];
-      let res: any = await pb.collection("claim_badge_new2").getList(0,50,{
+      let res: any = await pb.collection("claim_badge_new2").getList(0,25,{
         filter: `network="${chain}" && claimed=true && registered=false && status="${
           optionArray[option - 1]
         }"`,

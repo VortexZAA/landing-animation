@@ -44,9 +44,10 @@ export default function BatchRegister() {
       const signer = provider.getSigner();
       // get chain
       let chainId = await provider.getNetwork();
-
+      const optionArray = ["","epic","legendary"]
+      let option : number = 1;
       let res: any = await pb.collection("claim_badge_new2").getFullList({
-        filter: `network="${chain}" && claimed=true && registered=false`,
+        filter: `network="${chain}" && claimed=true && registered=false && status="${optionArray[option-1]}"`,
       });
 
       console.log(res);
@@ -54,7 +55,7 @@ export default function BatchRegister() {
       ToastSuccess({}).fire({
         title: "Get data success",
       });
-      let option : number = 1;
+      
       let ids = res.map((item: any) => item.id);
       let myArray = res.map((item: any) => item.address);
 
@@ -150,7 +151,7 @@ export default function BatchRegister() {
           <button
             onClick={() => {
               //setSelectedChain("0x58f8");
-              getClaimedWithChain("MAP");
+              getClaimedWithChain("POLYGON");
             }}
             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md hover:bg-white hover:text-black font-bold"
           >

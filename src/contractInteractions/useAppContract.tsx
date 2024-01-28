@@ -596,7 +596,7 @@ export const callHasMintedNFT = async (holder: string) => {
     const { contractWithSigner } = await callNFTContract();
     let NFTId = await contractWithSigner.getNFT(holder);
     console.log("NFTId", NFTId);
-    if (NFTId === 0) {
+    if (Number(NFTId) === 0) {
       return true;
     }
     else {

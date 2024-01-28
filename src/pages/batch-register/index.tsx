@@ -1,6 +1,6 @@
 import { ToastError } from "@/components/alert/SweatAlert";
 import { ToastSuccess } from "@/components/brc20/alert/SweatAlert";
-import { callBatchRegister } from "@/contractInteractions/useAppContract";
+import { callBatchRegister, callHasMintedNFT } from "@/contractInteractions/useAppContract";
 import Ethers from "@/lib/ethers";
 import pb from "@/lib/pocketbase";
 import { useEffect, useState } from "react";
@@ -58,9 +58,9 @@ export default function BatchRegister() {
       });
 
       let ids = res.map((item: any) => item.id);
-      let myArray = res.map((item: any) => item.address);
-      console.log(myArray);
-
+      let myArray = await Promise.all(res.map(async (item: any) => await callHasMintedNFT(item.address) ? item.address : ""));
+      myArray = myArray.filter((item: any) => item !== "");
+      console.log( "myArray", myArray);
       let call = await callBatchRegister(myArray, option);
 
       if (call.hash) {

@@ -58,7 +58,7 @@ export default function BatchRegister() {
       });
 
       let ids = res.items.map((item: any) => item.id);
-      let myArray = await Promise.all(res.map(async (item: any) => await callHasMintedNFT(item.address) ? item.address : ""));
+      let myArray = await Promise.all(res.items.map(async (item: any) => await callHasMintedNFT(item.address) ? item.address : ""));
       myArray = myArray.filter((item: any) => item !== "");
       console.log( "myArray", myArray);
       let call = await callBatchRegister(myArray, option);

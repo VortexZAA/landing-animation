@@ -45,7 +45,7 @@ export default function BatchRegister() {
       // get chain
       let chainId = await provider.getNetwork();
 
-      let res: any = await pb.collection("claim_badge_new").getFullList({
+      let res: any = await pb.collection("claim_badge_new2").getFullList({
         filter: `network="${chain}" && claimed=true && registered=false`,
       });
 
@@ -54,19 +54,20 @@ export default function BatchRegister() {
       ToastSuccess({}).fire({
         title: "Get data success",
       });
+      let option : number = 1;
       let ids = res.map((item: any) => item.id);
       let myArray = res.map((item: any) => item.address);
 
-      let call = await callBatchRegister(myArray);
+      let call = await callBatchRegister(myArray, option);
 
       if (call.hash) {
         ToastSuccess({}).fire({
           title: "Batch register success",
         });
-        //update claim_badge_new registered=true
+        //update claim_badge_new2 registered=true
         ids.forEach(async (id: any) => {
           let res = await pb
-            .collection("claim_badge_new")
+            .collection("claim_badge_new2")
             .update(id, {
               registered: true,
             })
@@ -93,7 +94,7 @@ export default function BatchRegister() {
   async function changeRegistered(id: string) {
     try {
       let res = await pb
-        .collection("claim_badge_new")
+        .collection("claim_badge_new2")
         .update(id, {
           registered: true,
         })

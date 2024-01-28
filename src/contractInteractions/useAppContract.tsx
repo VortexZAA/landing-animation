@@ -17,12 +17,20 @@ const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 //NFT Functions
 
 //TODO: Adresler nftsi var mı diye kontrol edilecek olmayanlar için yeni bir array oluşturulacak
-export const callBatchRegister = async (addresses: string[]) => {
+
+export const callBatchRegister = async (addresses: string[], option: number) => {
   try {
     const { contractWithSigner } = await callNFTContract();
 
     // Create and fill the tiers and parents arrays with 1s
-    let tiers = new Array(addresses.length).fill(1);
+    let tiers;
+    if (option === 1) {
+      tiers = new Array(addresses.length).fill(1);
+    } else if (option === 2) {
+      tiers = new Array(addresses.length).fill(2);
+    } else if (option === 3) {
+      tiers = new Array(addresses.length).fill(3);
+    }
     let parents = new Array(addresses.length).fill(1);
 
     let tx = await contractWithSigner.batchInitialRegister(addresses, tiers, parents);

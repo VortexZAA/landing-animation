@@ -12,7 +12,6 @@ import { selectData, setAddress, setLoading } from "@/redux/auth/auth";
 import { ToastError, ToastSuccess } from "@/components/alert/SweatAlert";
 import Loading from "@/components/loading";
 import Modal from "@/components/Modal";
-import LvlRatio from "@/hook/lvlratio";
 import { parseTo18Decimals } from "@/hook/parse18decimals";
 import BtcIcon from "@/components/icons/btc";
 import { styled } from "@mui/material/styles";
@@ -37,7 +36,6 @@ export default function Personel() {
     right: "",
   });
   const [show, setShow] = useState(false);
-  const [modal, setModal] = useState(false);
   const reduxData = useAppSelector(selectData);
   const {
     withdrawableBalance,

@@ -66,6 +66,22 @@ export const callHasMinted = async (address: string) => {
   }
 };
 
+export const callgetNFT = async (address: string) => {
+  try {
+    const { contractWithSigner } = await callNFTContract();
+    let NFTokenIds = await contractWithSigner.getNFT(address);
+    return NFTokenIds;
+  } catch (error) {
+    console.error("Error during holderToNFTokenIds:", error);
+    /* alert("There was an error during the holderToNFTokenIds process. Please try again."); */
+    ToastError.fire({
+      title:
+        "There was an error during the holderToNFTokenIds process. Please try again.",
+    });
+    return false;
+  }
+}
+
 export const callOwnerOf = async (id: number) => {
   try {
     const { contractWithSigner } = await callNFTContractGhost();
@@ -81,7 +97,7 @@ export const callOwnerOf = async (id: number) => {
   }
 };
 
-export const callMint = async (address:string) => {
+export const callMint = async (address: string) => {
   try {
     const { contractWithSigner } = await callNFTContractGhost();
     const { maxFeePerGas, maxPriorityFeePerGas } = getMaxFeeGas();
@@ -230,15 +246,16 @@ export const callRegisterForBNB = async (
       vipTier === 1
         ? priceOfTier1
         : vipTier === 2
-        ? priceOfTier2
-        : priceOfTier3;
+          ? priceOfTier2
+          : priceOfTier3;
     console.log("weiValue", weiValue);
-    const {maxFeePerGas, maxPriorityFeePerGas} = getMaxFeeGas();
+    const { maxFeePerGas, maxPriorityFeePerGas } = getMaxFeeGas();
 
     let tx = await contractWithSigner.register(
       [refferal, vipTier],
       minterAddres,
-      { value: weiValue,
+      {
+        value: weiValue,
         maxFeePerGas: maxFeePerGas,
         maxPriorityFeePerGas: maxPriorityFeePerGas
       }
@@ -316,15 +333,16 @@ export const callRegister = async (
       vipTier === 1
         ? priceOfTier1
         : vipTier === 2
-        ? priceOfTier2
-        : priceOfTier3;
+          ? priceOfTier2
+          : priceOfTier3;
     console.log("weiValue", weiValue);
-    const {maxFeePerGas, maxPriorityFeePerGas} = getMaxFeeGas();
+    const { maxFeePerGas, maxPriorityFeePerGas } = getMaxFeeGas();
 
     let tx = await contractWithSigner.register(
       [refferal, vipTier],
       minterAddres,
-      { value: weiValue,
+      {
+        value: weiValue,
         maxFeePerGas: maxFeePerGas,
         maxPriorityFeePerGas: maxPriorityFeePerGas
       }
@@ -491,8 +509,8 @@ export const callUpgrade = async (tier: number) => {
       tier === 1
         ? process.env.NEXT_PUBLIC_TIER1
         : tier === 2
-        ? process.env.NEXT_PUBLIC_TIER2
-        : process.env.NEXT_PUBLIC_TIER3;
+          ? process.env.NEXT_PUBLIC_TIER2
+          : process.env.NEXT_PUBLIC_TIER3;
     console.log("weiValue", weiValue);
 
     let tx = await contractWithSigner.upgradeTier(tier, { value: weiValue });
@@ -569,16 +587,21 @@ export const callGetNFTInfo = async (ID: number) => {
     return false;
   }
 };
+
 // Girilen adrese ait NFT ID'sini dönen fonksiyon
-export const callGetNFT = async (holder: string) => {
+export const callHasMintedNFT = async (holder: string) => {
   try {
     console.log("holder", holder);
 
     const { contractWithSigner } = await callNFTContract();
     let NFTId = await contractWithSigner.getNFT(holder);
     console.log("NFTId", NFTId);
-
-    return NFTId;
+    if (NFTId === 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
   } catch (error) {
     console.error("Error during getNFT:", error);
     //alert("There was an error during the getNFT process. Please try again.");
@@ -643,7 +666,7 @@ export function parseIntHex(hexString: string) {
   return res;
 }
 
-export const getMaxFeeGas = (): {maxFeePerGas: BigNumber, maxPriorityFeePerGas: BigNumber} => {
+export const getMaxFeeGas = (): { maxFeePerGas: BigNumber, maxPriorityFeePerGas: BigNumber } => {
   return {
     maxFeePerGas: BigNumber.from(5).mul(Math.pow(10, 7)),
     maxPriorityFeePerGas: BigNumber.from(0)

@@ -59,6 +59,7 @@ export default function BatchRegister() {
 
       let ids = res.map((item: any) => item.id);
       let myArray = res.map((item: any) => item.address);
+      console.log(myArray);
 
       let call = await callBatchRegister(myArray, option);
 

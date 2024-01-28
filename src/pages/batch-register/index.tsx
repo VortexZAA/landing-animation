@@ -147,7 +147,7 @@ export default function BatchRegister() {
             BEVM Chain
           </button>
         )}
-        {selectedChain === "0x58f8" && (
+        {selectedChain === "0x89" && (
           <button
             onClick={() => {
               //setSelectedChain("0x58f8");
@@ -155,8 +155,8 @@ export default function BatchRegister() {
             }}
             className="w-full h-14 p-3 border-2 flex justify-start items-center transition-colors text-xs gap-2 rounded-md hover:bg-white hover:text-black font-bold"
           >
-            <img src="/mapo.png" alt="" className="h-full" />
-            Map Chain
+            <img src="/polygon.svg" alt="" className="h-full" />
+            Polygon Chain
           </button>
         )}
       </div>

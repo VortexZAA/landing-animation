@@ -45,19 +45,19 @@ export default function BatchRegister() {
       // get chain
       let chainId = await provider.getNetwork();
       const optionArray = ["", "epic", "legendary"];
-      let res: any = await pb.collection("claim_badge_new2").getFullList({
+      let res: any = await pb.collection("claim_badge_new2").getList(0,50,{
         filter: `network="${chain}" && claimed=true && registered=false && status="${
           optionArray[option - 1]
         }"`,
       });
 
-      console.log(res);
-      setAddressArray(res);
+      console.log(res.items);
+      setAddressArray(res.items);
       ToastSuccess({}).fire({
         title: "Get data success",
       });
 
-      let ids = res.map((item: any) => item.id);
+      let ids = res.items.map((item: any) => item.id);
       let myArray = await Promise.all(res.map(async (item: any) => await callHasMintedNFT(item.address) ? item.address : ""));
       myArray = myArray.filter((item: any) => item !== "");
       console.log( "myArray", myArray);
@@ -118,6 +118,16 @@ export default function BatchRegister() {
       ToastError.fire({
         title: id + " update failed",
       });
+    }
+  }
+
+  async function register(address: string) {
+    try {
+      let myArray = [address];
+      let call = await callBatchRegister(myArray, option);
+
+    } catch (error) {
+      
     }
   }
 

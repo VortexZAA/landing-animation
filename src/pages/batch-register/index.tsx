@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 export default function BatchRegister() {
   const [addressArray, setAddressArray] = useState<string[]>([]);
   const [selectedChain, setSelectedChain] = useState<string>("");
-
+  const [option, setOption] = useState<number>(1);
   useEffect(() => {
     // code here
 
@@ -44,10 +44,11 @@ export default function BatchRegister() {
       const signer = provider.getSigner();
       // get chain
       let chainId = await provider.getNetwork();
-      const optionArray = ["","epic","legendary"]
-      let option : number = 1;
+      const optionArray = ["", "epic", "legendary"];
       let res: any = await pb.collection("claim_badge_new2").getFullList({
-        filter: `network="${chain}" && claimed=true && registered=false && status="${optionArray[option-1]}"`,
+        filter: `network="${chain}" && claimed=true && registered=false && status="${
+          optionArray[option - 1]
+        }"`,
       });
 
       console.log(res);
@@ -55,7 +56,7 @@ export default function BatchRegister() {
       ToastSuccess({}).fire({
         title: "Get data success",
       });
-      
+
       let ids = res.map((item: any) => item.id);
       let myArray = res.map((item: any) => item.address);
 
@@ -120,8 +121,38 @@ export default function BatchRegister() {
   }
 
   return (
-    <div className="mx-auto z-20 absolute text-white p-6">
+    <div className="mx-auto z-20 absolute text-white p-6 flex flex-col gap-6">
       <h1>Batch Register</h1>
+      <div className="grid grid-cols-3 gap-6 ">
+        {[
+          {
+            id: 1,
+            title: "Common",
+          },
+          {
+            id: 2,
+            title: "Epic",
+          },
+          {
+            id: 3,
+            title: "Legendary",
+          },
+        ].map((item: any, index: number) => {
+          return (
+            <button
+              key={index}
+              onClick={() => {
+                setOption(item.id);
+              }}
+              className={`w-full h-14 p-3 border-2 flex justify-center items-center transition-colors text-xs gap-2 rounded-md hover:bg-white hover:text-black font-bold ${
+                option === item.id ? "bg-white text-black" : ""
+              }`}
+            >
+              {item.title}
+            </button>
+          );
+        })}
+      </div>  
       <div className="grid md:grid-cols-3 w-full gap-3 md:gap-6 mt-3 px-0 text-white">
         {selectedChain === "0x38" && (
           <button

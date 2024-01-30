@@ -60,7 +60,11 @@ export default function Header() {
                                   href={child.link}
                                   target={child.target}
                                   key={index}
-                                  onClick={() => setShowMobile(!showMobile)}
+                                  onClick={() => {
+                                    if (child?.onclick) {
+                                      child?.onclick();
+                                    }
+                                  }}
                                   className={` justify-center items-center px-3 py-2 xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full text-xs ${child?.addClass} `}
                                 >
                                   {child.title}
@@ -151,7 +155,12 @@ export default function Header() {
                               href={child.link}
                               target={child.target}
                               key={index}
-                              onClick={() => setShowMobile(!showMobile)}
+                              onClick={() => {
+                                setShowMobile(!showMobile);
+                                if (child?.onclick) {
+                                  child?.onclick();
+                                }
+                              }}
                               className={` justify-center items-center px-3 py-2 xl:border-0 xl:hover:text-orange-400 transition-colors cursor-pointer text-center w-full text-xs ${child?.addClass} `}
                             >
                               {child.title}
@@ -243,6 +252,7 @@ const menu = [
         link: "/brc20",
         target: "_self",
         addClass: "",
+        onclick: () => {}
       },
       {
         id: 2,
@@ -251,6 +261,7 @@ const menu = [
         target: "_self",
         addClass: "",
         comingSoon: true,
+        onclick: () => {}
       },
       {
         id: 5,
@@ -258,6 +269,7 @@ const menu = [
         link: "#",
         target: "_self",
         comingSoon: true,
+        onclick: () => {}
       },
     ],
     target: "_self",
@@ -299,5 +311,34 @@ const menu = [
     target: "_self",
     addClass:
       "border-2 border-white rounded-full px-6 py-2 bg-white text-black md:text-white md:bg-transparent hover:bg-white hover:text-black transition-colors font-semi-bold hidden md:flex ",
+      dropdown: true,
+    children: [
+      {
+        id: 1,
+        title: "BEVM",
+        link: "/buy-badge?chain=bevm",
+        target: "_self",
+        addClass: "",
+        onclick: () => localStorage.setItem("chainId", "0x5dd"),
+      },
+      {
+        id: 2,
+        title: "BSC",
+        link: "/buy-badge?chain=bsc",
+        target: "_self",
+        addClass: "",
+        comingSoon: false,
+        onclick: () => localStorage.setItem("chainId", "0x38"),
+      },
+      {
+        id: 5,
+        title: "POLYGON",
+        link: "/buy-badge?chain=polygon",
+        target: "_self",
+        comingSoon: false,
+        onclick: () => localStorage.setItem("chainId", "0x89"),
+      },
+    ],
   },
+  
 ];

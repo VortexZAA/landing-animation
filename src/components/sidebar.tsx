@@ -4,49 +4,32 @@ import { use, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Ethers from "@/lib/ethers";
 import CopyBtn from "./button/copyBtn";
-import {
-  callGetNFT,
-  callGetNFTInfo,
-  callHasMinted,
-  callMint,
-  callTokenURI,
-  importToMetamask,
-  parseIntHex,
-} from "@/contractInteractions/useAppContract";
-import { ToastError, ToastSuccess } from "./alert/SweatAlert";
+
 import { useAppDispatch, useAppSelector } from "@/hook/redux/hooks";
 import {
-  setNftInfo,
-  setVipLvl,
   setEmty,
-  setClear,
   selectData,
   setAddress,
   setLoading,
-  setnftId,
-  setDownlines,
-  setReferralIncome,
-  setLvl,
-  setLowPotentiel,
   setChainId,
-  setIsMobile,
 } from "@/redux/auth/auth";
 import Image from "next/image";
 import CloseBtn from "./icons/close";
 import { bigetConnect, bigetSwitch } from "@/lib/biget";
 import Modal from "./Modal";
-import ChainData from "@/data/chain.json";
-import pb from "@/lib/pocketbase";
 import useDisconnect from "@/hook/useDisconnect";
 import useGetID from "@/hook/useGetID";
 import useMetamask from "@/hook/useMetamask";
 import { Menu } from "@/data/menu";
 import useHelsinki from "@/hook/useHelsinki";
 import useOkx from "@/hook/useOkx";
-import useHelper from "@/hook/helper";
-
+import ChainObject from "@/data/chainObject.json";
 export default function SideBar() {
   const router = useRouter();
+
+  const { chain:ChainPath } = router.query;
+  console.log("chain", ChainPath);
+  const [chainObject,setChainObject] :any= useState(ChainObject)
   const [isOpen, setIsOpen] = useState(false);
   const reduxData = useAppSelector(selectData);
   const { address, isEmty, chainId, loading } = reduxData;
@@ -60,15 +43,20 @@ export default function SideBar() {
   const menu = Menu({ joinHelsinki });
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    if (chainId && ["0x38", "0x5dd", "0x89"].includes(chainId)) {
-      localStorage.setItem("chainId", chainId);
+    if (ChainPath) {
+      localStorage.setItem("chainId", chainObject[ChainPath as string]);
+      dispatch(setChainId(chainObject[ChainPath as string]));
     }
-  }, [chainId]);
+    /* if (!ChainPath) {
+      router.push("/buy-badge?chain="+"bevm");
+    } */
+  }, [router]);
   useEffect(() => {
     const localChainId = localStorage.getItem("chainId") || "0x5dd";
     dispatch(setChainId(localChainId));
     setIsMobile(window.innerWidth < 768);
   }, []);
+
   function Close() {
     setIsOpen(false);
   }
@@ -141,7 +129,7 @@ export default function SideBar() {
     },
   ];
 
-  console.log("isMobile", isMobile);
+  //console.log("isMobile", isMobile);
 
   return (
     <>
@@ -192,7 +180,7 @@ export default function SideBar() {
               )
           )}
         </ul>
-        {isOpen && (
+        {/* {isOpen && (
           <div className="bg-white text-black rounded-lg  pb-6 pt-3 w-60 absolute bottom-36 left-6 border flex flex-col font-bold text-base ">
             <div className="flex w-full justify-between px-3">
               <span>Connect Wallet</span>
@@ -248,7 +236,7 @@ export default function SideBar() {
               </button>
             </div>
           </div>
-        )}
+        )} */}
         {address ? (
           <div className="text-center border-4 border-purple w-full shrink-0  rounded-lg py-2 px-2 xl:px-4 text-xs flex gap-2 items-center ">
             <img src="/metamask2.svg" className="h-6" alt="" />
@@ -265,7 +253,7 @@ export default function SideBar() {
         ) : (
           <button
             type="button"
-            onClick={() => setIsOpen(true)}
+            onClick={() => setModal(true)}
             className="w-fit xl:w-full p-3 h-12 bg-purple hover:bg-purple/90 transition-colors text-white rounded-md xl:mx-6"
           >
             <span className="hidden xl:block">Connect Wallet</span>

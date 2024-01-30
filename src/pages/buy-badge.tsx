@@ -1,6 +1,6 @@
 "use client";
 import Vip from "@/components/vip";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Layout from "@/layout/layout";
 import {
   callRegister,
@@ -44,11 +44,24 @@ export default function NftBuy() {
 
   async function buyVip1() {
     try {
+      //@ts-ignore
+      const chainIdMetamask = await ethereum?.request({
+        method: "eth_chainId",
+      });
+      console.log("chainId", chainId, "getChainId", chainIdMetamask);
+      if (chainIdMetamask !== chainId) {
+        ToastError.fire({
+          title: "Please Change Network",
+        });
+        return;
+      }
       dispatch(setLoading(true));
       console.log([uInput1, 1]);
       // random number 1-2
       const rndNumber = Math.floor(Math.random() * 2);
       const tempInput1 = uInput1 || childRef[rndNumber];
+      console.log("tempInput1", tempInput1);
+
       const tx: any = await callRegister(tempInput1, 1, address);
       tx &&
         ToastSuccess({
@@ -56,7 +69,7 @@ export default function NftBuy() {
         }).fire({
           title: "Transaction Successful",
         });
-      router.push("/my-account");
+      //router.push("/my-account");
 
       dispatch(setLoading(false));
     } catch (error) {
@@ -76,6 +89,17 @@ export default function NftBuy() {
   ];
   async function buyVip2() {
     try {
+      //@ts-ignore
+      const chainIdMetamask = await ethereum?.request({
+        method: "eth_chainId",
+      });
+      console.log("chainId", chainId, "getChainId", chainIdMetamask);
+      if (chainIdMetamask !== chainId) {
+        ToastError.fire({
+          title: "Please Change Network",
+        });
+        return;
+      }
       dispatch(setLoading(true));
       console.log([uInput2, 2]);
       // random number 1-2
@@ -107,6 +131,17 @@ export default function NftBuy() {
 
   async function buyVip3() {
     try {
+      //@ts-ignore
+      const chainIdMetamask = await ethereum?.request({
+        method: "eth_chainId",
+      });
+      console.log("chainId", chainId, "getChainId", chainIdMetamask);
+      if (chainIdMetamask !== chainId) {
+        ToastError.fire({
+          title: "Please Change Network",
+        });
+        return;
+      }
       dispatch(setLoading(true));
       console.log([uInput3, 3]);
       // random number 1-2
@@ -143,7 +178,7 @@ export default function NftBuy() {
     try {
       dispatch(setLoading(true));
       //console.log("loadin1", loading);
-      
+
       setPrice({
         vip1: 100,
         vip2: 500,
@@ -152,11 +187,11 @@ export default function NftBuy() {
       const sats1 = ethers.utils.formatEther(await callGetNFTPrice(1));
       const sats2 = ethers.utils.formatEther(await callGetNFTPrice(2));
       const sats3 = ethers.utils.formatEther(await callGetNFTPrice(3));
-      let newSats= {
+      let newSats = {
         sats1: Number(sats1),
         sats2: Number(sats2),
         sats3: Number(sats3),
-      }
+      };
       console.log("sats", newSats);
       setSats(newSats);
     } catch (error) {
@@ -166,7 +201,7 @@ export default function NftBuy() {
       dispatch(setLoading(false));
     }
   }
-  
+
   useEffect(() => {
     getPrice();
   }, [chainId]);
@@ -195,7 +230,7 @@ export default function NftBuy() {
                 />
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !address}
                   onClick={buyVip1}
                   className="bg-purple hover:opacity-95 text-white rounded-lg py-3 disabled:opacity-70 disabled:cursor-not-allowed gap-3 w-full flex justify-center items-center"
                 >
@@ -221,7 +256,7 @@ export default function NftBuy() {
                 />
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !address}
                   onClick={buyVip2}
                   className="bg-purple hover:opacity-95 text-white rounded-lg py-3 disabled:opacity-70 disabled:cursor-not-allowed w-full gap-3 flex justify-center items-center"
                 >
@@ -247,7 +282,7 @@ export default function NftBuy() {
                 />
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !address}
                   onClick={buyVip3}
                   className="bg-purple hover:opacity-95 text-white rounded-lg py-3 disabled:opacity-70 disabled:cursor-not-allowed w-full gap-3 flex justify-center items-center"
                 >

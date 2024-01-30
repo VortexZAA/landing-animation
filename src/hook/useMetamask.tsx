@@ -13,6 +13,7 @@ import ChainData from "@/data/chain.json";
 import Swal from "sweetalert2";
 import { ToastSuccess } from "@/components/alert/SweatAlert";
 import { ethers } from "ethers";
+import ChainObject from "@/data/chainObject.json";
 export default function useMetamask({
   modal,
   Close,
@@ -26,6 +27,9 @@ export default function useMetamask({
 }) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { chain:ChainPath } = router.query;
+  console.log("chain", ChainPath);
+  const [chainObject,setChainObject] :any= useState(ChainObject)
   const [chain, setChain]: any = useState(ChainData);
   useEffect(() => {
     // ismobil not working
@@ -40,9 +44,10 @@ export default function useMetamask({
         const chainId = localStorage.getItem("chainId");
         console.log("chainId123123", chainIdMetamask,chainId);
 
-        if (chainIdMetamask.toString() !== chainId && !modal) {
+        if (chainIdMetamask.toString() !== chainId && !modal && ChainPath) {
           CheckChain(chainIdMetamask);
         }
+        
       };
       getChainId();
       try {
@@ -57,7 +62,8 @@ export default function useMetamask({
         window.ethereum?.on("chainChanged", (chainId) => {
           CheckChain(chainId);
           if (!address) {
-            dispatch(setChainId(chainId));
+            //dispatch(setChainId(chainId));
+
           } else {
             dispatch(setClear());
             //localStorage.clear();
@@ -72,6 +78,9 @@ export default function useMetamask({
   });
 
   const CheckChain = (id: string) => {
+    console.log("id", id,ChainPath, chainObject[ChainPath as string],chainId);
+    
+    const chainID = chainObject[ChainPath as string] || chainId;
     if (
       (id.toString() !== chainId && address) ||
       (id.toString() !== chainId && !["0x38", "0x5dd", "0x89"].includes(id))
@@ -79,10 +88,9 @@ export default function useMetamask({
       //dispatch(setClear());
       /* console.log("chainId", chainId);
       console.log("chain", chain[chainId]); */
-
       const { name } = chain[id] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
-      const toNetwork = chain[chainId]?.name || "Binance Smart Chain 2";
+      const toNetwork =  chain[chainID]?.name || "Binance Smart Chain 2";
 
       const alert = async () =>
         await Swal.fire({
@@ -100,21 +108,21 @@ export default function useMetamask({
           if (result.isConfirmed) {
             window.ethereum?.request({
               method: "wallet_switchEthereumChain",
-              params: [{ chainId: chain[chainId].chainId }],
+              params: [{ chainId: chain[chainID].chainId }],
             }) ||
               window.ethereum.request({
                 method: "wallet_addEthereumChain",
                 params: [
                   {
-                    chainId: chain[chainId].chainId,
-                    chainName: chain[chainId].name,
+                    chainId: chain[chainID].chainId,
+                    chainName: chain[chainID].name,
                     nativeCurrency: {
-                      name: chain[chainId].nativeCurrency.name,
-                      symbol: chain[chainId].nativeCurrency.symbol,
+                      name: chain[chainID].nativeCurrency.name,
+                      symbol: chain[chainID].nativeCurrency.symbol,
                       decimals: 18,
                     },
-                    rpcUrls: chain[chainId].rpcUrls,
-                    blockExplorerUrls: chain[chainId].blockExplorerUrls,
+                    rpcUrls: chain[chainID].rpcUrls,
+                    blockExplorerUrls: chain[chainID].blockExplorerUrls,
                   },
                 ],
               });
@@ -122,9 +130,9 @@ export default function useMetamask({
         });
       alert();
     }
-    console.log("id", id,chainId);
+    console.log("id", id,chainID);
     
-    if (id.toString() === chainId) {
+    if (id.toString() === chainID) {
       ToastSuccess({}).fire({
         title: "Network Changed",
       });

@@ -64,6 +64,7 @@ export default function useHelsinki({
             });
           } else {
             let checkWeb3 = await callHasMinted(address);
+            console.log("checkWeb3", checkWeb3);
             if (checkWeb3) {
               let create = await pb.collection("helsinki").create({
                 address: address,

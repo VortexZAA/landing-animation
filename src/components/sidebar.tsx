@@ -60,18 +60,25 @@ export default function SideBar() {
   const menu = Menu({ joinHelsinki });
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    chainId && localStorage.setItem("chainId", chainId);
+    if (chainId && ["0x38", "0x5dd", "0x89"].includes(chainId)) {
+      localStorage.setItem("chainId", chainId);
+    }
   }, [chainId]);
   useEffect(() => {
     const localChainId = localStorage.getItem("chainId") || "0x5dd";
     dispatch(setChainId(localChainId));
-    setIsMobile(window.innerWidth < 768)
+    setIsMobile(window.innerWidth < 768);
   }, []);
   function Close() {
     setIsOpen(false);
   }
 
-  const { CheckChain, connecWallet } = useMetamask({ modal, Close, address, chainId });
+  const { CheckChain, connecWallet } = useMetamask({
+    modal,
+    Close,
+    address,
+    chainId,
+  });
 
   const { CheckChainOkx, connecWalletOkx } = useOkx({
     modal,
@@ -109,9 +116,7 @@ export default function SideBar() {
     }
   }
 
-
   //console.log("chainId", chainId);
-
 
   const seletWallets = [
     {

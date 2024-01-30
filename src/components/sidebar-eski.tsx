@@ -216,7 +216,7 @@ export default function SideBar() {
 
       localStorage.setItem("isEmty", JSON.stringify({ isEmty: emty }));
       dispatch(setEmty(emty));
-      let authPath = ["/my-account",];
+      let authPath = ["/my-account"];
       if (authPath.includes(router.pathname)) {
         emty && router.push("/buy-badge");
       } else if (router.pathname === "/buy-badge") {
@@ -662,7 +662,9 @@ export default function SideBar() {
   const [modal, setModal] = useState(false);
   //const [selectedChain, setSelectedChain] = useState<string>("0x5dd"); //<"0x5dd" | "0x38">("0x38");
   useEffect(() => {
-    chainId && localStorage.setItem("chainId", chainId);
+    if (chainId && ["0x38", "0x5dd", "0x89"].includes(chainId)) {
+      localStorage.setItem("chainId", chainId);
+    }
     //setSelectedChain(chainId);
   }, [chainId]);
   useEffect(() => {

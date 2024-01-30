@@ -38,7 +38,7 @@ export default function useMetamask({
         //dispatch(setChainId(chainId));
         //console.log("chainIdMetamask", chainIdMetamask);
         const chainId = localStorage.getItem("chainId");
-        console.log("chainId123123", chainIdMetamask);
+        console.log("chainId123123", chainIdMetamask,chainId);
 
         if (chainIdMetamask.toString() !== chainId && !modal) {
           CheckChain(chainIdMetamask);

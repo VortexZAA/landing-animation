@@ -1,4 +1,4 @@
-import { BigNumber,ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { callNFTContract, callNFTContractGhost } from "./etherumContracts";
 import { ToastError, ToastSuccess } from "@/components/alert/SweatAlert";
 import Ethers from "@/lib/ethers";
@@ -15,13 +15,13 @@ Networke göre doğru contractWithSigner seçildiğinden emin olunmalı.
 const marketContract = process.env.NEXT_PUBLIC_MARKETPLACE as string;
 const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 //NFT Functions
-export const callMint = async (address:string) => {
+export const callMint = async (address: string) => {
   try {
     const { contractWithSigner } = await callNFTContractGhost();
     const { maxFeePerGas, maxPriorityFeePerGas } = getMaxFeeGas();
     let tx = await contractWithSigner.mint({
       maxFeePerGas: maxFeePerGas,
-      maxPriorityFeePerGas: maxPriorityFeePerGas
+      maxPriorityFeePerGas: maxPriorityFeePerGas,
     });
     let receipt = await tx.wait();
     const txHash = tx.hash;
@@ -77,7 +77,6 @@ export const callMint = async (address:string) => {
     throw err;
   }
 };
-
 
 export const callHasMinted = async (address: string) => {
   try {
@@ -156,7 +155,8 @@ export const callTokenURI = async (id: number) => {
     console.error("Error during tokenURI:", error);
     //alert("There was an error during the tokenURI process. Please try again.");
     ToastError.fire({
-      title: "There was an error during the tokenURI process. Please try again.",
+      title:
+        "There was an error during the tokenURI process. Please try again.",
     });
     throw error;
   }
@@ -181,86 +181,7 @@ export const callGetNFTPrice = async (tier: number) => {
     return false;
   }
 };
-export const callRegisterForBNB = async (
-  refferal: number,
-  vipTier: number,
-  minterAddres: string,
-  etherAmount?: string
-) => {
-  try {
-    const { contractWithSigner } = await callNFTContract();
-    let priceOfTier1 = await callGetNFTPrice(1);
-    let priceOfTier2 = await callGetNFTPrice(2);
-    let priceOfTier3 = await callGetNFTPrice(3);
-    const weiValue =
-      vipTier === 1
-        ? priceOfTier1
-        : vipTier === 2
-        ? priceOfTier2
-        : priceOfTier3;
-    console.log("weiValue", weiValue);
-    const {maxFeePerGas, maxPriorityFeePerGas} = getMaxFeeGas();
 
-    let tx = await contractWithSigner.register(
-      [refferal, vipTier],
-      minterAddres,
-      { value: weiValue,
-        maxFeePerGas: maxFeePerGas,
-        maxPriorityFeePerGas: maxPriorityFeePerGas
-      }
-    );
-    let receipt = await tx.wait();
-    const txHash = tx.hash;
-    // transaction receipt hash
-    return { hash: txHash, res: receipt };
-  } catch (error) {
-    const err = error as any; // Type assertion
-
-    console.error("Error during register:", err);
-
-    // Check for user rejection
-    if (err.code === "ACTION_REJECTED") {
-      /* alert("Transaction was rejected by the user."); */
-      ToastError.fire({
-        title: "Transaction was rejected by the user.",
-      });
-    }
-    // Check for revert reason: "You already have an NFT."
-    else if (err.message && err.message.includes("You already have an NFT")) {
-      /* alert("You have already registered an NFT."); */
-      ToastError.fire({
-        title: "You have already registered an NFT.",
-      });
-    } else if (
-      err.message &&
-      err.message.includes("Desired parent node is not empty")
-    ) {
-      /* alert("Desired parent node is not empty."); */
-      ToastError.fire({
-        title: "Desired parent node is not empty.",
-      });
-    }
-    // Check for insufficient funds
-    else if (err.message && err.message.includes("insufficient funds")) {
-      /* alert("You do not have enough USDT in your account to mint."); */
-      ToastError.fire({
-        title: "You do not have enough BNB in your account to mint.",
-      });
-    }
-    // Generic error message for other cases
-    else {
-      /* alert(
-        "There was an error during the registering process." 
-      ); */
-      ToastError.fire({
-        title: "There was an error during the registering process.",
-      });
-      console.log(err);
-    }
-
-    return false;
-  }
-};
 
 //BEVM NFT
 export const callRegister = async (
@@ -285,16 +206,27 @@ export const callRegister = async (
         ? priceOfTier2
         : priceOfTier3;
     console.log("weiValue", weiValue);
-    const {maxFeePerGas, maxPriorityFeePerGas} = getMaxFeeGas();
-
-    let tx = await contractWithSigner.register(
+    let tx;
+    const { maxFeePerGas, maxPriorityFeePerGas } = getMaxFeeGas();
+    if (chainId === "0x5dd") {
+      tx= await contractWithSigner.register(
       [refferal, vipTier],
       minterAddres,
-      { value: weiValue,
+      {
+        value: weiValue,
         maxFeePerGas: maxFeePerGas,
-        maxPriorityFeePerGas: maxPriorityFeePerGas
+        maxPriorityFeePerGas: maxPriorityFeePerGas,
       }
     );
+    } else {
+      tx= await contractWithSigner.register(
+        [refferal, vipTier],
+        minterAddres,
+        {
+          value: weiValue,
+        }
+      );
+    }
     let receipt = await tx.wait();
     const txHash = tx.hash;
     // transaction receipt hash
@@ -609,9 +541,12 @@ export function parseIntHex(hexString: string) {
   return res;
 }
 
-export const getMaxFeeGas = (): {maxFeePerGas: BigNumber, maxPriorityFeePerGas: BigNumber} => {
+export const getMaxFeeGas = (): {
+  maxFeePerGas: BigNumber;
+  maxPriorityFeePerGas: BigNumber;
+} => {
   return {
     maxFeePerGas: BigNumber.from(5).mul(Math.pow(10, 7)),
-    maxPriorityFeePerGas: BigNumber.from(0)
-  }
-}
+    maxPriorityFeePerGas: BigNumber.from(0),
+  };
+};

@@ -209,6 +209,8 @@ export const callRegister = async (
     let tx;
     const { maxFeePerGas, maxPriorityFeePerGas } = getMaxFeeGas();
     if (chainId === "0x5dd") {
+      console.log("chainId", chainId);
+      
       tx= await contractWithSigner.register(
       [refferal, vipTier],
       minterAddres,
@@ -219,6 +221,7 @@ export const callRegister = async (
       }
     );
     } else {
+      console.log("chainId Without BEVM", chainId);
       tx= await contractWithSigner.register(
         [refferal, vipTier],
         minterAddres,

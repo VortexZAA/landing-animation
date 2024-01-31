@@ -2,7 +2,7 @@
 const { env } = require("process");
 const nextConfig = {
   compiler: {
-    removeConsole: env.NODE_ENV === "production" ? true : false,
+    removeConsole: false //env.NODE_ENV === "production" ? true : false,
   },
   images: {
     unoptimized: true,

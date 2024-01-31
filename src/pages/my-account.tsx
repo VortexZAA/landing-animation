@@ -63,7 +63,7 @@ export default function Personel() {
       dispatch(setLoading(true));
       const addres = localStorage.getItem("address") || "";
       if (addres) {
-        let reffCode = await callGetReferralCode("0xa89F5B9196BaA0cc8a944eB0b6c4Cd7423517c4A"||addres);
+        let reffCode = await callGetReferralCode(addres);
         let reff = reffCode.toString();
         console.log(reff);
         setrefCode({

@@ -1,6 +1,9 @@
 import { ToastError } from "@/components/alert/SweatAlert";
 import { ToastSuccess } from "@/components/brc20/alert/SweatAlert";
-import { callBatchRegister, callHasMintedNFT } from "@/contractInteractions/useAppContract";
+import {
+  callBatchRegister,
+  callHasMintedNFT,
+} from "@/contractInteractions/useAppContract";
 import Ethers from "@/lib/ethers";
 import pb from "@/lib/pocketbase";
 import { useEffect, useState } from "react";
@@ -45,7 +48,7 @@ export default function BatchRegister() {
       // get chain
       let chainId = await provider.getNetwork();
       const optionArray = ["", "epic", "legendary"];
-      let res: any = await pb.collection("claim_badge_new2").getList(0,25,{
+      let res: any = await pb.collection("claim_badge_new2").getList(0, 25, {
         filter: `network="${chain}" && claimed=true && registered=false && status="${
           optionArray[option - 1]
         }"`,
@@ -58,9 +61,13 @@ export default function BatchRegister() {
       });
 
       let ids = res.items.map((item: any) => item.id);
-      let myArray = await Promise.all(res.items.map(async (item: any) => await callHasMintedNFT(item.address) ? item.address : ""));
+      let myArray = await Promise.all(
+        res.items.map(async (item: any) =>
+          (await callHasMintedNFT(item.address)) ? item.address : ""
+        )
+      );
       myArray = myArray.filter((item: any) => item !== "");
-      console.log( "myArray", myArray);
+      console.log("myArray", myArray);
       let call = await callBatchRegister(myArray, option);
 
       if (call.hash) {
@@ -125,11 +132,43 @@ export default function BatchRegister() {
     try {
       let myArray = [address];
       let call = await callBatchRegister(myArray, option);
+    } catch (error) {}
+  }
+ /*  async function changeregistred() {
+    try {
+      let res: any = await pb.collection("claim_badge_new2").getFullList({
+        filter: `network="POLYGON"`,
+      });
+      console.log(res);
 
+      res.forEach(async (item: any) => {
+        let res = await pb
+          .collection("claim_badge_new2")
+          .update(item.id, {
+            registered: false,
+          })
+          .then((res: any) => {
+            console.log(res);
+          })
+          .catch((err: any) => {
+            console.log(err);
+            ToastError.fire({
+              title: item.id + " update failed",
+            });
+          });
+      });
+      console.log(res.items);
     } catch (error) {
-      
+      console.log(error);
+      ToastError.fire({
+        title: "Get data failed",
+      });
     }
   }
+
+  useEffect(() => {
+    changeregistred();
+  }, []); */
 
   return (
     <div className="mx-auto z-20 absolute text-white p-6 flex flex-col gap-6">
@@ -163,7 +202,7 @@ export default function BatchRegister() {
             </button>
           );
         })}
-      </div>  
+      </div>
       <div className="grid md:grid-cols-3 w-full gap-3 md:gap-6 mt-3 px-0 text-white">
         {selectedChain === "0x38" && (
           <button

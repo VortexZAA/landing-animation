@@ -55,7 +55,7 @@ export default function BatchRegister() {
       });
 
       console.log(res.items);
-      setAddressArray(res.items);
+      
       ToastSuccess({}).fire({
         title: "Get data success",
       });
@@ -66,7 +66,9 @@ export default function BatchRegister() {
           (await callHasMintedNFT(item.address)) ? item.address : ""
         )
       );
+      
       myArray = myArray.filter((item: any) => item !== "");
+      setAddressArray(myArray);
       console.log("myArray", myArray);
       let call = await callBatchRegister(myArray, option);
 

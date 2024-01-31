@@ -33,7 +33,7 @@ export default function CopyBtn({text}:{text:string}) {
             fill="currentColor"
           />
         </svg>
-        {copySuccess && <span className="absolute -top-11 bg-white shadow-sm p-2 rounded">{copySuccess}</span>}
+        {copySuccess && <span className="absolute -top-11 bg-white text-black shadow-sm p-2 rounded">{copySuccess}</span>}
       </button>
   );
 }

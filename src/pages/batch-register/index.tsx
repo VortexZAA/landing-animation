@@ -136,7 +136,7 @@ export default function BatchRegister() {
       let call = await callBatchRegister(myArray, option);
     } catch (error) {}
   }
- /*  async function changeregistred() {
+  /* async function changeregistred() {
     try {
       let res: any = await pb.collection("claim_badge_new2").getFullList({
         filter: `network="POLYGON"`,

@@ -2,7 +2,7 @@
 import { ethers } from "ethers";
 import bnbNFT from "@/abi/bnbMLM.json";
 import bevmNFT from "@/abi/bevmMLM.json";
-import polygonNft from "@/abi/mapoMLM.json";
+import polygonNft from "@/abi/bevmMLM.json";
 import bevmGhost from "@/abi/ghostMint.json";
 declare global {
   interface Window {

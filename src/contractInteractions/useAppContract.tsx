@@ -182,7 +182,6 @@ export const callGetNFTPrice = async (tier: number) => {
   }
 };
 
-
 //BEVM NFT
 export const callRegister = async (
   refferal: string,

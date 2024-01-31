@@ -68,7 +68,7 @@ export default function BatchRegister() {
       );
       
       myArray = myArray.filter((item: any) => item !== "");
-      setAddressArray(myArray);
+      setAddressArray(res.items.filter((item: any) => myArray.includes(item.address)));
       console.log("myArray", myArray);
       let call = await callBatchRegister(myArray, option);
 

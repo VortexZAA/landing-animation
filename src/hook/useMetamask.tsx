@@ -27,13 +27,18 @@ export default function useMetamask({
 }) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { chain:ChainPath } = router.query;
+  const { chain: ChainPath } = router.query;
   console.log("chain", ChainPath);
-  const [chainObject,setChainObject] :any= useState(ChainObject)
+  const [chainObject, setChainObject]: any = useState(ChainObject);
   const [chain, setChain]: any = useState(ChainData);
   useEffect(() => {
     // ismobil not working
-    if (window.ethereum && typeof window !== "undefined" && !modal && window.innerWidth > 768) {
+    if (
+      window.ethereum &&
+      typeof window !== "undefined" &&
+      !modal &&
+      window.innerWidth > 768
+    ) {
       const getChainId = async () => {
         const { ethereum } = Ethers();
         const chainIdMetamask = await ethereum?.request({
@@ -42,18 +47,17 @@ export default function useMetamask({
         //dispatch(setChainId(chainId));
         //console.log("chainIdMetamask", chainIdMetamask);
         const chainId = localStorage.getItem("chainId");
-        console.log("chainId123123", chainIdMetamask,chainId);
+        console.log("chainId123123", chainIdMetamask, chainId);
 
         if (chainIdMetamask.toString() !== chainId && !modal && ChainPath) {
           CheckChain(chainIdMetamask);
         }
-        
       };
       getChainId();
       try {
         //@ts-ignore
         window.ethereum?.on("accountsChanged", (accounts) => {
-          localStorage.clear();
+          localStorage.removeItem("address");
           dispatch(setClear());
           router.push("/buy-badge");
           //router.reload();
@@ -61,9 +65,9 @@ export default function useMetamask({
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
           CheckChain(chainId);
+          localStorage.removeItem("address");
           if (!address) {
             //dispatch(setChainId(chainId));
-
           } else {
             dispatch(setClear());
             //localStorage.clear();
@@ -78,8 +82,8 @@ export default function useMetamask({
   });
 
   const CheckChain = (id: string) => {
-    console.log("id", id,ChainPath, chainObject[ChainPath as string],chainId);
-    
+    console.log("id", id, ChainPath, chainObject[ChainPath as string], chainId);
+
     const chainID = chainObject[ChainPath as string] || chainId;
     if (
       (id.toString() !== chainId && address) ||
@@ -90,7 +94,7 @@ export default function useMetamask({
       console.log("chain", chain[chainId]); */
       const { name } = chain[id] || { name: "UNKNOW" };
       const fromNetwork = name || "Unknown Network";
-      const toNetwork =  chain[chainID]?.name || "Binance Smart Chain 2";
+      const toNetwork = chain[chainID]?.name || "Binance Smart Chain 2";
 
       const alert = async () =>
         await Swal.fire({
@@ -130,8 +134,8 @@ export default function useMetamask({
         });
       alert();
     }
-    console.log("id", id,chainID);
-    
+    console.log("id", id, chainID);
+
     if (id.toString() === chainID) {
       ToastSuccess({}).fire({
         title: "Network Changed",

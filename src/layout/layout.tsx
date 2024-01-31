@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "../components/sidebar";
 import { Alert } from "../components/alert/alert";
 import Loader from "@/components/Loader";
@@ -11,7 +11,7 @@ import Head from "next/head";
 import Footer from "@/components/footer";
 
 export default function Layout({
-  title="",
+  title = "",
   children,
 }: {
   title: string;
@@ -19,11 +19,11 @@ export default function Layout({
 }) {
   const reduxData = useAppSelector(selectData);
   const { loading } = reduxData;
+  useEffect(() => {
+    document.title = "SoulBound Protocol | "+title;
+  }, [title]);
   return (
     <>
-      <Head>
-        <title>SoulBound Protocol | {title}</title>
-      </Head>
       {/* <div className="absolute z-10 w-full h-screen left-0 top-0 opacity-30 overflow-hidden">
         <div className="wrap flex justify-between w-[70vw]">
           <div className="c"></div>

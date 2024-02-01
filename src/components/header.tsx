@@ -206,8 +206,7 @@ export default function Header() {
     </>
   );
 }
-const claimStartDate = new Date("2024-01-26T14:00:00Z");
-const currentUTCDate = new Date();
+
 
 const menu = [
   /* {
@@ -289,13 +288,13 @@ const menu = [
     target: "_self",
     comingSoon: true,
   }, */
-  {
+  /* {
     id: 6,
     title: "Claim Badge Airdrop",
     link: currentUTCDate < claimStartDate ? "#" :  "/claim",
     target: "_self",
-    comingSoon: currentUTCDate < claimStartDate ? true : false,
-  },
+    comingSoon: true,
+  }, */
   {
     id: 7,
     title: "Join Badge Whitelist",

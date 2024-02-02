@@ -12,6 +12,12 @@ export default function Intro() {
       setShow(true);
     }, 2000);
     //reload
+    const local = localStorage.getItem("reloaded");
+    if (local !== "false") {
+      localStorage.clear();
+      localStorage.setItem("reloaded", "false");
+      window.location.reload();
+    }
   }, []);
   return (
     <>

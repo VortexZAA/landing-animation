@@ -269,7 +269,17 @@ export const callRegister = async (
       });
     }
     // Generic error message for other cases
-    else {
+    else if (
+      err.message &&
+      err.data.message.includes("funds")
+    ) {
+      ToastError.fire({
+        title: "You do not have enough Coin in your account to mint.",
+      });
+    }
+    else
+     {
+
       /* alert(
         "There was an error during the registering process. Please check your accounts balance and try again." 
       ); */

@@ -27,9 +27,9 @@ import ChainObject from "@/data/chainObject.json";
 export default function SideBar() {
   const router = useRouter();
 
-  const { chain:ChainPath } = router.query;
+  const { chain: ChainPath } = router.query;
   //console.log("chain", ChainPath);
-  const [chainObject,setChainObject] :any= useState(ChainObject)
+  const [chainObject, setChainObject]: any = useState(ChainObject);
   const [isOpen, setIsOpen] = useState(false);
   const reduxData = useAppSelector(selectData);
   const { address, isEmty, chainId, loading } = reduxData;
@@ -91,6 +91,13 @@ export default function SideBar() {
     dispatch(setLoading(false));
     getID(address);
   }, [address]);
+  useEffect(() => {
+    if (!loading) {
+      setTimeout(() => {
+        dispatch(setLoading(false));
+      }, 10000);
+    }
+  }, [loading]);
   //console.log("loading0",loading);
 
   async function BigetConnect() {

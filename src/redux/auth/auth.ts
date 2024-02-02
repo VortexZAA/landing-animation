@@ -62,10 +62,6 @@ export const AuthSlice = createSlice({
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
-      // 10 sn sonra loading false olacak
-      setTimeout(() => {
-        state.loading = false;
-      }, 10000);
     },
     setHidden: (state, action: PayloadAction<boolean>) => {
       state.hidden = action.payload;

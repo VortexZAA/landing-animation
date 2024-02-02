@@ -41,7 +41,7 @@ export default function NftBuy() {
   const { loading, address, chainId } = useAppSelector(selectData);
   const dispatch = useAppDispatch();
   const router = useRouter();
-
+  //console.log("loading", loading);
   async function buyVip1() {
     try {
       //@ts-ignore
@@ -70,13 +70,13 @@ export default function NftBuy() {
           title: "Transaction Successful",
         });
       //router.push("/my-account");
-
-      dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
       ToastError.fire({
         title: "Transaction Failed",
       });
+      dispatch(setLoading(false));
+    } finally{
       dispatch(setLoading(false));
     }
   }

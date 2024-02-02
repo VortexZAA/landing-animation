@@ -80,8 +80,8 @@
     "chainName": "BEVM Canary",
     "nativeCurrency": { "name": "Bitcoin", "symbol": "BTC", "decimals": 18 },
     "rpcUrls": [
-      "https://rpc-canary-1.bevm.io",
-      "/https://rpc-canary-2.bevm.io/"
+      "https://rpc-canary-1.bevm.io/",
+      "https://rpc-canary-2.bevm.io/"
     ],
     "blockExplorerUrls": ["hhttps://scan-canary.bevm.io/"]
   },

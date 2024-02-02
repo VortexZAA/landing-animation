@@ -28,7 +28,7 @@ export default function SideBar() {
   const router = useRouter();
 
   const { chain:ChainPath } = router.query;
-  console.log("chain", ChainPath);
+  //console.log("chain", ChainPath);
   const [chainObject,setChainObject] :any= useState(ChainObject)
   const [isOpen, setIsOpen] = useState(false);
   const reduxData = useAppSelector(selectData);

@@ -47,7 +47,7 @@ export default function useMetamask({
         //dispatch(setChainId(chainId));
         //console.log("chainIdMetamask", chainIdMetamask);
         const chainId = localStorage.getItem("chainId");
-        console.log("chainId123123", chainIdMetamask, chainId);
+        console.log("chainId123123", chainIdMetamask, chainId,ChainPath);
 
         if (chainIdMetamask.toString() !== chainId && !modal && ChainPath) {
           CheckChain(chainIdMetamask);
@@ -65,6 +65,8 @@ export default function useMetamask({
         //@ts-ignore
         window.ethereum?.on("chainChanged", (chainId) => {
           CheckChain(chainId);
+          //console.log("chainId123123123", chainId);
+          
           localStorage.removeItem("address");
           if (!address) {
             //dispatch(setChainId(chainId));
@@ -73,7 +75,7 @@ export default function useMetamask({
             //localStorage.clear();
           }
           router.push("/buy-badge");
-          router.reload();
+          //router.reload();
         });
       } catch (err) {
         console.error(err);
@@ -82,9 +84,12 @@ export default function useMetamask({
   });
 
   const CheckChain = (id: string) => {
+    const { provider, ethereum } = Ethers();
     console.log("id", id, ChainPath, chainObject[ChainPath as string], chainId);
 
     const chainID = chainObject[ChainPath as string] || chainId;
+    console.log("chainID", chainID, chainId, id, chainObject[ChainPath as string]);
+    
     if (
       (id.toString() !== chainId && address) ||
       (id.toString() !== chainId && !["0x38", "0x5dd", "0x89"].includes(id))
@@ -110,26 +115,29 @@ export default function useMetamask({
           confirmButtonText: "Yes, Change It!",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            window.ethereum?.request({
-              method: "wallet_switchEthereumChain",
-              params: [{ chainId: chain[chainID].chainId }],
-            }) ||
-              window.ethereum.request({
+            try {
+              await ethereum?.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: chain[chainId].chainId }],
+              });
+            } catch (error) {
+              await ethereum.request({
                 method: "wallet_addEthereumChain",
                 params: [
                   {
-                    chainId: chain[chainID].chainId,
-                    chainName: chain[chainID].name,
+                    chainId: chain[chainId].chainId,
+                    chainName: chain[chainId].name,
                     nativeCurrency: {
-                      name: chain[chainID].nativeCurrency.name,
-                      symbol: chain[chainID].nativeCurrency.symbol,
+                      name: chain[chainId].nativeCurrency.name,
+                      symbol: chain[chainId].nativeCurrency.symbol,
                       decimals: 18,
                     },
-                    rpcUrls: chain[chainID].rpcUrls,
-                    blockExplorerUrls: chain[chainID].blockExplorerUrls,
+                    rpcUrls: chain[chainId].rpcUrls,
+                    blockExplorerUrls: chain[chainId].blockExplorerUrls,
                   },
                 ],
               });
+            }
           }
         });
       alert();
@@ -178,14 +186,16 @@ export default function useMetamask({
       });
       console.log("status", ethers.utils.formatEther(chainId));
       //dispatch(setChainId(chainId));
-      if (
-        chainId.toString() !== ethers.utils.formatEther(chainIdNow).toString()
-      ) {
-        ethereum?.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: chain[chainId].chainId }],
-        }) ||
-          ethereum.request({
+      console.log("chainIdNow", chainIdNow, chainId, chain[chainId].chainId);
+
+      if (chainId.toString() !== chainIdNow) {
+        try {
+          await ethereum?.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: chain[chainId].chainId }],
+          });
+        } catch (error) {
+          await ethereum.request({
             method: "wallet_addEthereumChain",
             params: [
               {
@@ -201,11 +211,12 @@ export default function useMetamask({
               },
             ],
           });
+        }
       }
       CheckChain(chainIdNow);
       //router.push("/my-account");
     } catch (error) {
-      console.log(error);
+      console.log("error", error);
     }
   }
 

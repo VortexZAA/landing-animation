@@ -83,7 +83,7 @@
       "https://rpc-canary-1.bevm.io/",
       "https://rpc-canary-2.bevm.io/"
     ],
-    "blockExplorerUrls": ["hhttps://scan-canary.bevm.io/"]
+    "blockExplorerUrls": ["https://scan-canary.bevm.io/"]
   },
   "0x58f8": {
     "chainId": "0x58f8",

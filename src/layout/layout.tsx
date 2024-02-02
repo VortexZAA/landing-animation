@@ -19,11 +19,13 @@ export default function Layout({
 }) {
   const reduxData = useAppSelector(selectData);
   const { loading } = reduxData;
-  useEffect(() => {
-    document.title = "SoulBound Protocol | "+title;
-  }, [title]);
+  const titleRender = `SoulBound Protocol | ${title} | 0xwilds`;
   return (
     <>
+      <Head>
+        <title>{titleRender}</title>
+      </Head>
+
       {/* <div className="absolute z-10 w-full h-screen left-0 top-0 opacity-30 overflow-hidden">
         <div className="wrap flex justify-between w-[70vw]">
           <div className="c"></div>

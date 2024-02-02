@@ -92,11 +92,11 @@ export default function SideBar() {
     getID(address);
   }, [address]);
   useEffect(() => {
-    if (loading) {
+    /* if (loading) {
       setTimeout(() => {
         dispatch(setLoading(false));
       }, 10000);
-    }
+    } */
   }, [loading]);
   //console.log("loading0",loading);
 

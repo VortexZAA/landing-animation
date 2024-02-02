@@ -19,16 +19,6 @@ import BtcIcon from "@/components/icons/btc";
 import BnbIcon from "@/components/icons/bnb";
 
 export default function NftBuy() {
-  function parseTo18Decimals(number: number) {
-    try {
-      const parsed = ethers.utils.parseUnits(number.toString(), 18);
-      return parsed.toString();
-    } catch (error) {
-      console.log(error);
-      return "";
-    }
-  }
-
   const [uInput1, setuInput1] = useState("");
   const [uInput2, setuInput2] = useState("");
   const [uInput3, setuInput3] = useState("");
@@ -76,7 +66,7 @@ export default function NftBuy() {
         title: "Transaction Failed",
       });
       dispatch(setLoading(false));
-    } finally{
+    } finally {
       dispatch(setLoading(false));
     }
   }
@@ -177,8 +167,11 @@ export default function NftBuy() {
   async function getPrice() {
     try {
       dispatch(setLoading(true));
-      //console.log("loadin1", loading);
+      setTimeout(() => {
+        dispatch(setLoading(false));
+      }, 10000);
 
+      //console.log("loadin1", loading);
       setPrice({
         vip1: 100,
         vip2: 500,

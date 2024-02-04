@@ -592,11 +592,11 @@ export const callGetNFTInfo = async (ID: number) => {
 // Girilen adrese ait NFT ID'sini dönen fonksiyon
 export const callHasMintedNFT = async (holder: string) => {
   try {
-    console.log("holder", holder);
+    //console.log("holder", holder);
 
     const { contractWithSigner } = await callNFTContract();
     let NFTId = await contractWithSigner.getNFT(holder);
-    console.log("NFTId", NFTId);
+    //console.log("NFTId", NFTId);
     if (Number(NFTId) === 0) {
       return true;
     }

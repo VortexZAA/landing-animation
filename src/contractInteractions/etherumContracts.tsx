@@ -22,11 +22,16 @@ export const callNFTContract = async () => {
   const msgSender = metamaskAddress[0];
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const abi = chainId === "0x38" ? bnbNFT : (chainId === "0x5dd" ? bevmNFT : polygonNFT);
+  const abi =
+    chainId === "0x38" ? bnbNFT : chainId === "0x5dd" ? bevmNFT : polygonNFT;
   const NFTContractAddress =
-    chainId === "0x38" ? NFTContractBNB : (chainId === "0x5dd" ? NFTContractBEVM : NFTContractPOLGON);
-    console.log(chainId, NFTContractAddress);
-    
+    chainId === "0x38"
+      ? NFTContractBNB
+      : chainId === "0x5dd"
+      ? NFTContractBEVM
+      : NFTContractPOLGON;
+  //console.log(chainId, NFTContractAddress);
+
   const NFTContract = new ethers.Contract(NFTContractAddress, abi, signer);
   const contractWithSigner = NFTContract.connect(signer);
   return { contractWithSigner, NFTContractAddress, abi, msgSender };
@@ -40,9 +45,9 @@ export const callNFTContractGhost = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const abi = bevmGhost;
-  const NFTContractAddress= NFTContractGhost;
-    console.log(chainId, NFTContractAddress);
-    
+  const NFTContractAddress = NFTContractGhost;
+  console.log(chainId, NFTContractAddress);
+
   const NFTContract = new ethers.Contract(NFTContractAddress, abi, signer);
   const contractWithSigner = NFTContract.connect(signer);
   return { contractWithSigner, NFTContractAddress, abi, msgSender };

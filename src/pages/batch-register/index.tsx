@@ -49,7 +49,7 @@ export default function BatchRegister() {
       let chainId = await provider.getNetwork();
       const optionArray = ["", "epic", "legendary"];
       let res: any = await pb.collection("claim_badge_new2").getList(0, 25, {
-        filter: `network="${chain}" && claimed=true && status="${
+        filter: `network="${chain}" && claimed=true && registered=false && status="${
           optionArray[option - 1]
         }"`,
       });
@@ -66,19 +66,22 @@ export default function BatchRegister() {
           if (await callHasMintedNFT(item.address)) {
             return item.address;
           } else {
-            let res = await pb.collection("claim_badge_new2")
-            .update(item.id, {
-              registered: true,
-            })
-            .then((res: any) => {
-              console.log(res);
-            })
-            .catch((err: any) => {
-              console.log(err);
-              ToastError.fire({
-                title: item.id + " update failed",
-              });
-            });
+            if (!item.registered) {
+              let res = await pb
+                .collection("claim_badge_new2")
+                .update(item.id, {
+                  registered: true,
+                })
+                .then((res: any) => {
+                  console.log(res);
+                })
+                .catch((err: any) => {
+                  console.log(err);
+                  ToastError.fire({
+                    title: item.id + " update failed",
+                  });
+                });
+            }
             return "";
           }
         })
@@ -89,6 +92,12 @@ export default function BatchRegister() {
         res.items.filter((item: any) => myArray.includes(item.address))
       );
       console.log("myArray", myArray);
+      if (res.items.length === 0) {
+        ToastError.fire({
+          title: "No data found",
+        });
+        return;
+      }
       let call = await callBatchRegister(myArray, option);
 
       if (call.hash) {

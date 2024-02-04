@@ -20,7 +20,8 @@ const tokenContract = process.env.NEXT_PUBLIC_TOKEN as string;
 
 export const callBatchRegister = async (addresses: string[], option: number) => {
   try {
-    const { contractWithSigner } = await callNFTContract();
+    const { contractWithSigner, NFTContractAddress } = await callNFTContract();
+    console.log("NFTContractAddress", NFTContractAddress);
 
     // Create and fill the tiers and parents arrays with 1s
     let tiers;
